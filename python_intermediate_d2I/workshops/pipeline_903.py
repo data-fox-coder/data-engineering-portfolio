@@ -8,20 +8,20 @@ from sqlalchemy import (
     Table,
 )
 
-from .utils import clean_903_table
+from utils import clean_903_table
 from datetime import datetime
 
+
 # Initialise session variable
-filepath = "/workspaces/python-learning-repo/python_intermediate_D2I/workshops/Data/903_database.db"
 
 collection_year = 2014
 collection_end = datetime(collection_year, 3, 31)
+filepath = "/workspaces/python-learning-repo/python_intermediate_d2I/workshops/data/903_database.db"
 
 # Read in 903 database from SQL db
 engine_903 = create_engine(f"sqlite+pysqlite:///{filepath}")
 connection = engine_903.connect()
 inspection = inspect(engine_903)
-
 table_names = inspection.get_table_names()
 
 # uncomment to check database connection
@@ -44,6 +44,6 @@ for table in table_names:
 
 # Clean all tables in 903
 for key, df in dfs.items():
-    dfs[key] = clean_903_table(df, collection_end)
-
-print(dfs['header'])
+    dfs[key] = clean_903_table(df, collection_end=collection_end)
+    print(f"\n--- Cleaned table: {key} ---")
+    print(dfs[key].head())

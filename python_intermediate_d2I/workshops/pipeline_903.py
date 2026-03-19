@@ -9,7 +9,14 @@ from sqlalchemy import (
     Table,
 )
 
-from utils import clean_903_table, group_calcuation, time_difference
+from utils import (
+    clean_903_table,
+    group_calcuation,
+    time_difference,
+    multiples_same_event,
+    group_calcuation_year,
+    appears_on_both,
+)
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
@@ -67,4 +74,35 @@ measure["Header by age"] = group_calcuation(
 dfs["missing"]["MISSING_DURATION"] = time_difference(
     dfs["missing"]["MIS_START_dt"], dfs["missing"]["MIS_END_dt"], business_days=True
 )
-print(dfs["missing"])
+
+# Uncomment to check cleaned dataframes
+# print(dfs["missing"])
+
+### Session 3 End ###
+
+measure["Multiple episodes"] = multiples_same_event(
+    dfs["episodes"], col_name="Number of Epsiodes"
+)
+
+# print(measure)
+
+dfs["episodes"]["DECOM_YEAR"] = dfs["episodes"]["DECOM_dt"].dt.year
+
+# print(dfs["episodes"])
+
+measure["Episodes starting per year"] = group_calcuation(
+    dfs["episodes"], "DECOM_YEAR", "Measures starting per year"
+)
+
+# print(measure['Episodes starting per year'])
+
+measure["Placements by year"] = group_calcuation_year(
+    dfs["episodes"], "DECOM_YEAR", "PLACE", "Placements in a year"
+)
+
+output = appears_on_both(
+    dfs["episodes"], dfs["missing"], "CYP with episodes who have been missing"
+)
+print(output)
+
+### Session 4 End ###

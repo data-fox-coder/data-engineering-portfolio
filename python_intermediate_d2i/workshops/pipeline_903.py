@@ -23,7 +23,7 @@ from dateutil.relativedelta import relativedelta
 # Initialise session variable
 collection_year = 2014
 collection_end = datetime(collection_year, 3, 31)
-filepath = "/workspaces/python-learning-repo/python_intermediate_d2I/workshops/data/903_database.db"
+filepath = "/workspaces/python-learning-repo/python_intermediate_d2i/workshops/data/903_database.db"
 metadata_903 = MetaData()
 dfs = {}
 

@@ -4,9 +4,11 @@ Cat Breeds Pipeline
 Extracts cat breed data from TheCatAPI (no API key required),
 transforms it with pandas, and loads it into a local SQLite database.
 
-Usage:
-    python pipeline.py
 """
+
+# ── IMPORT LIBARIES AND SET UP CONFIGURATION ─────────────────────────────────────────────────────────────
+
+# %%
 
 import requests
 import pandas as pd
@@ -14,13 +16,14 @@ import sqlite3
 import os
 from datetime import datetime
 
-# ── CONFIGURATION ─────────────────────────────────────────────────────────────
-
 BASE_URL = "https://api.thecatapi.com/v1"
 DB_PATH  = "data/breeds.db"
 
+# %%
 
 # ── EXTRACT ───────────────────────────────────────────────────────────────────
+
+# %%
 
 def fetch_breeds() -> list[dict]:
     """Fetch all cat breeds from TheCatAPI. No authentication required."""
@@ -30,13 +33,18 @@ def fetch_breeds() -> list[dict]:
     print(f"  Extracted {len(breeds)} breeds from TheCatAPI")
     return breeds
 
+# Run function and print first record to verify it works
+raw_data = fetch_breeds()
+print(raw_data[0]) # Look at the first cat breed
+
+# %%
 
 # ── TRANSFORM ─────────────────────────────────────────────────────────────────
 
 def transform(breeds: list[dict]) -> pd.DataFrame:
     """
     Flatten the API response and clean the data.
-    Mirrors the kind of logic you'd write in Power Query M or SSIS.
+    Mirrors the kind of logic I'd write in Power Query M or SSIS.
     """
     rows = []
     for b in breeds:

@@ -1,177 +1,270 @@
-# """
-# Cat Shelter Pipeline
-# ====================
-# Extracts cat listings from the Petfinder API, transforms the data
-# using pandas, and loads it into a local SQLite database.
-# """
+"""
+Cat Shelter Pipeline — RescueGroups.org v5 API
+================================================
+Extracts available cat listings from the RescueGroups.org API,
+transforms them with pandas, and loads into a local SQLite database.
 
-# import requests
-# import pandas as pd
-# import sqlite3
-# import os
-# from datetime import datetime
-# from dotenv import load_dotenv
+Requires:
+    RESCUEGROUPS_API_KEY set as a Codespaces secret (or in a .env file)
 
-# load_dotenv()
+Usage:
+    python pipeline.py
+"""
 
-# # ── 1. CONFIGURATION ──────────────────────────────────────────────────────────
+import requests
+import pandas as pd
+import sqlite3
+import os
+from datetime import datetime
+from dotenv import load_dotenv
 
-# API_KEY    = os.getenv("PETFINDER_API_KEY")
-# API_SECRET = os.getenv("PETFINDER_API_SECRET")
-# BASE_URL   = "https://api.petfinder.com/v2"
-# DB_PATH    = "data/cats.db"
+load_dotenv()
 
+# ── CONFIGURATION ─────────────────────────────────────────────────────────────
 
-# # ── 2. EXTRACT ────────────────────────────────────────────────────────────────
+API_KEY  = os.getenv("RESCUEGROUPS_API_KEY")
+BASE_URL = "https://api.rescuegroups.org/v5"
+DB_PATH  = "data/cats.db"
 
-# def get_token() -> str:
-#     """Fetch a short-lived OAuth token from the Petfinder API."""
-#     resp = requests.post(
-#         f"{BASE_URL}/oauth2/token",
-#         data={
-#             "grant_type":    "client_credentials",
-#             "client_id":     API_KEY,
-#             "client_secret": API_SECRET,
-#         },
-#     )
-#     resp.raise_for_status()
-#     return resp.json()["access_token"]
+HEADERS = {
+    "Authorization": API_KEY,
+    "Content-Type": "application/vnd.api+json",
+}
 
 
-# def fetch_cats(token: str, pages: int = 3) -> list[dict]:
-#     """
-#     Pull cat listings from the API.
-#     `pages` controls how many pages of 100 results to fetch.
-#     """
-#     headers = {"Authorization": f"Bearer {token}"}
-#     animals = []
+# ── EXTRACT ───────────────────────────────────────────────────────────────────
 
-#     for page in range(1, pages + 1):
-#         resp = requests.get(
-#             f"{BASE_URL}/animals",
-#             headers=headers,
-#             params={"type": "cat", "limit": 100, "page": page},
-#         )
-#         resp.raise_for_status()
-#         batch = resp.json().get("animals", [])
-#         if not batch:
-#             break
-#         animals.extend(batch)
-#         print(f"  Fetched page {page} — {len(batch)} cats")
+def fetch_cats(max_pages: int = 5) -> list[dict]:
+    """
+    Fetch available cat listings from RescueGroups using the
+    /public/animals/search/available/cats/ endpoint.
 
-#     print(f"Total cats extracted: {len(animals)}")
-#     return animals
+    The API returns a max of 250 records per page. We paginate
+    until there are no more results or we hit max_pages.
+    """
+    if not API_KEY:
+        raise ValueError(
+            "RESCUEGROUPS_API_KEY is not set. "
+            "Add it as a Codespaces secret or in a .env file."
+        )
 
+    animals = []
+    page = 1
 
-# # ── 3. TRANSFORM ──────────────────────────────────────────────────────────────
+    while page <= max_pages:
+        resp = requests.get(
+            f"{BASE_URL}/public/animals/search/available/cats/",
+            headers=HEADERS,
+            params={
+                "limit": 250,
+                "page":  page,
+                "include": "breeds,orgs,locations",
+            },
+        )
+        resp.raise_for_status()
+        payload = resp.json()
 
-# def transform(animals: list[dict]) -> pd.DataFrame:
-#     """
-#     Flatten the nested API response and apply cleaning rules.
-#     Mirrors the kind of logic you'd write in Power Query M or SSIS.
-#     """
-#     rows = []
-#     for a in animals:
-#         rows.append({
-#             "id":           a.get("id"),
-#             "name":         a.get("name"),
-#             "age":          a.get("age"),          # Baby / Young / Adult / Senior
-#             "gender":       a.get("gender"),
-#             "size":         a.get("size"),
-#             "breed_primary":a["breeds"].get("primary") if a.get("breeds") else None,
-#             "coat":         a.get("coat"),
-#             "status":       a.get("status"),       # adoptable / adopted / found
-#             "city":         a["contact"]["address"].get("city")  if a.get("contact") else None,
-#             "state":        a["contact"]["address"].get("state") if a.get("contact") else None,
-#             "postcode":     a["contact"]["address"].get("postcode") if a.get("contact") else None,
-#             "published_at": a.get("published_at"),
-#             "extracted_at": datetime.utcnow().isoformat(),
-#         })
+        batch = payload.get("data", [])
+        if not batch:
+            break
 
-#     df = pd.DataFrame(rows)
+        # Build a lookup of included objects (breeds, orgs, locations)
+        included = _index_included(payload.get("included", []))
 
-#     # --- cleaning ---
-#     df["name"]         = df["name"].str.strip().str.title()
-#     df["breed_primary"]= df["breed_primary"].fillna("Unknown")
-#     df["published_at"] = pd.to_datetime(df["published_at"], errors="coerce", utc=True)
+        for animal in batch:
+            animals.append({"animal": animal, "included": included})
 
-#     # Drop exact duplicate IDs (re-runs of the pipeline)
-#     df = df.drop_duplicates(subset="id")
+        meta = payload.get("meta", {})
+        print(f"  Page {page}: {len(batch)} cats "
+              f"(total available: {meta.get('count', '?')})")
 
-#     print(f"Rows after transform: {len(df)}")
-#     return df
+        if page >= meta.get("pages", 1):
+            break
+        page += 1
+
+    print(f"Total records extracted: {len(animals)}")
+    return animals
 
 
-# # ── 4. LOAD ───────────────────────────────────────────────────────────────────
-
-# def load(df: pd.DataFrame, db_path: str = DB_PATH) -> None:
-#     """
-#     Upsert records into SQLite.
-#     Uses INSERT OR REPLACE so re-running the pipeline won't create duplicates.
-#     """
-#     os.makedirs(os.path.dirname(db_path), exist_ok=True)
-
-#     with sqlite3.connect(db_path) as conn:
-#         # to_sql with if_exists="append" is fine here because the table
-#         # definition (and UNIQUE constraint on id) is set up in setup_db().
-#         df.to_sql("cats", conn, if_exists="append", index=False,
-#                   method=_upsert_sqlite)
-
-#     print(f"Loaded {len(df)} rows into {db_path}")
+def _index_included(included: list) -> dict:
+    """Build a {(type, id): attributes} lookup from the included array."""
+    index = {}
+    for item in included:
+        key = (item["type"], item["id"])
+        index[key] = item.get("attributes", {})
+    return index
 
 
-# def _upsert_sqlite(table, conn, keys, data_iter):
-#     """Custom to_sql method that issues INSERT OR REPLACE statements."""
-#     rows = list(data_iter)
-#     placeholders = ", ".join(["?"] * len(keys))
-#     sql = f"INSERT OR REPLACE INTO {table.name} ({', '.join(keys)}) VALUES ({placeholders})"
-#     conn.executemany(sql, rows)
+# ── TRANSFORM ─────────────────────────────────────────────────────────────────
+
+def transform(records: list[dict]) -> pd.DataFrame:
+    """
+    Flatten animal + related data into a clean tabular structure.
+    Mirrors the kind of logic you'd write in Power Query M or SSIS.
+    """
+    rows = []
+
+    for record in records:
+        animal   = record["animal"]
+        included = record["included"]
+        attrs    = animal.get("attributes", {})
+        rels     = animal.get("relationships", {})
+
+        # Resolve primary breed name from relationships
+        breed_name = _resolve_relationship(rels, "breeds", included, "name")
+
+        # Resolve organisation name
+        org_name = _resolve_relationship(rels, "orgs", included, "name")
+
+        # Resolve location city/state
+        loc_attrs  = _resolve_relationship_attrs(rels, "locations", included)
+        city       = loc_attrs.get("city")  if loc_attrs else None
+        state      = loc_attrs.get("state") if loc_attrs else None
+        postalcode = loc_attrs.get("postalcode") if loc_attrs else None
+
+        rows.append({
+            "id":                  animal.get("id"),
+            "name":                attrs.get("name"),
+            "age_group":           attrs.get("ageGroup"),
+            "age_string":          attrs.get("ageString"),
+            "sex":                 attrs.get("sex"),
+            "size_group":          attrs.get("sizeGroup"),
+            "coat_length":         attrs.get("coatLength"),
+            "energy_level":        attrs.get("energyLevel"),
+            "activity_level":      attrs.get("activityLevel"),
+            "shedding_level":      attrs.get("sheddingLevel"),
+            "grooming_needs":      attrs.get("groomingNeeds"),
+            "indoor_outdoor":      attrs.get("indoorOutdoor"),
+            "is_kids_ok":          attrs.get("isKidsOk"),
+            "is_cats_ok":          attrs.get("isCatsOk"),
+            "is_dogs_ok":          attrs.get("isDogsOk"),
+            "is_housetrained":     attrs.get("isHousetrained"),
+            "is_declawed":         attrs.get("isDeclawed"),
+            "is_microchipped":     attrs.get("isMicrochipped"),
+            "is_special_needs":    attrs.get("isSpecialNeeds"),
+            "is_altered":          attrs.get("isAltered"),
+            "breed_primary":       breed_name,
+            "org_name":            org_name,
+            "city":                city,
+            "state":               state,
+            "postalcode":          postalcode,
+            "picture_count":       attrs.get("pictureCount", 0),
+            "available_date":      attrs.get("availableDate"),
+            "updated_date":        attrs.get("updatedDate"),
+            "url":                 attrs.get("url"),
+            "extracted_at":        datetime.utcnow().isoformat(),
+        })
+
+    df = pd.DataFrame(rows)
+
+    # --- cleaning ---
+    df["name"]          = df["name"].str.strip().str.title()
+    df["breed_primary"] = df["breed_primary"].fillna("Unknown")
+    df["available_date"]= pd.to_datetime(df["available_date"], errors="coerce", utc=True)
+    df["updated_date"]  = pd.to_datetime(df["updated_date"],   errors="coerce", utc=True)
+    df = df.drop_duplicates(subset="id")
+
+    print(f"Rows after transform: {len(df)}")
+    return df
 
 
-# def setup_db(db_path: str = DB_PATH) -> None:
-#     """Create the cats table if it doesn't already exist."""
-#     os.makedirs(os.path.dirname(db_path), exist_ok=True)
-#     with sqlite3.connect(db_path) as conn:
-#         conn.execute("""
-#             CREATE TABLE IF NOT EXISTS cats (
-#                 id            INTEGER PRIMARY KEY,
-#                 name          TEXT,
-#                 age           TEXT,
-#                 gender        TEXT,
-#                 size          TEXT,
-#                 breed_primary TEXT,
-#                 coat          TEXT,
-#                 status        TEXT,
-#                 city          TEXT,
-#                 state         TEXT,
-#                 postcode      TEXT,
-#                 published_at  TEXT,
-#                 extracted_at  TEXT
-#             )
-#         """)
-#     print(f"Database ready at {db_path}")
+def _resolve_relationship(rels: dict, rel_name: str,
+                           included: dict, field: str) -> str | None:
+    """Return the first matching included attribute value for a relationship."""
+    attrs = _resolve_relationship_attrs(rels, rel_name, included)
+    return attrs.get(field) if attrs else None
 
 
-# # ── 5. ORCHESTRATE ────────────────────────────────────────────────────────────
-
-# def run_pipeline(pages: int = 3) -> pd.DataFrame:
-#     """End-to-end pipeline: Extract → Transform → Load. Returns the DataFrame."""
-#     print("\n=== Cat Shelter Pipeline ===")
-
-#     print("\n[1/3] Extracting from Petfinder API...")
-#     token   = get_token()
-#     animals = fetch_cats(token, pages=pages)
-
-#     print("\n[2/3] Transforming data...")
-#     df = transform(animals)
-
-#     print("\n[3/3] Loading into SQLite...")
-#     setup_db()
-#     load(df)
-
-#     print("\n✅ Pipeline complete.\n")
-#     return df
+def _resolve_relationship_attrs(rels: dict, rel_name: str,
+                                 included: dict) -> dict | None:
+    """Return the attributes dict for the first item in a relationship."""
+    rel = rels.get(rel_name, {})
+    data = rel.get("data")
+    if not data:
+        return None
+    # data may be a list or a single object
+    first = data[0] if isinstance(data, list) else data
+    key = (first["type"], str(first["id"]))
+    return included.get(key)
 
 
-# if __name__ == "__main__":
-#     run_pipeline()
+# ── LOAD ──────────────────────────────────────────────────────────────────────
+
+def setup_db(db_path: str = DB_PATH) -> None:
+    """Create the cats table if it doesn't already exist."""
+    os.makedirs(os.path.dirname(db_path), exist_ok=True)
+    with sqlite3.connect(db_path) as conn:
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS cats (
+                id               TEXT PRIMARY KEY,
+                name             TEXT,
+                age_group        TEXT,
+                age_string       TEXT,
+                sex              TEXT,
+                size_group       TEXT,
+                coat_length      TEXT,
+                energy_level     TEXT,
+                activity_level   TEXT,
+                shedding_level   TEXT,
+                grooming_needs   TEXT,
+                indoor_outdoor   TEXT,
+                is_kids_ok       INTEGER,
+                is_cats_ok       INTEGER,
+                is_dogs_ok       INTEGER,
+                is_housetrained  INTEGER,
+                is_declawed      INTEGER,
+                is_microchipped  INTEGER,
+                is_special_needs INTEGER,
+                is_altered       INTEGER,
+                breed_primary    TEXT,
+                org_name         TEXT,
+                city             TEXT,
+                state            TEXT,
+                postalcode       TEXT,
+                picture_count    INTEGER,
+                available_date   TEXT,
+                updated_date     TEXT,
+                url              TEXT,
+                extracted_at     TEXT
+            )
+        """)
+    print(f"  Database ready at {db_path}")
+
+
+def load(df: pd.DataFrame, db_path: str = DB_PATH) -> None:
+    """Upsert records into SQLite — safe to re-run."""
+    with sqlite3.connect(db_path) as conn:
+        df.to_sql("cats", conn, if_exists="append", index=False,
+                  method=_upsert_sqlite)
+    print(f"  Loaded {len(df)} rows into {db_path}")
+
+
+def _upsert_sqlite(table, conn, keys, data_iter):
+    rows = list(data_iter)
+    placeholders = ", ".join(["?"] * len(keys))
+    sql = f"INSERT OR REPLACE INTO {table.name} ({', '.join(keys)}) VALUES ({placeholders})"
+    conn.executemany(sql, rows)
+
+
+# ── ORCHESTRATE ───────────────────────────────────────────────────────────────
+
+def run_pipeline(max_pages: int = 5) -> pd.DataFrame:
+    """Extract -> Transform -> Load. Returns the DataFrame."""
+    print("\n=== Cat Shelter Pipeline (RescueGroups.org) ===")
+
+    print("\n[1/3] Extracting from RescueGroups API...")
+    records = fetch_cats(max_pages=max_pages)
+
+    print("\n[2/3] Transforming data...")
+    df = transform(records)
+
+    print("\n[3/3] Loading into SQLite...")
+    setup_db()
+    load(df)
+
+    print("\n✅ Pipeline complete.\n")
+    return df
+
+
+if __name__ == "__main__":
+    run_pipeline()

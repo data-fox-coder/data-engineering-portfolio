@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
 import os
 
-DB_PATH    = "data/cats.db"
+DB_PATH    = "data/cats_shelter.db"
 OUTPUT_DIR = "output"
 
 

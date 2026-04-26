@@ -96,4 +96,4 @@ Key packages: `requests`, `pandas`, `python-dotenv`
 
 ## Sample Output
 
-![Available Cats by Age Group](cat_shelter_pipeline/output/age_distribution.png)
+![Available Cats by Age Group](/workspaces/python-learning-repo/cat_shelter_pipeline/output/age_distribution.png)

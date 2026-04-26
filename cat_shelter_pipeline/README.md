@@ -1,84 +1,95 @@
-# 🐱 Cat Shelter Pipeline — RescueGroups.org
+# Cat Shelter Pipeline 🐱
 
-A Python ETL pipeline that pulls available cat listings from the
-[RescueGroups.org v5 API](https://api.rescuegroups.org/v5/public/docs),
-transforms the data with **pandas**, stores it in **SQLite**, and generates
-visualisations with **matplotlib**.
+An end-to-end ETL data pipeline that extracts real-world cat adoption data from the [RescueGroups.org v5 API](https://rescuegroups.org/services/adoptable-pet-data-api/), transforms it using pandas, and loads it into a local SQLite database for analysis.
+
+This project was built to map existing data engineering skills (SSIS, Power Query M, SQL) onto Python equivalents.
+
+---
+
+## What It Does
+
+| Stage | Tool | BI Equivalent |
+|---|---|---|
+| **Extract** | `requests` → RescueGroups.org v5 API | SSIS connection manager / OData source |
+| **Transform** | `pandas` | Power Query M / SSIS data flow |
+| **Load** | `sqlite3` | SQL Server staging table |
 
 ---
 
 ## Project Structure
 
 ```
-cat-shelter-pipeline/
-├── pipeline.py      # Extract -> Transform -> Load
-├── analyse.py       # Queries the DB and produces charts
-├── requirements.txt
-├── data/            # Created automatically — SQLite DB lives here
-└── output/          # Created automatically — charts saved here
+cat_shelter_pipeline/
+├── extract.py          # API calls to RescueGroups, returns raw JSON
+├── transform.py        # pandas transformations, cleaning, shaping
+├── load.py             # writes transformed data to SQLite
+├── pipeline.py         # orchestrates extract → transform → load
+├── .env.example        # template for API credentials
+└── cats.db             # SQLite database output (gitignored)
 ```
+
+> ⚠️ *Update file names above to match your actual structure if different.*
 
 ---
 
-## Setup in GitHub Codespaces
+## Skills Demonstrated
 
-### 1. Add your API key as a Codespaces secret
+- Authenticating with and calling a REST API (`requests`)
+- Parsing and normalising nested JSON into a flat DataFrame
+- Data cleaning and transformation with `pandas`
+- Loading data into SQLite using `sqlite3` / `pandas.to_sql()`
+- Managing secrets with `python-dotenv`
+- Structuring code as a modular ETL pipeline (not just a notebook)
 
-Go to **github.com → Settings → Codespaces → Secrets** and add:
+---
 
-| Name | Value |
-|---|---|
-| `RESCUEGROUPS_API_KEY` | Your RescueGroups API key |
+## Getting Started
 
-This makes it available automatically as an environment variable inside your Codespace
-without ever touching your code or repo.
+### 1. Get a RescueGroups API key
 
-### 2. Install dependencies
+Sign up at [rescuegroups.org](https://rescuegroups.org) to request access to the v5 API.
+
+### 2. Configure your environment
+
+```bash
+cp .env.example .env
+```
+
+Edit `.env` and add your credentials:
+
+```
+RESCUEGROUPS_API_KEY=your_api_key_here
+```
+
+### 3. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. Run the pipeline
+### 4. Run the pipeline
 
 ```bash
-python pipeline.py   # Extract, transform, load
-python analyse.py    # Generate charts
+python pipeline.py
 ```
 
 ---
 
-## What the Pipeline Does
+## How This Maps to My BI Background
 
-### `pipeline.py` — Extract → Transform → Load
-
-| Stage | Detail |
+| Python concept | What I already knew |
 |---|---|
-| **Extract** | Calls `/public/animals/search/available/cats/` with pagination (250 per page) |
-| **Transform** | Flattens nested JSON, resolves breed/org/location relationships, cleans text |
-| **Load** | Upserts into SQLite — safe to re-run without creating duplicates |
-
-The API uses an `included` array for related data (breeds, organisations, locations).
-The transform step resolves these relationships — similar to a SQL JOIN.
-
-### `analyse.py` — Visualisations
-
-Six charts are produced in the `output/` folder:
-
-- Age group distribution
-- Top 10 breeds in shelters
-- Gender split
-- Top 10 states by available cats
-- Energy level breakdown
-- Compatibility & characteristics (% OK with kids/cats/dogs, housetrained, microchipped)
+| `pandas` DataFrame | Power Query M table / SQL result set |
+| `df.rename()`, `df.fillna()` | Power Query M column operations |
+| `df.to_sql()` | SSIS OLE DB Destination |
+| `pipeline.py` orchestration | SSIS package control flow |
+| `sqlite3` database | SQL Server / local database |
+| `.env` secrets file | SSIS connection manager config |
 
 ---
 
-## Stretch Goals
+## Dependencies
 
-- [ ] Add logging with Python's `logging` module
-- [ ] Export a summary report to Excel with `openpyxl`
-- [ ] Add a map of shelter locations using `folium`
-- [ ] Filter by location using the API's radius search feature
-- [ ] Connect Tableau to the SQLite file for interactive dashboards
-- [ ] Write tests for the transform logic using `pytest`
+See [`requirements.txt`](../requirements.txt) in the root of the repo.
+
+Key packages: `requests`, `pandas`, `python-dotenv`

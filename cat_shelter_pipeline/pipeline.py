@@ -17,27 +17,33 @@ import sqlite3
 import os
 from datetime import datetime
 from dotenv import load_dotenv
-
-load_dotenv()
+import yaml
 
 # ── CONFIGURATION ─────────────────────────────────────────────────────────────
 
+load_dotenv()  # Load environment variables from .env file
+with open("config.yml") as f:
+    config = yaml.safe_load(f)
+
 API_KEY  = os.getenv("RESCUEGROUPS_API_KEY")
-BASE_URL = "https://api.rescuegroups.org/v5"
-DB_PATH  = "data/cats.db"
+if not API_KEY:
+    raise ValueError("RESCUEGROUPS_API_KEY not found. Check your .env file or Codespaces secrets.")
+
+BASE_URL = config["source"]["base_url"]
+DB_PATH  = config["layers"]["gold"]["path"]
 
 HEADERS = {
     "Authorization": API_KEY,
     "Content-Type": "application/vnd.api+json",
 }
 
-
 # ── EXTRACT ───────────────────────────────────────────────────────────────────
 
 def fetch_cats(max_pages: int = 5) -> list[dict]:
     """
     Fetch available cat listings from RescueGroups using the
-    /public/animals/search/available/cats/ endpoint.
+    /public/animals/search/available/ endpoint with a POST body
+    filter for cats.
 
     The API returns a max of 250 records per page. We paginate
     until there are no more results or we hit max_pages.
@@ -52,13 +58,24 @@ def fetch_cats(max_pages: int = 5) -> list[dict]:
     page = 1
 
     while page <= max_pages:
-        resp = requests.get(
-            f"{BASE_URL}/public/animals/search/available/cats/",
+        resp = requests.post(
+            f"{BASE_URL}/public/animals/search/available/",
             headers=HEADERS,
             params={
                 "limit": 250,
                 "page":  page,
                 "include": "breeds,orgs,locations",
+            },
+            json={
+                "data": {
+                    "filters": [
+                        {
+                            "fieldName": "species.plural",
+                            "operation": "equal",
+                            "criteria": "cats"
+                        }
+                    ]
+                }
             },
         )
         resp.raise_for_status()
@@ -84,7 +101,6 @@ def fetch_cats(max_pages: int = 5) -> list[dict]:
 
     print(f"Total records extracted: {len(animals)}")
     return animals
-
 
 def _index_included(included: list) -> dict:
     """Build a {(type, id): attributes} lookup from the included array."""

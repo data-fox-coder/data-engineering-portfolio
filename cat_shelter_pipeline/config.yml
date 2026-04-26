@@ -1,0 +1,30 @@
+# Cat Shelter Pipeline Config
+pipeline:
+  name: rescuegroups-cat-pipeline
+  version: 1.0
+
+source:
+  api: RescueGroups
+  base_url: https://api.rescuegroups.org/v5
+  page_size: 100  # max is 250, default is 25
+  species_filter: cat
+
+layers:
+  bronze:
+    format: json
+    path: data/bronze/cats
+    overwrite: true
+  silver:
+    format: parquet
+    path: data/silver/cats
+    deduplicate: true
+  gold:
+    format: sqlite
+    path: data/cats_shelter.db
+
+logging:
+  level: INFO
+  log_path: logs/pipeline.log
+
+notifications:
+  on_failure: true

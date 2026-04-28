@@ -3,7 +3,6 @@ import pandas as pd
 from sqlalchemy import (
     create_engine,
     inspect,
-    text,
     select,
     MetaData,
     Table,
@@ -18,7 +17,6 @@ from utils import (
     appears_on_both,
 )
 from datetime import datetime
-from dateutil.relativedelta import relativedelta
 
 # Initialise session variable
 collection_year = 2014

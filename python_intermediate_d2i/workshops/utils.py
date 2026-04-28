@@ -10,8 +10,8 @@ def format_dates(column):
     try:
         column = pd.to_datetime(column, format="%d/%m/%Y")
         return column
-    except:
-        raise ValueError(f"Invalid date format in {column.name}, expected dd/mm/YYYY")
+    except Exception:
+            raise ValueError(f"Invalid date format in {column.name}, expected dd/mm/YYYY")
 
 
 def calculate_age_buckets(age):

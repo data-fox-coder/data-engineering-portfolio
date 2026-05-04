@@ -1,6 +1,10 @@
-# python-learning-repo
+# 🐍 python-learning-repo
 
-A portfolio of Python learning projects built by a Business Intelligence Developer. Projects are designed to map existing skills onto Python equivalents — pandas ↔ Power Query, SQLite ↔ SQL Server, ETL structure ↔ SSIS packages.
+A portfolio of Python learning projects. Projects are designed to map existing skills onto Python equivalents — pandas ↔ Power Query, SQLite ↔ SQL Server, ETL structure ↔ SSIS packages.
+
+![Python](https://img.shields.io/badge/python-3670A0?style=flat-square&logo=python&logoColor=ffdd54)
+![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=flat-square&logo=pandas&logoColor=white)
+![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=flat-square&logo=sqlite&logoColor=white)
 
 ---
 

@@ -10,7 +10,7 @@ A portfolio of Python learning projects. Projects are designed to map existing s
 
 ## Projects
 
-### 🐱 [cat_shelter_pipeline](./cat_shelter_pipeline/)
+### 🐱 [cat_shelter_pipeline](./projects/cat_shelter_pipeline)
 
 An end-to-end ETL pipeline built using the [RescueGroups.org v5 API](https://rescuegroups.org/services/adoptable-pet-data-api/) to extract, transform, and load real-world cat adoption data into a local SQLite database.
 
@@ -19,7 +19,7 @@ An end-to-end ETL pipeline built using the [RescueGroups.org v5 API](https://res
 
 ---
 
-### 🐈 [cat_breeds](./cat_breeds/)
+### 🐈 [cat_breeds](./projects/cat_breeds)
 
 A data pipeline and analysis project exploring cat breed data from an external API, applying similar ETL patterns to the shelter pipeline project.
 
@@ -28,7 +28,7 @@ A data pipeline and analysis project exploring cat breed data from an external A
 
 ---
 
-### 📘 [python_intermediate_d2i](./python_intermediate_d2i/)
+### 📘 [python_intermediate_d2i](/learning/python_intermediate_d2i)
 
 Exercises and worked examples based on the [Data to Insight ERN intermediate Python sessions](https://github.com/data-to-insight/ERN-sessions/tree/main/intermediate_python) — a structured course covering core Python and pandas concepts for data practitioners.
 

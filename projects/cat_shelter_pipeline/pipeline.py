@@ -11,13 +11,15 @@ Usage:
     python pipeline.py
 """
 
+import yaml
+import logging
+from typing import List, Dict
 import requests
 import pandas as pd
 import sqlite3
 import os
 from datetime import datetime
 from dotenv import load_dotenv
-import yaml
 
 # ── CONFIGURATION ─────────────────────────────────────────────────────────────
 

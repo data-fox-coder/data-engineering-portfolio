@@ -1,4 +1,4 @@
-# 🐍 python-learning-repo
+# 🐍 data-engineering-portfolio
 
 A portfolio of Python learning projects. Projects are designed to map existing skills onto Python equivalents — pandas ↔ Power Query, SQLite ↔ SQL Server, ETL structure ↔ SSIS packages.
 
@@ -52,7 +52,7 @@ Exercises and worked examples based on the [Data to Insight ERN intermediate Pyt
 
 ## Background
 
-I'm a Data Analyst with a background in SQL, SSIS, and Excel automation (Power Query M), currently learning Python to expand into programmatic data engineering and analytics. This repo documents that journey — each project is chosen to apply Python to something meaningful rather than toy examples.
+I'm a data professional with a background in SQL Server and Excel automation (Power Query M), currently learning Python to expand into programmatic data engineering and analytics. This repo documents that journey — each project is chosen to apply Python to something meaningful rather than toy examples.
 
 Currently pursuing the **Databricks Data Analyst certification** alongside this learning.
 
@@ -62,7 +62,7 @@ Currently pursuing the **Databricks Data Analyst certification** alongside this 
 
 ```bash
 # Clone the repo
-git clone https://github.com/data-fox-coder/python-learning-repo.git
+git clone https://github.com/data-fox-coder/data-engineering-portfolio.git
 cd python-learning-repo
 
 # Install dependencies

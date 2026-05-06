@@ -1,9 +1,19 @@
+# Data Manipulation & Analysis
 pandas
+numpy
+
+# API & Database
 requests
-ipykernel
 sqlalchemy
+python-dotenv
+
+# Visualization & UI
 matplotlib
 streamlit
-python-dotenv
+
+# Utilities & Configuration
 pyyaml
-numpy
+ipykernel
+
+# Quality Assurance (New addition for polishing)
+ruff

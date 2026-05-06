@@ -153,6 +153,8 @@ rpds-py==0.30.0
     # via
     #   jsonschema
     #   referencing
+ruff==0.15.12
+    # via -r requirements.in
 six==1.17.0
     # via python-dateutil
 smmap==5.0.3

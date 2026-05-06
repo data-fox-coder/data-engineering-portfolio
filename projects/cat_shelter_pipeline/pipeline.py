@@ -12,8 +12,6 @@ Usage:
 """
 
 import yaml
-import logging
-from typing import List, Dict
 import requests
 import pandas as pd
 import sqlite3

@@ -12,19 +12,44 @@ source:
 layers:
   bronze:
     format: json
-    path: data/bronze/cats
+    path: projects/cat_shelter_pipeline/data/bronze/cats
     overwrite: true
   silver:
     format: parquet
-    path: data/silver/cats
+    path: projects/cat_shelter_pipeline/data/silver/cats
     deduplicate: true
+    fields_to_keep:
+      - id
+      - attributes_name
+      - attributes_agestring
+      - attributes_agegroup
+      - attributes_sex
+      - attributes_breedprimary
+      - attributes_breedstring
+      - attributes_coatlength
+      - attributes_sizegroup
+      - attributes_indooroutdoor
+      - attributes_activitylevel
+      - attributes_newpeoplereaction
+      - attributes_descriptiontext
+      - attributes_picturethumbnailurl
+      - attributes_picturecount
+      - attributes_isadoptionpending
+      - attributes_isspecialneeds
+      - attributes_iscatsok
+      - attributes_isdogsok
+      - attributes_iskidsok
+      - attributes_ishousetrained
+      - attributes_distance
+      - attributes_updateddate
+      - attributes_slug
   gold:
     format: sqlite
-    path: data/cats_shelter.db
+    path: projects/cat_shelter_pipeline/data/cats_shelter.db
 
 logging:
   level: INFO
-  log_path: logs/pipeline.log
+  log_path: projects/cat_shelter_pipeline/logs/pipeline.log
 
 notifications:
   on_failure: true

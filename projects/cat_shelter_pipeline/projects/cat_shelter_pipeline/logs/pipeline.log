@@ -7,3 +7,12 @@
 2026-05-06 14:48:07,918 - INFO - Silver: saved 25 records to /workspaces/data-engineering-portfolio/projects/cat_shelter_pipeline/projects/cat_shelter_pipeline/data/silver/cats/cats_clean.parquet
 2026-05-06 14:48:07,948 - INFO - Gold: upserted 25 records into 'cats' at /workspaces/data-engineering-portfolio/projects/cat_shelter_pipeline/projects/cat_shelter_pipeline/data/cats_shelter.db
 2026-05-06 14:48:07,949 - INFO - === Cat Shelter ETL Pipeline completed successfully ===
+2026-05-06 15:17:22,714 - INFO - === Cat Shelter ETL Pipeline starting ===
+2026-05-06 15:17:22,714 - INFO - Extracting data from: https://api.rescuegroups.org/v5/public/animals/search/available/cats
+2026-05-06 15:17:23,346 - INFO - Extracted 25 records from API.
+2026-05-06 15:17:23,350 - INFO - Bronze: saved 25 raw records to /workspaces/data-engineering-portfolio/projects/cat_shelter_pipeline/projects/cat_shelter_pipeline/data/bronze/cats/cats_raw.json
+2026-05-06 15:17:23,350 - INFO - Transforming 25 records...
+2026-05-06 15:17:23,361 - INFO - Transformation complete. 25 records, 24 columns.
+2026-05-06 15:17:23,370 - INFO - Silver: saved 25 records to /workspaces/data-engineering-portfolio/projects/cat_shelter_pipeline/projects/cat_shelter_pipeline/data/silver/cats/cats_clean.parquet
+2026-05-06 15:17:23,397 - INFO - Gold: upserted 25 records into 'cats' at /workspaces/data-engineering-portfolio/projects/cat_shelter_pipeline/projects/cat_shelter_pipeline/data/cats_shelter.db
+2026-05-06 15:17:23,398 - INFO - === Cat Shelter ETL Pipeline completed successfully ===

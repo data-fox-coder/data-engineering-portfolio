@@ -17,3 +17,4 @@ ipykernel
 
 # Quality Assurance (New addition for polishing)
 ruff
+pytest

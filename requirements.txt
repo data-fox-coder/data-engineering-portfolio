@@ -44,6 +44,8 @@ greenlet==3.4.0
     # via sqlalchemy
 idna==3.11
     # via requests
+iniconfig==2.3.0
+    # via pytest
 ipykernel==7.1.0
     # via -r requirements.in
 ipython==9.7.0
@@ -93,6 +95,7 @@ packaging==25.0
     #   altair
     #   ipykernel
     #   matplotlib
+    #   pytest
     #   streamlit
 pandas==3.0.2
     # via
@@ -108,6 +111,8 @@ pillow==12.2.0
     #   streamlit
 platformdirs==4.5.0
     # via jupyter-core
+pluggy==1.6.0
+    # via pytest
 prompt-toolkit==3.0.52
     # via ipython
 protobuf==7.34.1
@@ -126,8 +131,11 @@ pygments==2.19.2
     # via
     #   ipython
     #   ipython-pygments-lexers
+    #   pytest
 pyparsing==3.3.2
     # via matplotlib
+pytest==9.0.3
+    # via -r requirements.in
 python-dateutil==2.9.0.post0
     # via
     #   jupyter-client

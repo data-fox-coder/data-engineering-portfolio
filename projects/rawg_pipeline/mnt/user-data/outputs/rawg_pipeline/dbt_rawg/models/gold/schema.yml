@@ -1,0 +1,34 @@
+version: 2
+
+models:
+  - name: top_rated_games
+    description: "Top 100 games ranked by RAWG rating, filtered for credibility (min 10 ratings)."
+    columns:
+      - name: rank
+        description: "Position in the ranking (1 = highest rated)."
+        tests:
+          - unique
+          - not_null
+      - name: rawg_id
+        tests:
+          - unique
+          - not_null
+      - name: name
+        tests:
+          - not_null
+      - name: rating
+        description: "RAWG community rating (0–5). Never null in this model."
+        tests:
+          - not_null
+
+  - name: yearly_release_summary
+    description: "Aggregated game stats grouped by release year."
+    columns:
+      - name: release_year
+        description: "Four-digit release year."
+        tests:
+          - unique
+          - not_null
+      - name: total_games
+        tests:
+          - not_null

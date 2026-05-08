@@ -1,0 +1,41 @@
+version: 2
+
+models:
+  - name: stg_games
+    description: "Cleaned and typed game records, deduplicated by rawg_id."
+    columns:
+      - name: rawg_id
+        description: "RAWG game ID — unique per record."
+        tests:
+          - unique
+          - not_null
+      - name: name
+        description: "Game title."
+        tests:
+          - not_null
+      - name: rating
+        description: "RAWG community rating (0–5)."
+      - name: released
+        description: "Release date."
+
+  - name: stg_genres
+    description: "Cleaned genre reference data."
+    columns:
+      - name: rawg_id
+        tests:
+          - unique
+          - not_null
+      - name: name
+        tests:
+          - not_null
+
+  - name: stg_platforms
+    description: "Cleaned platform reference data."
+    columns:
+      - name: rawg_id
+        tests:
+          - unique
+          - not_null
+      - name: name
+        tests:
+          - not_null

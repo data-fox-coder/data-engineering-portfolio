@@ -12,11 +12,11 @@ source:
 layers:
   bronze:
     format: json
-    path: projects/cat_shelter_pipeline/data/bronze/cats
+    path: data/bronze/cats
     overwrite: true
   silver:
     format: parquet
-    path: projects/cat_shelter_pipeline/data/silver/cats
+    path: data/silver/cats
     deduplicate: true
     fields_to_keep:
       - id
@@ -45,8 +45,7 @@ layers:
       - attributes_slug
   gold:
     format: sqlite
-    path: projects/cat_shelter_pipeline/data/cats_shelter.db
-
+    path: data/cats_shelter.db
 logging:
   level: INFO
   log_path: projects/cat_shelter_pipeline/logs/pipeline.log

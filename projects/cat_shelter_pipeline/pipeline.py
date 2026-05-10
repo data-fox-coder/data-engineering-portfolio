@@ -80,10 +80,7 @@ def extract_cat_data(config: Dict) -> List[Dict]:
     body = {
         "data": {
             "filterProcessing": "1",
-            "filterRadius": {
-                "miles": config["source"].get("radius_miles", 50),
-                "postalcode": config["source"].get("postalcode", "10001"),
-            },
+            "size": config["source"].get("page_size", 100),
         }
     }
 

@@ -1,9 +1,162 @@
 [
   {
     "type": "animals",
+    "id": "10007851",
+    "attributes": {
+      "isAdoptionPending": false,
+      "ageGroup": "Senior",
+      "ageString": "11 Years 11 Months",
+      "birthDate": "2014-06-01T00:00:00Z",
+      "isBirthDateExact": false,
+      "breedString": "Domestic Short Hair / Domestic Medium Hair (short coat)",
+      "breedPrimary": "Domestic Short Hair",
+      "breedPrimaryId": 35,
+      "breedSecondary": "Domestic Medium Hair",
+      "breedSecondaryId": 29,
+      "coatLength": "Short",
+      "isCourtesyListing": false,
+      "descriptionText": "Meet Zelda.A sweet senior with star quality.Zelda is a gorgeous, brown domestic shorthair who has truly mastered the art of being adored&#226;\u20ac\u201dand she&#226;\u20ac\u2122s more than happy to return the favor. This well-socialized senior loves attention and will gladly soak up pets, praise, and quality time like it&#226;\u20ac\u2122s her full-time job.She&#226;\u20ac\u2122s confident, gentle, and easy to love, with a calm charm that makes her a joy to be around. Feeling adventurous? Zelda wouldn&#226;\u20ac\u2122t mind a stroller stroll, taking in the sights while enjoying being your favorite passenger.If you&#226;\u20ac\u2122re looking for a loving, affectionate companion who&#226;\u20ac\u2122s ready to be spoiled, Zelda is prepared to step right into your heart (and maybe your stroller).",
+      "isNeedingFoster": false,
+      "isFound": false,
+      "priority": 10,
+      "name": "Zelda",
+      "pictureCount": 13,
+      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/6685/pictures/animals/10007/10007851/99403654.jpg?width=100",
+      "rescueId": "-24015",
+      "searchString": "Zelda   Brown Female  -24015  Cats Domestic Short Hair / Domestic Medium Hair (short coat)s",
+      "sex": "Female",
+      "sizeCurrent": 9.94279956817627,
+      "sizeUOM": "Pounds",
+      "slug": "adopt-zelda-domestic-short-hair-cat",
+      "isSponsorable": false,
+      "videoCount": 0,
+      "videoUrlCount": 0,
+      "createdDate": "2016-05-16T04:52:51Z",
+      "updatedDate": "2026-05-09T17:10:53Z"
+    },
+    "relationships": {
+      "breeds": {
+        "data": [
+          {
+            "type": "breeds",
+            "id": "35"
+          },
+          {
+            "type": "breeds",
+            "id": "29"
+          }
+        ]
+      },
+      "colors": {
+        "data": [
+          {
+            "type": "colors",
+            "id": "7"
+          }
+        ]
+      },
+      "patterns": {
+        "data": [
+          {
+            "type": "patterns",
+            "id": "8"
+          }
+        ]
+      },
+      "species": {
+        "data": [
+          {
+            "type": "species",
+            "id": "3"
+          }
+        ]
+      },
+      "statuses": {
+        "data": [
+          {
+            "type": "statuses",
+            "id": "1"
+          }
+        ]
+      },
+      "locations": {
+        "data": [
+          {
+            "type": "locations",
+            "id": "1000006685"
+          }
+        ]
+      },
+      "orgs": {
+        "data": [
+          {
+            "type": "orgs",
+            "id": "6685"
+          }
+        ]
+      },
+      "pictures": {
+        "data": [
+          {
+            "type": "pictures",
+            "id": "89880808"
+          },
+          {
+            "type": "pictures",
+            "id": "64712501"
+          },
+          {
+            "type": "pictures",
+            "id": "67676009"
+          },
+          {
+            "type": "pictures",
+            "id": "68630068"
+          },
+          {
+            "type": "pictures",
+            "id": "68630069"
+          },
+          {
+            "type": "pictures",
+            "id": "72562111"
+          },
+          {
+            "type": "pictures",
+            "id": "72562112"
+          },
+          {
+            "type": "pictures",
+            "id": "74856660"
+          },
+          {
+            "type": "pictures",
+            "id": "74856662"
+          },
+          {
+            "type": "pictures",
+            "id": "77190293"
+          },
+          {
+            "type": "pictures",
+            "id": "78575079"
+          },
+          {
+            "type": "pictures",
+            "id": "97591461"
+          },
+          {
+            "type": "pictures",
+            "id": "99403654"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "animals",
     "id": "10013509",
     "attributes": {
-      "distance": 20,
       "activityLevel": "Moderately Active",
       "isAdoptionPending": false,
       "ageGroup": "Adult",
@@ -107,243 +260,43 @@
   },
   {
     "type": "animals",
-    "id": "11095906",
+    "id": "10059734",
     "attributes": {
-      "distance": 20,
       "activityLevel": "Highly Active",
       "isAdoptionPending": false,
-      "ageGroup": "Adult",
-      "ageString": "7 Years 10 Months",
-      "birthDate": "2015-01-21T00:00:00Z",
+      "ageString": "9 Years",
+      "birthDate": "2016-05-09T00:00:00Z",
       "isBirthDateExact": false,
       "breedString": "Domestic Short Hair (short coat)",
       "breedPrimary": "Domestic Short Hair",
       "breedPrimaryId": 35,
+      "isCatsOk": true,
       "coatLength": "Short",
       "isCourtesyListing": false,
-      "descriptionHtml": "<p>Mr. Snuffleupagus is a male brown tabby who came from Newark AHS.</p><img src=\"https://tracker.rescuegroups.org/pet?11095906\" width=\"0\" height=\"0\" alt=\"\" />",
-      "descriptionText": "Mr. Snuffleupagus is a male brown tabby who came from Newark AHS.",
+      "descriptionHtml": "<span style=\"font-family: 'times new roman', times; font-size: 12pt;\">Bettis arrived with his momma and two littermates at three weeks old. He is a bit shy at first, but he warms up for cuddles and play time. Bettis gets along well with other cats, but has never met a dog. He has a sweet disposition and a great personality. Bettis is neutered, feline leukemia negative, and his vaccinations are current. <br />Won't you consider giving this cute&nbsp;cat a forever home?</span><img src=\"https://tracker.rescuegroups.org/pet?10059734\" width=\"0\" height=\"0\" alt=\"\" />",
+      "descriptionText": "Bettis arrived with his momma and two littermates at three weeks old. He is a bit shy at first, but he warms up for cuddles and play time. Bettis gets along well with other cats, but has never met a dog. He has a sweet disposition and a great personality. Bettis is neutered, feline leukemia negative, and his vaccinations are current. Won't you consider giving this cute&nbsp;cat a forever home?",
+      "isNeedingFoster": false,
       "isFound": false,
       "priority": 10,
+      "isHousetrained": true,
       "indoorOutdoor": "Indoor Only",
-      "name": "Mr. Snuffleupagus",
-      "newPeopleReaction": "Friendly",
+      "isKidsOk": true,
+      "name": "Bettis",
       "pictureCount": 2,
-      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/3077/pictures/animals/11095/11095906/43966391.jpg?width=100",
-      "searchString": "Mr. Snuffleupagus   Brown Tabby Male Large   Cats Domestic Short Hair (short coat)s",
+      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/27/pictures/animals/10059/10059734/41339662.jpg?width=100",
+      "searchString": "Bettis   Black and White Male    Cats Domestic Short Hair (short coat)s",
       "sex": "Male",
-      "sizeGroup": "Large",
+      "sizeCurrent": 11.800000190734863,
       "sizeUOM": "Pounds",
-      "slug": "adopt-mr-snuffleupagus-domestic-short-hair-cat",
-      "isSponsorable": false,
-      "trackerimageUrl": "https://tracker.rescuegroups.org/pet?11095906",
-      "videoCount": 0,
-      "videoUrlCount": 0,
-      "createdDate": "2017-02-19T05:58:17Z",
-      "updatedDate": "2017-03-30T01:29:48Z"
-    },
-    "relationships": {
-      "breeds": {
-        "data": [
-          {
-            "type": "breeds",
-            "id": "35"
-          }
-        ]
-      },
-      "colors": {
-        "data": [
-          {
-            "type": "colors",
-            "id": "9"
-          }
-        ]
-      },
-      "species": {
-        "data": [
-          {
-            "type": "species",
-            "id": "3"
-          }
-        ]
-      },
-      "statuses": {
-        "data": [
-          {
-            "type": "statuses",
-            "id": "1"
-          }
-        ]
-      },
-      "locations": {
-        "data": [
-          {
-            "type": "locations",
-            "id": "1000003077"
-          }
-        ]
-      },
-      "orgs": {
-        "data": [
-          {
-            "type": "orgs",
-            "id": "3077"
-          }
-        ]
-      },
-      "pictures": {
-        "data": [
-          {
-            "type": "pictures",
-            "id": "43966388"
-          },
-          {
-            "type": "pictures",
-            "id": "43966391"
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "animals",
-    "id": "11142676",
-    "attributes": {
-      "distance": 20,
-      "isAdoptionPending": false,
-      "ageString": "10 Years 8 Months",
-      "birthDate": "2012-03-07T00:00:00Z",
-      "isBirthDateExact": false,
-      "breedString": "Domestic Short Hair (short coat)",
-      "breedPrimary": "Domestic Short Hair",
-      "breedPrimaryId": 35,
-      "coatLength": "Short",
-      "isCourtesyListing": false,
-      "descriptionHtml": "<p>Sammy was brought in by Peggy Pazdro, was found outside. &nbsp;Handsome creme with white paws. &nbsp;Doesn&#39;t particularly like other cats.</p><img src=\"https://tracker.rescuegroups.org/pet?11142676\" width=\"0\" height=\"0\" alt=\"\" />",
-      "descriptionText": "Sammy was brought in by Peggy Pazdro, was found outside. &nbsp;Handsome creme with white paws. &nbsp;Doesn&#39;t particularly like other cats.",
-      "isFound": false,
-      "priority": 10,
-      "name": "Sammy",
-      "pictureCount": 2,
-      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/3077/pictures/animals/11142/11142676/55826017.jpg?width=100",
-      "searchString": "Sammy   Cream (Mostly) Male    Cats Domestic Short Hair (short coat)s",
-      "sex": "Male",
-      "sizeUOM": "Pounds",
-      "slug": "adopt-sammy-domestic-short-hair-cat",
-      "isSponsorable": false,
-      "trackerimageUrl": "https://tracker.rescuegroups.org/pet?11142676",
-      "videoCount": 0,
-      "videoUrlCount": 0,
-      "createdDate": "2017-03-06T15:47:09Z",
-      "updatedDate": "2018-03-29T01:50:07Z"
-    },
-    "relationships": {
-      "breeds": {
-        "data": [
-          {
-            "type": "breeds",
-            "id": "35"
-          }
-        ]
-      },
-      "colors": {
-        "data": [
-          {
-            "type": "colors",
-            "id": "3"
-          }
-        ]
-      },
-      "patterns": {
-        "data": [
-          {
-            "type": "patterns",
-            "id": "8"
-          }
-        ]
-      },
-      "species": {
-        "data": [
-          {
-            "type": "species",
-            "id": "3"
-          }
-        ]
-      },
-      "statuses": {
-        "data": [
-          {
-            "type": "statuses",
-            "id": "1"
-          }
-        ]
-      },
-      "locations": {
-        "data": [
-          {
-            "type": "locations",
-            "id": "1000003077"
-          }
-        ]
-      },
-      "orgs": {
-        "data": [
-          {
-            "type": "orgs",
-            "id": "3077"
-          }
-        ]
-      },
-      "pictures": {
-        "data": [
-          {
-            "type": "pictures",
-            "id": "55826014"
-          },
-          {
-            "type": "pictures",
-            "id": "55826017"
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "animals",
-    "id": "11557221",
-    "attributes": {
-      "distance": 20,
-      "activityLevel": "Moderately Active",
-      "isAdoptionPending": false,
-      "ageGroup": "Young",
-      "ageString": "6 Years 2 Months",
-      "birthDate": "2016-09-25T00:00:00Z",
-      "isBirthDateExact": false,
-      "breedString": "Domestic Short Hair (short coat)",
-      "breedPrimary": "Domestic Short Hair",
-      "breedPrimaryId": 35,
-      "coatLength": "Short",
-      "isCourtesyListing": false,
-      "descriptionHtml": "<p>Tia is a black and white young cat with a pink nose. &nbsp;She came in with her sister Tia.</p><img src=\"https://tracker.rescuegroups.org/pet?11557221\" width=\"0\" height=\"0\" alt=\"\" />",
-      "descriptionText": "Tia is a black and white young cat with a pink nose. &nbsp;She came in with her sister Tia.",
-      "isFound": false,
-      "priority": 10,
-      "indoorOutdoor": "Indoor Only",
-      "name": "Tia",
-      "newPeopleReaction": "Friendly",
-      "pictureCount": 3,
-      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/3077/pictures/animals/11557/11557221/48934176.jpg?width=100",
-      "searchString": "Tia   Black and White Female Medium   Cats Domestic Short Hair (short coat)s",
-      "sex": "Female",
-      "sizeGroup": "Medium",
-      "sizeUOM": "Pounds",
-      "slug": "adopt-tia-domestic-short-hair-cat",
-      "isSponsorable": false,
-      "trackerimageUrl": "https://tracker.rescuegroups.org/pet?11557221",
-      "videoCount": 0,
-      "videoUrlCount": 0,
-      "createdDate": "2017-06-18T04:51:39Z",
-      "updatedDate": "2017-09-04T00:35:22Z"
+      "slug": "adopt-bettis-domestic-short-hair-cat",
+      "isSpecialNeeds": false,
+      "isSponsorable": true,
+      "trackerimageUrl": "https://tracker.rescuegroups.org/pet?10059734",
+      "url": "https://www.olivebranchwv.org/animals/detail?AnimalID=10059734",
+      "videoCount": 1,
+      "videoUrlCount": 1,
+      "createdDate": "2016-05-30T16:21:58Z",
+      "updatedDate": "2025-05-22T18:11:18Z"
     },
     "relationships": {
       "breeds": {
@@ -382,7 +335,7 @@
         "data": [
           {
             "type": "locations",
-            "id": "1000003077"
+            "id": "1000000027"
           }
         ]
       },
@@ -390,7 +343,7 @@
         "data": [
           {
             "type": "orgs",
-            "id": "3077"
+            "id": "27"
           }
         ]
       },
@@ -398,293 +351,19 @@
         "data": [
           {
             "type": "pictures",
-            "id": "46418660"
+            "id": "41339654"
           },
           {
             "type": "pictures",
-            "id": "48934175"
-          },
-          {
-            "type": "pictures",
-            "id": "48934176"
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "animals",
-    "id": "11557226",
-    "attributes": {
-      "distance": 20,
-      "activityLevel": "Moderately Active",
-      "isAdoptionPending": false,
-      "ageGroup": "Young",
-      "ageString": "6 Years 2 Months",
-      "birthDate": "2016-09-25T00:00:00Z",
-      "isBirthDateExact": false,
-      "breedString": "Domestic Short Hair (short coat)",
-      "breedPrimary": "Domestic Short Hair",
-      "breedPrimaryId": 35,
-      "coatLength": "Short",
-      "isCourtesyListing": false,
-      "descriptionHtml": "<p>Mia is a young black and white female cat with a black nose. &nbsp;She came in with her sister Tia.</p><img src=\"https://tracker.rescuegroups.org/pet?11557226\" width=\"0\" height=\"0\" alt=\"\" />",
-      "descriptionText": "Mia is a young black and white female cat with a black nose. &nbsp;She came in with her sister Tia.",
-      "isFound": false,
-      "priority": 10,
-      "indoorOutdoor": "Indoor Only",
-      "name": "Mia",
-      "newPeopleReaction": "Friendly",
-      "pictureCount": 2,
-      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/3077/pictures/animals/11557/11557226/50904530.jpg?width=100",
-      "searchString": "Mia   Black and White Female Medium   Cats Domestic Short Hair (short coat)s",
-      "sex": "Female",
-      "sizeGroup": "Medium",
-      "sizeUOM": "Pounds",
-      "slug": "adopt-mia-domestic-short-hair-cat",
-      "isSponsorable": false,
-      "trackerimageUrl": "https://tracker.rescuegroups.org/pet?11557226",
-      "videoCount": 0,
-      "videoUrlCount": 0,
-      "createdDate": "2017-06-18T04:54:38Z",
-      "updatedDate": "2017-10-28T15:30:45Z"
-    },
-    "relationships": {
-      "breeds": {
-        "data": [
-          {
-            "type": "breeds",
-            "id": "35"
+            "id": "41339662"
           }
         ]
       },
-      "colors": {
+      "videos": {
         "data": [
           {
-            "type": "colors",
-            "id": "6"
-          }
-        ]
-      },
-      "species": {
-        "data": [
-          {
-            "type": "species",
-            "id": "3"
-          }
-        ]
-      },
-      "statuses": {
-        "data": [
-          {
-            "type": "statuses",
-            "id": "1"
-          }
-        ]
-      },
-      "locations": {
-        "data": [
-          {
-            "type": "locations",
-            "id": "1000003077"
-          }
-        ]
-      },
-      "orgs": {
-        "data": [
-          {
-            "type": "orgs",
-            "id": "3077"
-          }
-        ]
-      },
-      "pictures": {
-        "data": [
-          {
-            "type": "pictures",
-            "id": "46418462"
-          },
-          {
-            "type": "pictures",
-            "id": "50904530"
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "animals",
-    "id": "11699095",
-    "attributes": {
-      "distance": 46.5,
-      "adoptionFeeString": "200",
-      "isAdoptionPending": false,
-      "isBirthDateExact": false,
-      "breedString": "Domestic Short Hair",
-      "breedPrimary": "Domestic Short Hair",
-      "breedPrimaryId": 35,
-      "isCourtesyListing": false,
-      "descriptionHtml": "<p>\n<span style=\"color: rgb(96, 96, 96); font-family: Tahoma, Geneva, Arial, Helvetica, Verdana, sans-serif; font-size: 12px; background-color: rgb(255, 255, 255);\">Pick me! &nbsp;Pick me! &nbsp; &nbsp; If you want to adopt a cat or a kitten but don&#39;t have a particular one in mind, we can help! &nbsp;Select this option when filling out an adoption application and one of our adoption counselors can assist you in finding the perfect match. &nbsp;Looking forward to hearing from you!!</span>\n</p><img src=\"https://tracker.rescuegroups.org/pet?11699095\" width=\"0\" height=\"0\" alt=\"\" />",
-      "descriptionText": "\nPick me! &nbsp;Pick me! &nbsp; &nbsp; If you want to adopt a cat or a kitten but don&#39;t have a particular one in mind, we can help! &nbsp;Select this option when filling out an adoption application and one of our adoption counselors can assist you in finding the perfect match. &nbsp;Looking forward to hearing from you!!\n",
-      "isFound": false,
-      "priority": 10,
-      "name": "Any Kitten",
-      "pictureCount": 1,
-      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/7951/pictures/animals/11699/11699095/47150728.jpg?width=100",
-      "searchString": "Any Kitten        Cats Domestic Short Hairs",
-      "sizeUOM": "Pounds",
-      "slug": "adopt-any-kitten-domestic-short-hair-cat",
-      "isSponsorable": false,
-      "trackerimageUrl": "https://tracker.rescuegroups.org/pet?11699095",
-      "videoCount": 0,
-      "videoUrlCount": 0,
-      "createdDate": "2017-07-17T14:41:35Z",
-      "updatedDate": "2022-08-08T19:10:39Z"
-    },
-    "relationships": {
-      "breeds": {
-        "data": [
-          {
-            "type": "breeds",
-            "id": "35"
-          }
-        ]
-      },
-      "species": {
-        "data": [
-          {
-            "type": "species",
-            "id": "3"
-          }
-        ]
-      },
-      "statuses": {
-        "data": [
-          {
-            "type": "statuses",
-            "id": "1"
-          }
-        ]
-      },
-      "locations": {
-        "data": [
-          {
-            "type": "locations",
-            "id": "1000007951"
-          }
-        ]
-      },
-      "orgs": {
-        "data": [
-          {
-            "type": "orgs",
-            "id": "7951"
-          }
-        ]
-      },
-      "pictures": {
-        "data": [
-          {
-            "type": "pictures",
-            "id": "47150728"
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "animals",
-    "id": "11788975",
-    "attributes": {
-      "distance": 0.64,
-      "isAdoptionPending": false,
-      "ageGroup": "Senior",
-      "ageString": "11 Years 2 Months",
-      "birthDate": "2015-02-10T00:00:00Z",
-      "isBirthDateExact": false,
-      "breedString": "Domestic Short Hair",
-      "breedPrimary": "Domestic Short Hair",
-      "breedPrimaryId": 35,
-      "isCourtesyListing": false,
-      "descriptionText": "Mister Toosa is currently in foster care and ready for adoption via our virtual process!Mister Toosa, an 11-year-old male, just arrived and is still getting settled in, so we&#226;\u20ac\u2122re just beginning to learn who they are. Right now, everything is new&#226;\u20ac\u201dnew people, new sounds, new routines&#226;\u20ac\u201dand we&#226;\u20ac\u2122re giving them time to relax, decompress, and show us their true personality at their own pace.Here&#226;\u20ac\u2122s what we know so far about his time in foster care: https://acrobat.adobe.com/id/urn:aaid:sc:VA6C2:5e1b812e-202f-4c7c-8957-f0bf1836e6abHe is a handsome guy with a unique look from his crinkled ear. He is a total charmer. His foster says &quot;Mister Toosa is the sweetest, cuddliest boy! Almost immediately upon coming to his foster home, he was exploring and making himself comfortable. He warms up quickly and loves to be near you, whether it&#39;s climbing into your lap for a nap or lying by your feet while cooking dinner. As a senior citizen, he is definitely more low-key and really just enjoys the finer things in life like his naps, belly rubs, and treats. He&#39;s a cuddle bug! He loves to be either right in your lap, on your legs or at least right beside you. When he&#39;s comfy on the couch, he loves to flop over on to his back and show off his belly with his paws in the air! And when he&#39;s in a comfy, deep sleep, he has the cutest little snore.&quot;He is neutered, vaccinated, microchipped, and has had preventative treatments to ensure he is ready for his next steps.Submit an adoption survey from above and our team will reach out via phone or email (check spam) to schedule a counseling call. For any additional questions, please contact fosternyc@bestfriends.org.Please remember, pets cannot be held or reserved.",
-      "isFound": false,
-      "priority": 10,
-      "name": "Mister Toosa",
-      "pictureCount": 3,
-      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/8514/pictures/animals/11788/11788975/60649053.jpg?width=100",
-      "searchString": "Mister Toosa   Black Male    Cats Domestic Short Hairs",
-      "sex": "Male",
-      "sizeCurrent": 13.479999542236328,
-      "sizeUOM": "Pounds",
-      "slug": "adopt-mister-toosa-domestic-short-hair-cat",
-      "isSponsorable": false,
-      "videoCount": 0,
-      "videoUrlCount": 2,
-      "createdDate": "2017-07-27T20:51:12Z",
-      "updatedDate": "2026-05-02T22:37:11Z"
-    },
-    "relationships": {
-      "breeds": {
-        "data": [
-          {
-            "type": "breeds",
-            "id": "35"
-          }
-        ]
-      },
-      "colors": {
-        "data": [
-          {
-            "type": "colors",
-            "id": "1"
-          }
-        ]
-      },
-      "species": {
-        "data": [
-          {
-            "type": "species",
-            "id": "3"
-          }
-        ]
-      },
-      "statuses": {
-        "data": [
-          {
-            "type": "statuses",
-            "id": "1"
-          }
-        ]
-      },
-      "locations": {
-        "data": [
-          {
-            "type": "locations",
-            "id": "1000008514"
-          }
-        ]
-      },
-      "orgs": {
-        "data": [
-          {
-            "type": "orgs",
-            "id": "8514"
-          }
-        ]
-      },
-      "pictures": {
-        "data": [
-          {
-            "type": "pictures",
-            "id": "60649051"
-          },
-          {
-            "type": "pictures",
-            "id": "60649052"
-          },
-          {
-            "type": "pictures",
-            "id": "60649053"
+            "type": "videos",
+            "id": "20969823"
           }
         ]
       },
@@ -692,11 +371,7 @@
         "data": [
           {
             "type": "videourls",
-            "id": "21293988"
-          },
-          {
-            "type": "videourls",
-            "id": "21295645"
+            "id": "21041841"
           }
         ]
       }
@@ -704,673 +379,30 @@
   },
   {
     "type": "animals",
-    "id": "12707003",
+    "id": "10178313",
     "attributes": {
-      "distance": 20,
-      "adoptedDate": "2018-05-23T00:00:00Z",
-      "isAdoptionPending": false,
-      "ageGroup": "Adult",
-      "ageString": "8 Years 4 Months",
-      "birthDate": "2017-12-27T00:00:00Z",
-      "isBirthDateExact": false,
-      "breedString": "Domestic Short Hair / Calico (short coat)",
-      "breedPrimary": "Domestic Short Hair",
-      "breedPrimaryId": 35,
-      "breedSecondary": "Calico",
-      "breedSecondaryId": 15,
-      "coatLength": "Short",
-      "colorDetails": "High White Calico",
-      "isCourtesyListing": false,
-      "isDeclawed": false,
-      "descriptionText": "Chantilly was pulled from Newark with her mom, Lacey, and 2 siblings,&nbsp;Venise &amp;&nbsp;Alencon. Both Chantilly and Alencon are being returned 4/14/2026. Owner is unable to bring them to his new apartment, the rental office denied his request for 2 cats and their policy is one animal per apartment.",
-      "isFound": false,
-      "priority": 10,
-      "name": "Chantilly",
-      "pictureCount": 4,
-      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/3077/pictures/animals/12707/12707003/103051670.jpg?width=100",
-      "rescueId": "ID 28389",
-      "searchString": "Chantilly Gigi,  Chantilly High White Calico Calico or Dilute Calico Female Large ID 28389 High White Calico Cats Domestic Short Hair / Calico (short coat)s",
-      "sex": "Female",
-      "sizeGroup": "Large",
-      "sizeUOM": "Pounds",
-      "slug": "adopt-chantilly-domestic-short-hair-cat",
-      "isSpecialNeeds": false,
-      "isSponsorable": false,
-      "summary": "adopted with Alencon",
-      "videoCount": 0,
-      "videoUrlCount": 0,
-      "createdDate": "2018-02-21T17:01:03Z",
-      "updatedDate": "2026-04-28T22:10:57Z"
-    },
-    "relationships": {
-      "breeds": {
-        "data": [
-          {
-            "type": "breeds",
-            "id": "35"
-          },
-          {
-            "type": "breeds",
-            "id": "15"
-          }
-        ]
-      },
-      "colors": {
-        "data": [
-          {
-            "type": "colors",
-            "id": "10"
-          }
-        ]
-      },
-      "patterns": {
-        "data": [
-          {
-            "type": "patterns",
-            "id": "9"
-          }
-        ]
-      },
-      "species": {
-        "data": [
-          {
-            "type": "species",
-            "id": "3"
-          }
-        ]
-      },
-      "statuses": {
-        "data": [
-          {
-            "type": "statuses",
-            "id": "1"
-          }
-        ]
-      },
-      "locations": {
-        "data": [
-          {
-            "type": "locations",
-            "id": "1000003077"
-          }
-        ]
-      },
-      "orgs": {
-        "data": [
-          {
-            "type": "orgs",
-            "id": "3077"
-          }
-        ]
-      },
-      "pictures": {
-        "data": [
-          {
-            "type": "pictures",
-            "id": "57521215"
-          },
-          {
-            "type": "pictures",
-            "id": "102990380"
-          },
-          {
-            "type": "pictures",
-            "id": "103051669"
-          },
-          {
-            "type": "pictures",
-            "id": "103051670"
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "animals",
-    "id": "12804561",
-    "attributes": {
-      "distance": 20,
-      "isAdoptionPending": false,
-      "ageGroup": "Senior",
-      "ageString": "19 Years 8 Months",
-      "birthDate": "2003-03-17T00:00:00Z",
-      "isBirthDateExact": false,
-      "breedString": "Calico (short coat)",
-      "breedPrimary": "Calico",
-      "breedPrimaryId": 15,
-      "coatLength": "Short",
-      "colorDetails": "Calico",
-      "isCourtesyListing": false,
-      "descriptionHtml": "<p>Owner Surrender to Newark Humane.&nbsp; Formerly Princess</p><img src=\"https://tracker.rescuegroups.org/pet?12804561\" width=\"0\" height=\"0\" alt=\"\" />",
-      "descriptionText": "Owner Surrender to Newark Humane.&nbsp; Formerly Princess",
-      "isFound": false,
-      "priority": 10,
-      "name": "Princesa",
-      "pictureCount": 1,
-      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/3077/pictures/animals/12804/12804561/56439267.jpg?width=100",
-      "rescueId": "tag n152450; id 29019",
-      "searchString": "Princesa formerly Princess Calico Calico or Dilute Calico Female  tag n152450; id 29019 Calico Cats Calico (short coat)s",
-      "sex": "Female",
-      "sizeUOM": "Pounds",
-      "slug": "adopt-princesa-calico-cat",
-      "isSponsorable": false,
-      "trackerimageUrl": "https://tracker.rescuegroups.org/pet?12804561",
-      "videoCount": 0,
-      "videoUrlCount": 0,
-      "createdDate": "2018-03-23T20:52:09Z",
-      "updatedDate": "2018-04-22T18:15:46Z"
-    },
-    "relationships": {
-      "breeds": {
-        "data": [
-          {
-            "type": "breeds",
-            "id": "15"
-          }
-        ]
-      },
-      "colors": {
-        "data": [
-          {
-            "type": "colors",
-            "id": "10"
-          }
-        ]
-      },
-      "species": {
-        "data": [
-          {
-            "type": "species",
-            "id": "3"
-          }
-        ]
-      },
-      "statuses": {
-        "data": [
-          {
-            "type": "statuses",
-            "id": "1"
-          }
-        ]
-      },
-      "locations": {
-        "data": [
-          {
-            "type": "locations",
-            "id": "1000003077"
-          }
-        ]
-      },
-      "orgs": {
-        "data": [
-          {
-            "type": "orgs",
-            "id": "3077"
-          }
-        ]
-      },
-      "pictures": {
-        "data": [
-          {
-            "type": "pictures",
-            "id": "56439267"
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "animals",
-    "id": "13335141",
-    "attributes": {
-      "distance": 20,
-      "activityLevel": "Moderately Active",
-      "isAdoptionPending": false,
-      "ageGroup": "Young",
-      "ageString": "4 Years 6 Months",
-      "birthDate": "2018-05-06T00:00:00Z",
-      "isBirthDateExact": false,
-      "breedString": "Domestic Short Hair (short coat)",
-      "breedPrimary": "Domestic Short Hair",
-      "breedPrimaryId": 35,
-      "coatLength": "Short",
-      "isCourtesyListing": false,
-      "descriptionHtml": "<p>Kali is a brown tiger&nbsp;female kitten who came from SARA with 4 siblings.</p><img src=\"https://tracker.rescuegroups.org/pet?13335141\" width=\"0\" height=\"0\" alt=\"\" />",
-      "descriptionText": "Kali is a brown tiger&nbsp;female kitten who came from SARA with 4 siblings.",
-      "isFound": false,
-      "priority": 10,
-      "indoorOutdoor": "Indoor Only",
-      "name": "Kali",
-      "newPeopleReaction": "Friendly",
-      "pictureCount": 1,
-      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/3077/pictures/animals/13335/13335141/59032577.jpg?width=100",
-      "searchString": "Kali SIBLINGS = Kali & Kairi  Gray, Blue or Silver Tabby Female Medium   Cats Domestic Short Hair (short coat)s",
-      "sex": "Female",
-      "sizeGroup": "Medium",
-      "sizeUOM": "Pounds",
-      "slug": "adopt-kali-domestic-short-hair-cat",
-      "isSponsorable": false,
-      "trackerimageUrl": "https://tracker.rescuegroups.org/pet?13335141",
-      "videoCount": 0,
-      "videoUrlCount": 0,
-      "createdDate": "2018-07-25T18:10:54Z",
-      "updatedDate": "2018-07-25T18:10:55Z"
-    },
-    "relationships": {
-      "breeds": {
-        "data": [
-          {
-            "type": "breeds",
-            "id": "35"
-          }
-        ]
-      },
-      "colors": {
-        "data": [
-          {
-            "type": "colors",
-            "id": "13"
-          }
-        ]
-      },
-      "patterns": {
-        "data": [
-          {
-            "type": "patterns",
-            "id": "8"
-          }
-        ]
-      },
-      "species": {
-        "data": [
-          {
-            "type": "species",
-            "id": "3"
-          }
-        ]
-      },
-      "statuses": {
-        "data": [
-          {
-            "type": "statuses",
-            "id": "1"
-          }
-        ]
-      },
-      "locations": {
-        "data": [
-          {
-            "type": "locations",
-            "id": "1000003077"
-          }
-        ]
-      },
-      "orgs": {
-        "data": [
-          {
-            "type": "orgs",
-            "id": "3077"
-          }
-        ]
-      },
-      "pictures": {
-        "data": [
-          {
-            "type": "pictures",
-            "id": "59032577"
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "animals",
-    "id": "13335145",
-    "attributes": {
-      "distance": 20,
-      "activityLevel": "Moderately Active",
-      "isAdoptionPending": false,
-      "ageGroup": "Young",
-      "ageString": "4 Years 6 Months",
-      "birthDate": "2018-05-06T00:00:00Z",
-      "isBirthDateExact": false,
-      "breedString": "Domestic Short Hair (short coat)",
-      "breedPrimary": "Domestic Short Hair",
-      "breedPrimaryId": 35,
-      "coatLength": "Short",
-      "isCourtesyListing": false,
-      "descriptionHtml": "<p>Kairi&nbsp;is a brown tiger&nbsp;female kitten who came from SARA with 4 siblings.</p><img src=\"https://tracker.rescuegroups.org/pet?13335145\" width=\"0\" height=\"0\" alt=\"\" />",
-      "descriptionText": "Kairi&nbsp;is a brown tiger&nbsp;female kitten who came from SARA with 4 siblings.",
-      "isFound": false,
-      "priority": 10,
-      "indoorOutdoor": "Indoor Only",
-      "name": "Kairi",
-      "newPeopleReaction": "Friendly",
-      "pictureCount": 1,
-      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/3077/pictures/animals/13335/13335145/59032581.jpg?width=100",
-      "searchString": "Kairi SIBLINGS = Kali & Kairi  Gray, Blue or Silver Tabby Female Medium   Cats Domestic Short Hair (short coat)s",
-      "sex": "Female",
-      "sizeGroup": "Medium",
-      "sizeUOM": "Pounds",
-      "slug": "adopt-kairi-domestic-short-hair-cat",
-      "isSponsorable": false,
-      "trackerimageUrl": "https://tracker.rescuegroups.org/pet?13335145",
-      "videoCount": 0,
-      "videoUrlCount": 0,
-      "createdDate": "2018-07-25T18:11:44Z",
-      "updatedDate": "2018-07-25T18:11:45Z"
-    },
-    "relationships": {
-      "breeds": {
-        "data": [
-          {
-            "type": "breeds",
-            "id": "35"
-          }
-        ]
-      },
-      "colors": {
-        "data": [
-          {
-            "type": "colors",
-            "id": "13"
-          }
-        ]
-      },
-      "patterns": {
-        "data": [
-          {
-            "type": "patterns",
-            "id": "8"
-          }
-        ]
-      },
-      "species": {
-        "data": [
-          {
-            "type": "species",
-            "id": "3"
-          }
-        ]
-      },
-      "statuses": {
-        "data": [
-          {
-            "type": "statuses",
-            "id": "1"
-          }
-        ]
-      },
-      "locations": {
-        "data": [
-          {
-            "type": "locations",
-            "id": "1000003077"
-          }
-        ]
-      },
-      "orgs": {
-        "data": [
-          {
-            "type": "orgs",
-            "id": "3077"
-          }
-        ]
-      },
-      "pictures": {
-        "data": [
-          {
-            "type": "pictures",
-            "id": "59032581"
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "animals",
-    "id": "13416513",
-    "attributes": {
-      "distance": 20,
-      "isAdoptionPending": false,
-      "ageGroup": "Young",
-      "ageString": "5 Years 11 Months",
-      "birthDate": "2017-01-01T00:00:00Z",
-      "isBirthDateExact": false,
-      "breedString": "Domestic Short Hair (short coat)",
-      "breedPrimary": "Domestic Short Hair",
-      "breedPrimaryId": 35,
-      "coatLength": "Short",
-      "colorDetails": "white chest, feet, face",
-      "isCourtesyListing": false,
-      "isDeclawed": false,
-      "descriptionHtml": "<p>Samantha was trapped in East Orange on 03/27/2018, too far long to TNR, trapper had tested before i took her-negative.&nbsp; In the early hours of 03/28/18 she gave birth to 4 gorgeous kittens (Nico, Giovanni, Amelia, Antoinette)</p><img src=\"https://tracker.rescuegroups.org/pet?13416513\" width=\"0\" height=\"0\" alt=\"\" />",
-      "descriptionText": "Samantha was trapped in East Orange on 03/27/2018, too far long to TNR, trapper had tested before i took her-negative.&nbsp; In the early hours of 03/28/18 she gave birth to 4 gorgeous kittens (Nico, Giovanni, Amelia, Antoinette)",
-      "isFound": false,
-      "groomingNeeds": "Low",
-      "priority": 10,
-      "name": "Samantha 4",
-      "pictureCount": 2,
-      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/3077/pictures/animals/13416/13416513/59594456.jpg?width=100",
-      "searchString": "Samantha 4  white chest, feet, face Gray, Blue or Silver Tabby Female Medium  white chest, feet, face Cats Domestic Short Hair (short coat)s",
-      "sex": "Female",
-      "sizeGroup": "Medium",
-      "sizeUOM": "Pounds",
-      "slug": "adopt-samantha-domestic-short-hair-cat",
-      "isSponsorable": false,
-      "trackerimageUrl": "https://tracker.rescuegroups.org/pet?13416513",
-      "videoCount": 0,
-      "videoUrlCount": 0,
-      "createdDate": "2018-08-14T13:39:48Z",
-      "updatedDate": "2018-09-07T20:38:07Z"
-    },
-    "relationships": {
-      "breeds": {
-        "data": [
-          {
-            "type": "breeds",
-            "id": "35"
-          }
-        ]
-      },
-      "colors": {
-        "data": [
-          {
-            "type": "colors",
-            "id": "13"
-          }
-        ]
-      },
-      "patterns": {
-        "data": [
-          {
-            "type": "patterns",
-            "id": "7"
-          }
-        ]
-      },
-      "species": {
-        "data": [
-          {
-            "type": "species",
-            "id": "3"
-          }
-        ]
-      },
-      "statuses": {
-        "data": [
-          {
-            "type": "statuses",
-            "id": "1"
-          }
-        ]
-      },
-      "locations": {
-        "data": [
-          {
-            "type": "locations",
-            "id": "1000003077"
-          }
-        ]
-      },
-      "orgs": {
-        "data": [
-          {
-            "type": "orgs",
-            "id": "3077"
-          }
-        ]
-      },
-      "pictures": {
-        "data": [
-          {
-            "type": "pictures",
-            "id": "59594114"
-          },
-          {
-            "type": "pictures",
-            "id": "59594456"
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "animals",
-    "id": "13477687",
-    "attributes": {
-      "distance": 28.71,
-      "isAdoptionPending": false,
-      "ageGroup": "Adult",
-      "isBirthDateExact": false,
-      "breedString": "Domestic Short Hair (short coat)",
-      "breedPrimary": "Domestic Short Hair",
-      "breedPrimaryId": 35,
-      "isCatsOk": true,
-      "coatLength": "Short",
-      "isCourtesyListing": false,
-      "isCurrentVaccinations": true,
-      "isDeclawed": false,
-      "descriptionHtml": "<p class=\"p1\"><span class=\"s1\">Abby is a very beautiful black female cat who gets along with other cats, enjoys playing with toys and would love&nbsp;</span><span class=\"s1\">\u2764\ufe0f</span><span class=\"s1\">&nbsp;to chill and watch TV with you.&nbsp;<span class=\"s1\">&nbsp;</span>If you are looking for a companion, </span></p>\n<p class=\"p1\"><span class=\"s1\">Abby is the one! &nbsp;&zwj;\u2b1b</span></p>\n<p class=\"p2\">Abby is spayed, fully dewormed, fully vaccinated, FELV/FIV negative and microchipped.</p>\n<p class=\"p2\">&nbsp;If you are interested, you can e-mail AASNAdoptions@gmail.com or text 516-984-4525 to make an appointment.</p><img src=\"https://tracker.rescuegroups.org/pet?13477687\" width=\"0\" height=\"0\" alt=\"\" />",
-      "descriptionText": "Abby is a very beautiful black female cat who gets along with other cats, enjoys playing with toys and would love&nbsp;\u2764\ufe0f&nbsp;to chill and watch TV with you.&nbsp;&nbsp;If you are looking for a companion, \nAbby is the one! &nbsp;&zwj;\u2b1b\nAbby is spayed, fully dewormed, fully vaccinated, FELV/FIV negative and microchipped.\n&nbsp;If you are interested, you can e-mail AASNAdoptions@gmail.com or text 516-984-4525 to make an appointment.",
-      "isNeedingFoster": false,
-      "isFound": false,
-      "priority": 10,
-      "isHousetrained": true,
-      "name": "ABBY",
-      "pictureCount": 3,
-      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/1493/pictures/animals/13477/13477687/60011847.jpg?width=100",
-      "searchString": "ABBY   Black Female Medium   Cats Domestic Short Hair (short coat)s",
-      "sex": "Female",
-      "sizeGroup": "Medium",
-      "slug": "adopt-abby-domestic-short-hair-cat",
-      "isSpecialNeeds": false,
-      "isSponsorable": false,
-      "trackerimageUrl": "https://tracker.rescuegroups.org/pet?13477687",
-      "videoCount": 0,
-      "videoUrlCount": 0,
-      "createdDate": "2018-08-29T14:54:34Z",
-      "updatedDate": "2024-11-07T23:36:45Z"
-    },
-    "relationships": {
-      "breeds": {
-        "data": [
-          {
-            "type": "breeds",
-            "id": "35"
-          }
-        ]
-      },
-      "colors": {
-        "data": [
-          {
-            "type": "colors",
-            "id": "1"
-          }
-        ]
-      },
-      "species": {
-        "data": [
-          {
-            "type": "species",
-            "id": "3"
-          }
-        ]
-      },
-      "statuses": {
-        "data": [
-          {
-            "type": "statuses",
-            "id": "1"
-          }
-        ]
-      },
-      "fosters": {
-        "data": [
-          {
-            "type": "fosters",
-            "id": "6547417"
-          }
-        ]
-      },
-      "locations": {
-        "data": [
-          {
-            "type": "locations",
-            "id": "16785"
-          }
-        ]
-      },
-      "orgs": {
-        "data": [
-          {
-            "type": "orgs",
-            "id": "1493"
-          }
-        ]
-      },
-      "pictures": {
-        "data": [
-          {
-            "type": "pictures",
-            "id": "71712712"
-          },
-          {
-            "type": "pictures",
-            "id": "93579369"
-          },
-          {
-            "type": "pictures",
-            "id": "60011847"
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "animals",
-    "id": "13486021",
-    "attributes": {
-      "distance": 38.37,
       "activityLevel": "Moderately Active",
       "isAdoptionPending": false,
       "adultSexesOk": "All",
-      "ageGroup": "Young",
-      "ageString": "7 Years 11 Months",
-      "birthDate": "2017-09-09T00:00:00Z",
+      "ageGroup": "Adult",
+      "ageString": "11 Years 5 Months",
+      "availableDate": "2026-03-30T00:00:00Z",
+      "birthDate": "2014-10-09T00:00:00Z",
       "isBirthDateExact": false,
-      "breedString": "Domestic Short Hair (short coat)",
-      "breedPrimary": "Domestic Short Hair",
-      "breedPrimaryId": 35,
+      "breedString": "Tuxedo / Domestic Medium Hair / Mixed (short coat)",
+      "breedPrimary": "Tuxedo",
+      "breedPrimaryId": 73,
+      "breedSecondary": "Domestic Medium Hair",
+      "breedSecondaryId": 29,
+      "isBreedMixed": true,
       "isCatsOk": true,
       "coatLength": "Short",
       "isCourtesyListing": false,
       "isCurrentVaccinations": true,
       "isDeclawed": false,
-      "descriptionHtml": "<img src=\"https://tracker.rescuegroups.org/pet?13486021\" width=\"0\" height=\"0\" alt=\"\" />",
-      "isDogsOk": false,
+      "descriptionText": "\n\n\n\n\n\n\n\n\n\n\nTara is&nbsp;still learning how to trust the world. She&#39;s not the kind of cat who&rsquo;ll jump into your lap on day one&mdash;but give her time, patience, and respect, and you&rsquo;ll be rewarded with a quiet, loyal companion.\n\nTara is most comfortable when she has all four paws on the ground. You&#39;ll see her confidence grow when she&#39;s walking freely around the room. She&#39;s a bit defensive when tucked away in a cat tree or bed, so it&rsquo;s best to let her come to you rather than making the first move. Slow and steady is the way to Tara&rsquo;s heart.\n\nShe would thrive in a home with someone who has experience with shy&nbsp;cats&mdash;someone who understands that trust takes time. Once she feels safe, Tara truly enjoys being petted and even seeks it out on her own terms. One of her favorite activities? Chasing the laser pointer! It&rsquo;s a great way to bond with her while keeping her active and engaged.\n\nTara doesn&rsquo;t seem particularly interested in other cats&mdash;she&rsquo;s indifferent, really&mdash;so she could do well as a solo cat or in a quiet multi-cat home where she has her own space.\n\nTara may not be the right fit for every home, but for the right person&mdash;someone calm, patient, and kind&mdash;she could be an incredibly rewarding companion.\n\n&nbsp;\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
       "energyLevel": "Moderate",
-      "exerciseNeeds": "Not Required",
+      "exerciseNeeds": "Low",
       "fenceNeeds": "Not Required",
       "isNeedingFoster": false,
       "isFound": false,
@@ -1379,40 +411,45 @@
       "isHousetrained": true,
       "indoorOutdoor": "Indoor Only",
       "isKidsOk": false,
-      "name": "Raggedy Ann",
+      "name": "Tara",
       "newPeopleReaction": "Cautious",
-      "ownerExperience": "Species",
-      "pictureCount": 4,
-      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/7106/pictures/animals/13486/13486021/60036803.jpg?width=100",
+      "ownerExperience": "None",
+      "pictureCount": 10,
+      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/5211/pictures/animals/10178/10178313/58063078.jpg?width=100",
       "qualities": [
-        "apartment",
         "oKForSeniors",
+        "olderKidsOnly",
         "playful",
         "playsToys",
+        "skittish",
         "timid"
       ],
-      "searchString": "Raggedy Ann Annie  Black Female Medium   Cats Domestic Short Hair (short coat)s",
+      "searchString": "Tara   Black and White Female Medium   Cats Tuxedo / Domestic Medium Hair / Mixed (short coat)s",
       "sex": "Female",
       "sheddingLevel": "Moderate",
       "sizeGroup": "Medium",
       "sizeUOM": "Pounds",
-      "slug": "adopt-raggedy-ann-domestic-short-hair-cat",
+      "slug": "adopt-tara-tuxedo-cat",
       "isSpecialNeeds": false,
-      "isSponsorable": false,
-      "trackerimageUrl": "https://tracker.rescuegroups.org/pet?13486021",
-      "videoCount": 0,
-      "videoUrlCount": 0,
-      "vocalLevel": "Quiet",
+      "isSponsorable": true,
+      "url": "https://CatRangers.rescuegroups.org/animals/detail?AnimalID=10178313",
+      "videoCount": 1,
+      "videoUrlCount": 1,
+      "vocalLevel": "Some",
       "isYardRequired": false,
-      "createdDate": "2018-08-30T01:38:40Z",
-      "updatedDate": "2020-12-04T13:46:12Z"
+      "createdDate": "2016-06-21T01:53:55Z",
+      "updatedDate": "2026-03-30T10:53:15Z"
     },
     "relationships": {
       "breeds": {
         "data": [
           {
             "type": "breeds",
-            "id": "35"
+            "id": "73"
+          },
+          {
+            "type": "breeds",
+            "id": "29"
           }
         ]
       },
@@ -1420,7 +457,15 @@
         "data": [
           {
             "type": "colors",
-            "id": "1"
+            "id": "6"
+          }
+        ]
+      },
+      "patterns": {
+        "data": [
+          {
+            "type": "patterns",
+            "id": "14"
           }
         ]
       },
@@ -1444,7 +489,7 @@
         "data": [
           {
             "type": "locations",
-            "id": "1000007106"
+            "id": "18092"
           }
         ]
       },
@@ -1452,7 +497,7 @@
         "data": [
           {
             "type": "orgs",
-            "id": "7106"
+            "id": "5211"
           }
         ]
       },
@@ -1460,19 +505,59 @@
         "data": [
           {
             "type": "pictures",
-            "id": "60036800"
+            "id": "89311739"
           },
           {
             "type": "pictures",
-            "id": "60036801"
+            "id": "76960673"
           },
           {
             "type": "pictures",
-            "id": "60036802"
+            "id": "62052409"
           },
           {
             "type": "pictures",
-            "id": "60036803"
+            "id": "87171035"
+          },
+          {
+            "type": "pictures",
+            "id": "97051692"
+          },
+          {
+            "type": "pictures",
+            "id": "89311729"
+          },
+          {
+            "type": "pictures",
+            "id": "89311725"
+          },
+          {
+            "type": "pictures",
+            "id": "87171036"
+          },
+          {
+            "type": "pictures",
+            "id": "87171037"
+          },
+          {
+            "type": "pictures",
+            "id": "58063078"
+          }
+        ]
+      },
+      "videos": {
+        "data": [
+          {
+            "type": "videos",
+            "id": "21109720"
+          }
+        ]
+      },
+      "videourls": {
+        "data": [
+          {
+            "type": "videourls",
+            "id": "21275008"
           }
         ]
       }
@@ -1480,39 +565,37 @@
   },
   {
     "type": "animals",
-    "id": "13539656",
+    "id": "10187884",
     "attributes": {
-      "distance": 28.71,
       "isAdoptionPending": false,
-      "ageGroup": "Young",
+      "ageGroup": "Senior",
+      "ageString": "12 Years 9 Months",
+      "birthDate": "2013-06-18T00:00:00Z",
       "isBirthDateExact": false,
-      "breedString": "Domestic Short Hair (short coat)",
+      "breedString": "Domestic Short Hair (medium coat)",
       "breedPrimary": "Domestic Short Hair",
       "breedPrimaryId": 35,
-      "coatLength": "Short",
+      "isCatsOk": true,
+      "coatLength": "Medium",
       "isCourtesyListing": false,
-      "isCurrentVaccinations": true,
-      "isDeclawed": false,
-      "descriptionHtml": "<p>Susan is a very cute and adorable black female with black whiskers.&nbsp; She has big expressive eyes.&nbsp; Will you help Susan find her forever home?</p>\n<p>All kittens / cats are spayed/neutered, dewormed, vaccinated, FELV/FIV negative and microchipped.</p>\n<p>If you are interested, you can either e-mail AASNAdoptions@gmail.com or text or call 516-984-4525 to make an appointment. All About Spay Neuter's adoption center is located at 4209 Merrick Road, Massapequa, NY.</p><img src=\"https://tracker.rescuegroups.org/pet?13539656\" width=\"0\" height=\"0\" alt=\"\" />",
-      "descriptionText": "Susan is a very cute and adorable black female with black whiskers.&nbsp; She has big expressive eyes.&nbsp; Will you help Susan find her forever home?\nAll kittens / cats are spayed/neutered, dewormed, vaccinated, FELV/FIV negative and microchipped.\nIf you are interested, you can either e-mail AASNAdoptions@gmail.com or text or call 516-984-4525 to make an appointment. All About Spay Neuter's adoption center is located at 4209 Merrick Road, Massapequa, NY.",
+      "descriptionText": "Meet Alafair.A gentle soul with a playful sparkle.Alafair is a beautiful, calico domestic shorthair senior with a soft heart and a shy little smile. She&#226;\u20ac\u2122s bashful around people at first&#226;\u20ac\u201dthink quiet glances and cautious curiosity&#226;\u20ac\u201dbut give her time and she&#226;\u20ac\u2122ll show you just how sweet she really is.While she may be reserved with humans, Alafair loves the company of other cats and truly shines with a feline friend by her side. And don&#226;\u20ac\u2122t let her senior status fool you&#226;\u20ac\u201dbring out a wand toy and you&#226;\u20ac\u2122ll see her inner kitten come to life!If you have a calm home, a patient heart, and maybe another cat looking for a companion, Alafair could be the perfect, gentle addition.",
       "isNeedingFoster": false,
       "isFound": false,
       "priority": 10,
-      "isHousetrained": true,
-      "name": "Susan",
-      "pictureCount": 2,
-      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/1493/pictures/animals/13539/13539656/60418171.jpg?width=100",
-      "searchString": "Susan   Black Female Medium   Cats Domestic Short Hair (short coat)s",
+      "name": "Alafair",
+      "pictureCount": 8,
+      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/6685/pictures/animals/10187/10187884/76932448.jpg?width=100",
+      "rescueId": "-24125",
+      "searchString": "Alafair   Calico or Dilute Calico Female  -24125  Cats Domestic Short Hair (medium coat)s",
       "sex": "Female",
-      "sizeGroup": "Medium",
-      "slug": "adopt-susan-domestic-short-hair-cat",
-      "isSpecialNeeds": false,
+      "sizeCurrent": 7.385499954223633,
+      "sizeUOM": "Pounds",
+      "slug": "adopt-alafair-domestic-short-hair-cat",
       "isSponsorable": false,
-      "trackerimageUrl": "https://tracker.rescuegroups.org/pet?13539656",
       "videoCount": 0,
       "videoUrlCount": 0,
-      "createdDate": "2018-09-12T15:33:29Z",
-      "updatedDate": "2024-06-07T16:26:20Z"
+      "createdDate": "2016-06-23T04:32:15Z",
+      "updatedDate": "2026-04-16T01:08:16Z"
     },
     "relationships": {
       "breeds": {
@@ -1527,7 +610,148 @@
         "data": [
           {
             "type": "colors",
+            "id": "10"
+          }
+        ]
+      },
+      "patterns": {
+        "data": [
+          {
+            "type": "patterns",
+            "id": "13"
+          }
+        ]
+      },
+      "species": {
+        "data": [
+          {
+            "type": "species",
+            "id": "3"
+          }
+        ]
+      },
+      "statuses": {
+        "data": [
+          {
+            "type": "statuses",
             "id": "1"
+          }
+        ]
+      },
+      "locations": {
+        "data": [
+          {
+            "type": "locations",
+            "id": "1000006685"
+          }
+        ]
+      },
+      "orgs": {
+        "data": [
+          {
+            "type": "orgs",
+            "id": "6685"
+          }
+        ]
+      },
+      "pictures": {
+        "data": [
+          {
+            "type": "pictures",
+            "id": "54644682"
+          },
+          {
+            "type": "pictures",
+            "id": "54644683"
+          },
+          {
+            "type": "pictures",
+            "id": "54644684"
+          },
+          {
+            "type": "pictures",
+            "id": "74856664"
+          },
+          {
+            "type": "pictures",
+            "id": "74856665"
+          },
+          {
+            "type": "pictures",
+            "id": "76932446"
+          },
+          {
+            "type": "pictures",
+            "id": "76932447"
+          },
+          {
+            "type": "pictures",
+            "id": "76932448"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "animals",
+    "id": "10211761",
+    "attributes": {
+      "isAdoptionPending": false,
+      "ageGroup": "Senior",
+      "isBirthDateExact": false,
+      "breedString": "Bombay (medium coat)",
+      "breedPrimary": "Bombay",
+      "breedPrimaryId": 11,
+      "isCatsOk": true,
+      "coatLength": "Medium",
+      "isCourtesyListing": true,
+      "isCurrentVaccinations": true,
+      "isDeclawed": false,
+      "descriptionHtml": "<p>Little One&nbsp;is on the smaller side but full figured and is very gentle. She is about 11 years old. Little One would be a great companion cat for a senior and is a little shy but really likes to be around people. She knows her name and is good with other cats.&nbsp; Call or text Ed for more info 562-716-9878</p><img src=\"https://tracker.rescuegroups.org/pet?10211761\" width=\"0\" height=\"0\" alt=\"\" />",
+      "descriptionText": "Little One&nbsp;is on the smaller side but full figured and is very gentle. She is about 11 years old. Little One would be a great companion cat for a senior and is a little shy but really likes to be around people. She knows her name and is good with other cats.&nbsp; Call or text Ed for more info 562-716-9878",
+      "isNeedingFoster": false,
+      "isFound": false,
+      "priority": 10,
+      "isHousetrained": true,
+      "isKidsOk": true,
+      "name": "Little One",
+      "pictureCount": 3,
+      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/1868/pictures/animals/10211/10211761/36092799.jpg?width=100",
+      "rescueId": "Ed's Little One",
+      "searchString": "Little One   Black Female Small Ed's Little One  Cats Bombay (medium coat)s",
+      "sex": "Female",
+      "sizeGroup": "Small",
+      "slug": "adopt-little-one-bombay-cat",
+      "isSpecialNeeds": false,
+      "isSponsorable": false,
+      "trackerimageUrl": "https://tracker.rescuegroups.org/pet?10211761",
+      "videoCount": 0,
+      "videoUrlCount": 0,
+      "createdDate": "2016-06-28T23:20:20Z",
+      "updatedDate": "2025-12-27T07:41:53Z"
+    },
+    "relationships": {
+      "breeds": {
+        "data": [
+          {
+            "type": "breeds",
+            "id": "11"
+          }
+        ]
+      },
+      "colors": {
+        "data": [
+          {
+            "type": "colors",
+            "id": "1"
+          }
+        ]
+      },
+      "patterns": {
+        "data": [
+          {
+            "type": "patterns",
+            "id": "11"
           }
         ]
       },
@@ -1551,7 +775,7 @@
         "data": [
           {
             "type": "fosters",
-            "id": "6547417"
+            "id": "2206791"
           }
         ]
       },
@@ -1559,7 +783,7 @@
         "data": [
           {
             "type": "locations",
-            "id": "16785"
+            "id": "2971"
           }
         ]
       },
@@ -1567,7 +791,7 @@
         "data": [
           {
             "type": "orgs",
-            "id": "1493"
+            "id": "1868"
           }
         ]
       },
@@ -1575,11 +799,15 @@
         "data": [
           {
             "type": "pictures",
-            "id": "71712711"
+            "id": "36092797"
           },
           {
             "type": "pictures",
-            "id": "60418171"
+            "id": "36092798"
+          },
+          {
+            "type": "pictures",
+            "id": "36092799"
           }
         ]
       }
@@ -1587,44 +815,213 @@
   },
   {
     "type": "animals",
-    "id": "13660541",
+    "id": "10526340",
     "attributes": {
-      "distance": 29.59,
-      "adoptedDate": "2025-12-15T00:00:00Z",
+      "activityLevel": "Moderately Active",
       "isAdoptionPending": false,
       "adultSexesOk": "All",
       "ageGroup": "Adult",
-      "ageString": "7 Years 8 Months",
-      "birthDate": "2018-08-23T00:00:00Z",
+      "ageString": "11 Years 3 Months",
+      "availableDate": "2026-03-30T00:00:00Z",
+      "birthDate": "2014-12-04T00:00:00Z",
+      "isBirthDateExact": true,
+      "breedString": "Abyssinian / Calico / Mixed (short coat)",
+      "breedPrimary": "Abyssinian",
+      "breedPrimaryId": 1,
+      "breedSecondary": "Calico",
+      "breedSecondaryId": 15,
+      "isBreedMixed": true,
+      "isCatsOk": true,
+      "coatLength": "Short",
+      "colorDetails": "calico tabby",
+      "isCourtesyListing": false,
+      "isCurrentVaccinations": true,
+      "isDeclawed": false,
+      "descriptionText": "&nbsp;\n\nSavannah has been with Cat Rangers for a while now&nbsp;and we&rsquo;re hoping someone special will give this beautiful girl the loving home she deserves. With her striking green eyes and graceful presence, she&rsquo;s a cat who definitely turns heads.\n\n&nbsp;\n\nSavannah enjoys affection&mdash;especially rubbing against your legs and soaking up gentle pets&mdash;but always on her terms. Like many independent felines, she can become overstimulated and may swat to let you know she needs space.\n\nBecause of this, Savannah would do best in a calm, adult-only home with someone who understands and respects her boundaries. She&#39;s not a fan of chaos, but she does love having a cozy spot to call her own and a human companion who lets her be herself.\n\nSavannah may not be a cuddly lap cat, but she has so much charm and personality to offer. Please consider giving her the second chance she&rsquo;s been waiting for.",
+      "energyLevel": "Moderate",
+      "exerciseNeeds": "Not Required",
+      "fenceNeeds": "Not Required",
+      "isNeedingFoster": false,
+      "isFound": false,
+      "groomingNeeds": "Low",
+      "priority": 10,
+      "isHousetrained": true,
+      "indoorOutdoor": "Indoor Only",
+      "isKidsOk": false,
+      "name": "Savannah",
+      "newPeopleReaction": "Friendly",
+      "ownerExperience": "None",
+      "pictureCount": 7,
+      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/5211/pictures/animals/10526/10526340/100070312.jpg?width=100",
+      "qualities": [
+        "affectionate",
+        "oKForSeniors",
+        "playful",
+        "playsToys"
+      ],
+      "searchString": "Savannah  calico tabby Calico or Dilute Calico Female Large  calico tabby Cats Abyssinian / Calico / Mixed (short coat)s",
+      "sex": "Female",
+      "sheddingLevel": "Moderate",
+      "sizeGroup": "Large",
+      "sizeUOM": "Pounds",
+      "slug": "adopt-savannah-abyssinian-cat",
+      "isSpecialNeeds": false,
+      "isSponsorable": true,
+      "url": "https://CatRangers.rescuegroups.org/animals/detail?AnimalID=10526340",
+      "videoCount": 1,
+      "videoUrlCount": 1,
+      "vocalLevel": "Some",
+      "isYardRequired": false,
+      "createdDate": "2016-09-03T05:13:04Z",
+      "updatedDate": "2026-03-30T10:47:45Z"
+    },
+    "relationships": {
+      "breeds": {
+        "data": [
+          {
+            "type": "breeds",
+            "id": "1"
+          },
+          {
+            "type": "breeds",
+            "id": "15"
+          }
+        ]
+      },
+      "colors": {
+        "data": [
+          {
+            "type": "colors",
+            "id": "10"
+          }
+        ]
+      },
+      "patterns": {
+        "data": [
+          {
+            "type": "patterns",
+            "id": "9"
+          }
+        ]
+      },
+      "species": {
+        "data": [
+          {
+            "type": "species",
+            "id": "3"
+          }
+        ]
+      },
+      "statuses": {
+        "data": [
+          {
+            "type": "statuses",
+            "id": "1"
+          }
+        ]
+      },
+      "locations": {
+        "data": [
+          {
+            "type": "locations",
+            "id": "18092"
+          }
+        ]
+      },
+      "orgs": {
+        "data": [
+          {
+            "type": "orgs",
+            "id": "5211"
+          }
+        ]
+      },
+      "pictures": {
+        "data": [
+          {
+            "type": "pictures",
+            "id": "100070321"
+          },
+          {
+            "type": "pictures",
+            "id": "100070317"
+          },
+          {
+            "type": "pictures",
+            "id": "100070319"
+          },
+          {
+            "type": "pictures",
+            "id": "100070313"
+          },
+          {
+            "type": "pictures",
+            "id": "100070315"
+          },
+          {
+            "type": "pictures",
+            "id": "100070316"
+          },
+          {
+            "type": "pictures",
+            "id": "100070312"
+          }
+        ]
+      },
+      "videos": {
+        "data": [
+          {
+            "type": "videos",
+            "id": "21055325"
+          }
+        ]
+      },
+      "videourls": {
+        "data": [
+          {
+            "type": "videourls",
+            "id": "21198764"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "animals",
+    "id": "10555326",
+    "attributes": {
+      "isAdoptionPending": false,
+      "ageGroup": "Adult",
       "isBirthDateExact": false,
       "breedString": "Domestic Short Hair (short coat)",
       "breedPrimary": "Domestic Short Hair",
       "breedPrimaryId": 35,
-      "isBreedMixed": false,
       "isCatsOk": true,
       "coatLength": "Short",
       "isCourtesyListing": false,
       "isCurrentVaccinations": true,
       "isDeclawed": false,
-      "descriptionText": "\nWhy am I named Apollo? Hint: My brother is Clubber and we like to watch movies. Can you guess?\n\n\n\nApollo has the softest, plushest coat and is a master of the slow blink. He lulls you into giving him more treats. He enjoys playing and being pet- but what he also really loves is to hunker down for a good nap in a cozy spot.&nbsp;\n\n\n&nbsp;\n\n\n\n\nIf interested please fill out an application at EHRcats.org.\n\n\n&nbsp;\n\n\n\n\n\n&nbsp;\n\n\n\n\n\n&nbsp;\n\n",
+      "descriptionHtml": "<p><span style=\"font-family: 'times new roman', times; font-size: 12pt;\" data-mce-mark=\"1\">Posted 9/10/16, and pictures updated on 11/14/18 and 6/22/21. &nbsp;Ivana and her siblings, as well as their mother Viola, were at an elderly woman's home in the Bullard, TX area, and needing to be relocated due to allergies and moving. &nbsp;Ivana and her siblings were caught first on 8/1/16, and had been use to the elderly woman, so they were tame with her. &nbsp;Ivana is very unique in that she also has some Peach coloring stripes under her front legs, and her stomach along with some Gray spots.&nbsp; Ivana is still a little skittish of new people, but with one on one attention, she would probably be a good inside cat, but could be outside as well.</span></p>\n<p><span style=\"font-family: 'times new roman', times; font-size: 12pt;\" data-mce-mark=\"1\">D.O.B.: &nbsp; &nbsp; ? May 5, 2016</span><br /><span style=\"font-family: 'times new roman', times; font-size: 12pt;\" data-mce-mark=\"1\">Weight: &nbsp; &nbsp;&nbsp;</span></p>\n<p><span style=\"font-family: 'times new roman', times; font-size: 12pt;\" data-mce-mark=\"1\">Our adoption contracts prohibit declawing of any kittens or cats, it is cruel, can traumatize the pet, and make the pet defenseless if the pet should get outside.&nbsp; We encourage people to search for kittens and cats already declawed that need to find a new home.</span></p>\n<p><span style=\"font-family: 'times new roman', times; font-size: 12pt;\">$70 adoption fee will pay for her spay and vaccinations.</span></p><img src=\"https://tracker.rescuegroups.org/pet?10555326\" width=\"0\" height=\"0\" alt=\"\" />",
+      "descriptionText": "Posted 9/10/16, and pictures updated on 11/14/18 and 6/22/21. &nbsp;Ivana and her siblings, as well as their mother Viola, were at an elderly woman's home in the Bullard, TX area, and needing to be relocated due to allergies and moving. &nbsp;Ivana and her siblings were caught first on 8/1/16, and had been use to the elderly woman, so they were tame with her. &nbsp;Ivana is very unique in that she also has some Peach coloring stripes under her front legs, and her stomach along with some Gray spots.&nbsp; Ivana is still a little skittish of new people, but with one on one attention, she would probably be a good inside cat, but could be outside as well.\nD.O.B.: &nbsp; &nbsp; ? May 5, 2016Weight: &nbsp; &nbsp;&nbsp;\nOur adoption contracts prohibit declawing of any kittens or cats, it is cruel, can traumatize the pet, and make the pet defenseless if the pet should get outside.&nbsp; We encourage people to search for kittens and cats already declawed that need to find a new home.\n$70 adoption fee will pay for her spay and vaccinations.",
       "isNeedingFoster": false,
       "isFound": false,
       "priority": 10,
-      "killReason": "0",
-      "name": "Apollo RM",
-      "pictureCount": 5,
-      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/956/pictures/animals/13660/13660541/61280856.jpg?width=100",
-      "searchString": "Apollo RM Lotus NC KITTEN  Gray (Mostly) Male    Cats Domestic Short Hair (short coat)s",
-      "sex": "Male",
-      "sizeUOM": "Pounds",
-      "slug": "adopt-apollo-rm-domestic-short-hair-cat",
+      "isHousetrained": true,
+      "isKidsOk": true,
+      "name": "Ivana",
+      "pictureCount": 3,
+      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/2070/pictures/animals/10555/10555326/80481808.jpg?width=100",
+      "searchString": "Ivana   Gray and White Female Medium   Cats Domestic Short Hair (short coat)s",
+      "sex": "Female",
+      "sizeGroup": "Medium",
+      "slug": "adopt-ivana-domestic-short-hair-cat",
       "isSpecialNeeds": false,
-      "isSponsorable": true,
-      "url": "https://ehrdogs.rescuegroups.org/animals/detail?AnimalID=13660541",
+      "isSponsorable": false,
+      "trackerimageUrl": "https://tracker.rescuegroups.org/pet?10555326",
       "videoCount": 0,
       "videoUrlCount": 0,
-      "createdDate": "2018-10-14T02:44:37Z",
-      "updatedDate": "2026-05-04T20:48:25Z"
+      "createdDate": "2016-09-11T05:55:39Z",
+      "updatedDate": "2021-07-21T22:29:33Z"
     },
     "relationships": {
       "breeds": {
@@ -1639,7 +1036,274 @@
         "data": [
           {
             "type": "colors",
-            "id": "12"
+            "id": "616"
+          }
+        ]
+      },
+      "patterns": {
+        "data": [
+          {
+            "type": "patterns",
+            "id": "13"
+          }
+        ]
+      },
+      "species": {
+        "data": [
+          {
+            "type": "species",
+            "id": "3"
+          }
+        ]
+      },
+      "statuses": {
+        "data": [
+          {
+            "type": "statuses",
+            "id": "1"
+          }
+        ]
+      },
+      "fosters": {
+        "data": [
+          {
+            "type": "fosters",
+            "id": "2168932"
+          }
+        ]
+      },
+      "locations": {
+        "data": [
+          {
+            "type": "locations",
+            "id": "1000002070"
+          }
+        ]
+      },
+      "orgs": {
+        "data": [
+          {
+            "type": "orgs",
+            "id": "2070"
+          }
+        ]
+      },
+      "pictures": {
+        "data": [
+          {
+            "type": "pictures",
+            "id": "80481805"
+          },
+          {
+            "type": "pictures",
+            "id": "80481806"
+          },
+          {
+            "type": "pictures",
+            "id": "80481808"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "animals",
+    "id": "10585046",
+    "attributes": {
+      "activityLevel": "Moderately Active",
+      "adoptionFeeString": "$100.00",
+      "isAdoptionPending": false,
+      "ageGroup": "Adult",
+      "ageString": "9 Years 11 Months",
+      "birthDate": "2016-05-11T00:00:00Z",
+      "isBirthDateExact": false,
+      "breedString": "Domestic Short Hair (short coat)",
+      "breedPrimary": "Domestic Short Hair",
+      "breedPrimaryId": 35,
+      "isCatsOk": true,
+      "coatLength": "Short",
+      "isCourtesyListing": false,
+      "isCurrentVaccinations": true,
+      "descriptionText": "Meet Tucker.&nbsp; If a sweet older kitty is your preference, he may be a wonderful choice.&nbsp; This adorable, white-coated (with black accents), golden-eyed boy has his own personality and charm.&nbsp; He's a bit shy, but, with a little patience, he can be won over with play, treats, or a gentle head-petting.&nbsp; A forever home would make his life complete.&nbsp;He is fully vetted and tested negative for Feleuk/FIV.&nbsp;&nbsp;Tucker is being fostered in the Columbia, Md. area.&nbsp; For more information contact rorrfeline@gmail.com.&nbsp; ",
+      "isDogsOk": true,
+      "isNeedingFoster": false,
+      "isFound": false,
+      "priority": 10,
+      "isHousetrained": true,
+      "isKidsOk": true,
+      "name": "Tucker",
+      "pictureCount": 6,
+      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/4264/pictures/animals/10585/10585046/95931908.jpg?width=100",
+      "rescueId": "2016C-014",
+      "searchString": "Tucker   Black and White Male Medium 2016C-014  Cats Domestic Short Hair (short coat)s",
+      "sex": "Male",
+      "sizeCurrent": 10,
+      "sizeGroup": "Medium",
+      "sizeUOM": "Pounds",
+      "slug": "adopt-tucker-domestic-short-hair-cat",
+      "isSpecialNeeds": false,
+      "isSponsorable": true,
+      "url": "https://reachoutrescue.org/animals/detail?AnimalID=10585046",
+      "videoCount": 1,
+      "videoUrlCount": 1,
+      "createdDate": "2016-09-19T16:21:40Z",
+      "updatedDate": "2026-04-19T16:38:23Z"
+    },
+    "relationships": {
+      "breeds": {
+        "data": [
+          {
+            "type": "breeds",
+            "id": "35"
+          }
+        ]
+      },
+      "colors": {
+        "data": [
+          {
+            "type": "colors",
+            "id": "6"
+          }
+        ]
+      },
+      "species": {
+        "data": [
+          {
+            "type": "species",
+            "id": "3"
+          }
+        ]
+      },
+      "statuses": {
+        "data": [
+          {
+            "type": "statuses",
+            "id": "1"
+          }
+        ]
+      },
+      "locations": {
+        "data": [
+          {
+            "type": "locations",
+            "id": "1000004264"
+          }
+        ]
+      },
+      "orgs": {
+        "data": [
+          {
+            "type": "orgs",
+            "id": "4264"
+          }
+        ]
+      },
+      "pictures": {
+        "data": [
+          {
+            "type": "pictures",
+            "id": "102569693"
+          },
+          {
+            "type": "pictures",
+            "id": "101999356"
+          },
+          {
+            "type": "pictures",
+            "id": "100734266"
+          },
+          {
+            "type": "pictures",
+            "id": "99956123"
+          },
+          {
+            "type": "pictures",
+            "id": "102569692"
+          },
+          {
+            "type": "pictures",
+            "id": "95931908"
+          }
+        ]
+      },
+      "videos": {
+        "data": [
+          {
+            "type": "videos",
+            "id": "21126363"
+          }
+        ]
+      },
+      "videourls": {
+        "data": [
+          {
+            "type": "videourls",
+            "id": "21297749"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "animals",
+    "id": "10709292",
+    "attributes": {
+      "activityLevel": "Highly Active",
+      "adoptedDate": "2017-01-10T00:00:00Z",
+      "adoptionFeeString": "100.00",
+      "isAdoptionPending": false,
+      "ageGroup": "Adult",
+      "ageString": "9 Years 4 Months",
+      "birthDate": "2016-07-15T00:00:00Z",
+      "isBirthDateExact": false,
+      "breedString": "Domestic Short Hair (short coat)",
+      "breedPrimary": "Domestic Short Hair",
+      "breedPrimaryId": 35,
+      "isCatsOk": true,
+      "coatLength": "Short",
+      "colorDetails": "Brown and Black",
+      "isCourtesyListing": false,
+      "isCurrentVaccinations": true,
+      "isDeclawed": false,
+      "descriptionHtml": "<p><span style=\"font-size: 10pt;\"><span style=\"text-decoration: underline;\"><strong><span style=\"font-size: 10pt;\">Our website is updated daily</span></strong></span></span></p>\n<p><span style=\"font-size: 10pt;\"><span style=\"font-size: 10pt;\">Cinnamon is Spayed, UTD on vaccines and tested negative for FIV/FeLV. Approx. DOB is July 15, 2016.<br /></span></span><br /><span style=\"font-size: 10pt;\">Cinnamon is a sweet, laid back cat who likes quiet company, laser pointers, and treats. She was adopted as a kitten, then came back to NAR as an adult when her people didn't stay together. She will need a patient person to help her feel secure in her new home and allow her personality to shine.&nbsp;<br /><br />Cinnamon gets along with other mellow cats. She has never met dogs or children.&nbsp;<br /><br /></span></p>\n<p><span style=\"font-size: 10pt;\"><span style=\"font-size: 10pt;\">If you're interested in adopting&nbsp;Cinnamon&nbsp;please fill out an application at&nbsp;<span style=\"font-size: 10pt;\"><a href=\"../\">http://nar.rescuegroups.org</a>.</span></span></span></p><img src=\"https://tracker.rescuegroups.org/pet?10709292\" width=\"0\" height=\"0\" alt=\"\" />",
+      "descriptionText": "Our website is updated daily\nCinnamon is Spayed, UTD on vaccines and tested negative for FIV/FeLV. Approx. DOB is July 15, 2016.Cinnamon is a sweet, laid back cat who likes quiet company, laser pointers, and treats. She was adopted as a kitten, then came back to NAR as an adult when her people didn't stay together. She will need a patient person to help her feel secure in her new home and allow her personality to shine.&nbsp;Cinnamon gets along with other mellow cats. She has never met dogs or children.&nbsp;\nIf you're interested in adopting&nbsp;Cinnamon&nbsp;please fill out an application at&nbsp;http://nar.rescuegroups.org.",
+      "isNeedingFoster": false,
+      "isFound": false,
+      "priority": 10,
+      "isHousetrained": true,
+      "indoorOutdoor": "Indoor Only",
+      "name": "Cinnamon",
+      "pictureCount": 9,
+      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/126/pictures/animals/10709/10709292/39908489.jpg?width=100",
+      "searchString": "Cinnamon  Brown and Black Brown Tabby Female Medium  Brown and Black Cats Domestic Short Hair (short coat)s",
+      "sex": "Female",
+      "sizeGroup": "Medium",
+      "sizeUOM": "Pounds",
+      "slug": "adopt-cinnamon-domestic-short-hair-cat",
+      "isSpecialNeeds": false,
+      "isSponsorable": true,
+      "sponsorshipMinimum": "10.00",
+      "trackerimageUrl": "https://tracker.rescuegroups.org/pet?10709292",
+      "url": "https://nar.rescuegroups.org/animals/detail?AnimalID=10709292",
+      "videoCount": 0,
+      "videoUrlCount": 0,
+      "createdDate": "2016-10-24T13:40:02Z",
+      "updatedDate": "2025-11-29T20:54:45Z"
+    },
+    "relationships": {
+      "breeds": {
+        "data": [
+          {
+            "type": "breeds",
+            "id": "35"
+          }
+        ]
+      },
+      "colors": {
+        "data": [
+          {
+            "type": "colors",
+            "id": "9"
           }
         ]
       },
@@ -1671,7 +1335,7 @@
         "data": [
           {
             "type": "locations",
-            "id": "1000000956"
+            "id": "1000000126"
           }
         ]
       },
@@ -1679,7 +1343,7 @@
         "data": [
           {
             "type": "orgs",
-            "id": "956"
+            "id": "126"
           }
         ]
       },
@@ -1687,23 +1351,39 @@
         "data": [
           {
             "type": "pictures",
-            "id": "102109464"
+            "id": "102264614"
           },
           {
             "type": "pictures",
-            "id": "101916651"
+            "id": "102264613"
           },
           {
             "type": "pictures",
-            "id": "101916653"
+            "id": "93278126"
           },
           {
             "type": "pictures",
-            "id": "62564515"
+            "id": "93278119"
           },
           {
             "type": "pictures",
-            "id": "61280856"
+            "id": "93278106"
+          },
+          {
+            "type": "pictures",
+            "id": "41609120"
+          },
+          {
+            "type": "pictures",
+            "id": "41589129"
+          },
+          {
+            "type": "pictures",
+            "id": "39908497"
+          },
+          {
+            "type": "pictures",
+            "id": "39908489"
           }
         ]
       }
@@ -1711,42 +1391,53 @@
   },
   {
     "type": "animals",
-    "id": "14051853",
+    "id": "10742380",
     "attributes": {
-      "distance": 20,
+      "activityLevel": "Moderately Active",
       "isAdoptionPending": false,
-      "ageGroup": "Young",
-      "ageString": "5 Years 4 Months",
-      "birthDate": "2017-08-01T00:00:00Z",
+      "adultSexesOk": "All",
+      "ageGroup": "Adult",
+      "ageString": "8 Years 9 Months",
+      "birthDate": "2016-05-14T00:00:00Z",
       "isBirthDateExact": false,
-      "breedString": "Domestic Short Hair / Tabby (short coat)",
+      "breedString": "Domestic Short Hair / Mixed (short coat)",
       "breedPrimary": "Domestic Short Hair",
       "breedPrimaryId": 35,
-      "breedSecondary": "Tabby",
-      "breedSecondaryId": 63,
+      "isBreedMixed": true,
+      "isCatsOk": true,
       "coatLength": "Short",
+      "colorDetails": "Narrow White Nose",
       "isCourtesyListing": false,
-      "descriptionHtml": "<p>Milo is coming back due to aggression toward the other cat in the house. He was adopted in June 2020 and all seemed fine at first, it had gotten worse over the year. He is a very affection cat, but needs to be the only cat in the household July 8, 2021.</p>\n\n<p>Rescued from a feral colony in East Orange in near zero temperatures with frostbite.</p>\n\n<p>&nbsp;</p><img src=\"https://tracker.rescuegroups.org/pet?14051853\" width=\"0\" height=\"0\" alt=\"\" />",
-      "descriptionText": "Milo is coming back due to aggression toward the other cat in the house. He was adopted in June 2020 and all seemed fine at first, it had gotten worse over the year. He is a very affection cat, but needs to be the only cat in the household July 8, 2021.\n\nRescued from a feral colony in East Orange in near zero temperatures with frostbite.\n\n&nbsp;",
+      "isCurrentVaccinations": true,
+      "isDeclawed": false,
+      "descriptionHtml": "<p>Wilson!!!! &nbsp;What a card this dashing boy can be. &nbsp;He comes from a litter of 9 black and white siblings and he is easily the most adventuresome. &nbsp;While the others are mellow and laid back content to nap and snuggle, Wilson is out and about trying to find ways to entertain himself. &nbsp; When we think it is time for him to go back to his room for a snack he likes to play &#39;catch me if you can!&#39; but when you do he is certainly happy for the snuggles that he gets while you carry him and he will give you sweet kisses knowing that he will soon escape again to find new and exciting adventures....it may just be the laundry room to us but to Wilson it is a world of unknown corners to explore! &nbsp;Lol! &nbsp;If you would like a character like this little guy in your life please go to our website at www.emmetcountyanimalshelter.org to fill out the Cat adoption application. &nbsp;</p><img src=\"https://tracker.rescuegroups.org/pet?10742380\" width=\"0\" height=\"0\" alt=\"\" />",
+      "descriptionText": "Wilson!!!! &nbsp;What a card this dashing boy can be. &nbsp;He comes from a litter of 9 black and white siblings and he is easily the most adventuresome. &nbsp;While the others are mellow and laid back content to nap and snuggle, Wilson is out and about trying to find ways to entertain himself. &nbsp; When we think it is time for him to go back to his room for a snack he likes to play &#39;catch me if you can!&#39; but when you do he is certainly happy for the snuggles that he gets while you carry him and he will give you sweet kisses knowing that he will soon escape again to find new and exciting adventures....it may just be the laundry room to us but to Wilson it is a world of unknown corners to explore! &nbsp;Lol! &nbsp;If you would like a character like this little guy in your life please go to our website at www.emmetcountyanimalshelter.org to fill out the Cat adoption application. &nbsp;",
+      "isDogsOk": true,
       "isFound": false,
       "priority": 10,
       "isHousetrained": true,
       "indoorOutdoor": "Indoor Only",
-      "name": "Milo",
+      "isKidsOk": true,
+      "name": "Wilson",
       "newPeopleReaction": "Friendly",
-      "pictureCount": 2,
-      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/3077/pictures/animals/14051/14051853/65412810.jpg?width=100",
-      "searchString": "Milo   Orange Male Large   Cats Domestic Short Hair / Tabby (short coat)s",
+      "pictureCount": 8,
+      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/5934/pictures/animals/10742/10742380/47039836.jpg?width=100",
+      "qualities": [
+        "affectionate",
+        "goofy",
+        "playful"
+      ],
+      "rescueId": "F-20160615-04",
+      "searchString": "Wilson  Narrow White Nose Black and White Male  F-20160615-04 Narrow White Nose Cats Domestic Short Hair / Mixed (short coat)s",
       "sex": "Male",
-      "sizeGroup": "Large",
       "sizeUOM": "Pounds",
-      "slug": "adopt-milo-domestic-short-hair-cat",
+      "slug": "adopt-wilson-domestic-short-hair-cat",
       "isSponsorable": false,
-      "trackerimageUrl": "https://tracker.rescuegroups.org/pet?14051853",
+      "trackerimageUrl": "https://tracker.rescuegroups.org/pet?10742380",
       "videoCount": 0,
       "videoUrlCount": 0,
-      "createdDate": "2019-02-06T01:57:35Z",
-      "updatedDate": "2021-07-13T01:57:00Z"
+      "createdDate": "2016-11-02T02:08:29Z",
+      "updatedDate": "2025-02-16T20:54:48Z"
     },
     "relationships": {
       "breeds": {
@@ -1754,10 +1445,138 @@
           {
             "type": "breeds",
             "id": "35"
+          }
+        ]
+      },
+      "colors": {
+        "data": [
+          {
+            "type": "colors",
+            "id": "6"
+          }
+        ]
+      },
+      "species": {
+        "data": [
+          {
+            "type": "species",
+            "id": "3"
+          }
+        ]
+      },
+      "statuses": {
+        "data": [
+          {
+            "type": "statuses",
+            "id": "1"
+          }
+        ]
+      },
+      "locations": {
+        "data": [
+          {
+            "type": "locations",
+            "id": "1000005934"
+          }
+        ]
+      },
+      "orgs": {
+        "data": [
+          {
+            "type": "orgs",
+            "id": "5934"
+          }
+        ]
+      },
+      "pictures": {
+        "data": [
+          {
+            "type": "pictures",
+            "id": "92725051"
           },
           {
+            "type": "pictures",
+            "id": "53007172"
+          },
+          {
+            "type": "pictures",
+            "id": "92570460"
+          },
+          {
+            "type": "pictures",
+            "id": "53007169"
+          },
+          {
+            "type": "pictures",
+            "id": "56718253"
+          },
+          {
+            "type": "pictures",
+            "id": "53007175"
+          },
+          {
+            "type": "pictures",
+            "id": "53007182"
+          },
+          {
+            "type": "pictures",
+            "id": "47039836"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "animals",
+    "id": "10793119",
+    "attributes": {
+      "adoptedDate": "2016-12-15T00:00:00Z",
+      "isAdoptionPending": false,
+      "ageGroup": "Senior",
+      "ageString": "9 Years 9 Months",
+      "birthDate": "2016-07-18T00:00:00Z",
+      "isBirthDateExact": false,
+      "breedString": "Domestic Short Hair (short coat)",
+      "breedPrimary": "Domestic Short Hair",
+      "breedPrimaryId": 35,
+      "isCatsOk": true,
+      "coatLength": "Short",
+      "isCourtesyListing": false,
+      "isCurrentVaccinations": true,
+      "isDeclawed": true,
+      "descriptionText": "Sunshine&nbsp;is about&nbsp; 9 1/2 years old as of February, 2026.&nbsp; &nbsp;She was adopted as a baby kitten and returned to us as a senior through no fault of her own; her mom moved to a home that did not allow pets.&nbsp; She struggled with the return to rescue yet has now adjusted and is very friendly with her foster mom.&nbsp; She is timid with new people and will take time to adjust in her new home.&nbsp; She will do best in a quieter home without a dog and limited cats.&nbsp; She will need a segregated area to adjust and a home that will be patient and allow her to learn to trust on her own time.&nbsp; She sure deserves happiness and not being confined in a rescue.&nbsp; She came back declawed.&nbsp; Adopt Sunshine today.&nbsp; www.safehousepets.org.&nbsp; Approved applications will be contacted within 48 hours.&nbsp;&nbsp;",
+      "isDogsOk": false,
+      "isNeedingFoster": false,
+      "isFound": false,
+      "priority": 10,
+      "isHousetrained": true,
+      "name": "Sunshine (Declawed)",
+      "newPeopleReaction": "Friendly",
+      "pictureCount": 3,
+      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/7709/pictures/animals/10793/10793119/40486647.jpg?width=100",
+      "qualities": [
+        "oKForSeniors",
+        "olderKidsOnly"
+      ],
+      "rescueId": "16-0529",
+      "searchString": "Sunshine (Declawed)   Orange Female  16-0529  Cats Domestic Short Hair (short coat)s",
+      "sex": "Female",
+      "sizeUOM": "Pounds",
+      "slug": "adopt-sunshine-declawed-domestic-short-hair-cat",
+      "isSpecialNeeds": false,
+      "isSponsorable": false,
+      "url": "https://safehouse.rescuegroups.org/animals/detail?AnimalID=10793119",
+      "videoCount": 0,
+      "videoUrlCount": 0,
+      "createdDate": "2016-11-15T23:58:48Z",
+      "updatedDate": "2026-04-22T15:34:52Z"
+    },
+    "relationships": {
+      "breeds": {
+        "data": [
+          {
             "type": "breeds",
-            "id": "63"
+            "id": "35"
           }
         ]
       },
@@ -1789,7 +1608,7 @@
         "data": [
           {
             "type": "locations",
-            "id": "1000003077"
+            "id": "1000007709"
           }
         ]
       },
@@ -1797,7 +1616,7 @@
         "data": [
           {
             "type": "orgs",
-            "id": "3077"
+            "id": "7709"
           }
         ]
       },
@@ -1805,11 +1624,15 @@
         "data": [
           {
             "type": "pictures",
-            "id": "65412809"
+            "id": "102645375"
           },
           {
             "type": "pictures",
-            "id": "65412810"
+            "id": "40573523"
+          },
+          {
+            "type": "pictures",
+            "id": "40486647"
           }
         ]
       }
@@ -1817,40 +1640,167 @@
   },
   {
     "type": "animals",
-    "id": "14052111",
+    "id": "10808617",
     "attributes": {
-      "distance": 20,
-      "activityLevel": "Moderately Active",
       "isAdoptionPending": false,
-      "ageGroup": "Adult",
-      "ageString": "6 Years 9 Months",
-      "birthDate": "2016-02-06T00:00:00Z",
+      "ageGroup": "Senior",
+      "ageString": "10 Years 2 Months",
+      "birthDate": "2016-03-05T00:00:00Z",
       "isBirthDateExact": false,
       "breedString": "Domestic Short Hair (short coat)",
       "breedPrimary": "Domestic Short Hair",
       "breedPrimaryId": 35,
       "coatLength": "Short",
       "isCourtesyListing": false,
-      "descriptionHtml": "<p>Stout is a brown tabby neutered male cat with a tipped ear.&nbsp; He was found in a parking lot where a caretaker feeds other cats.&nbsp; This cat appeared one day and he was friendly, so the caretaker rescued him.&nbsp; He tested positive for FIV.&nbsp; He is a sweet friendly cat.</p><img src=\"https://tracker.rescuegroups.org/pet?14052111\" width=\"0\" height=\"0\" alt=\"\" />",
-      "descriptionText": "Stout is a brown tabby neutered male cat with a tipped ear.&nbsp; He was found in a parking lot where a caretaker feeds other cats.&nbsp; This cat appeared one day and he was friendly, so the caretaker rescued him.&nbsp; He tested positive for FIV.&nbsp; He is a sweet friendly cat.",
+      "descriptionText": "Petite, spunky, and full of personality&#226;\u20ac\u201dEttie is the kind of cat who makes every room brighter. The moment you walk in, she&#226;\u20ac\u2122s there to greet you, tail high and eyes sparkling, ready for attention (and maybe a snack).Ettie is no ordinary cat&#226;\u20ac\u201dshe&#226;\u20ac\u2122s a talented acrobat who loves climbing onto shoulders, zooming around, and even going for stroller rides. Playful and adventurous, she&#226;\u20ac\u2122s always finding new ways to make life fun.Born with Manx Syndrome, Ettie does need a little extra care: her bladder must be expressed twice daily. But don&#226;\u20ac\u2122t let that scare you&#226;\u20ac\u201dshe doesn&#226;\u20ac\u2122t let it slow her down, and the team at Best Friends will happily teach you everything you need to know. What you&#226;\u20ac\u2122ll gain in return is a firecracker of a companion who will fill your days with joy, laughter, and love.&#128150; Ettie is proof that resilience can be playful, and that every cat deserves a chance to shine. Could you be the one to give her the home she&#226;\u20ac\u2122s waiting for?",
+      "isNeedingFoster": false,
       "isFound": false,
       "priority": 10,
-      "indoorOutdoor": "Indoor Only",
-      "name": "Stout",
-      "newPeopleReaction": "Friendly",
-      "pictureCount": 1,
-      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/3077/pictures/animals/14052/14052111/64133499.jpg?width=100",
-      "searchString": "Stout   Brown Tabby Male Large   Cats Domestic Short Hair (short coat)s",
-      "sex": "Male",
-      "sizeGroup": "Large",
+      "name": "Ettie",
+      "pictureCount": 8,
+      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/6685/pictures/animals/10808/10808617/79189750.jpg?width=100",
+      "qualities": [
+        "playful"
+      ],
+      "rescueId": "-24837",
+      "searchString": "Ettie   Gray Female  -24837  Cats Domestic Short Hair (short coat)s",
+      "sex": "Female",
+      "sizeCurrent": 7.1209001541137695,
       "sizeUOM": "Pounds",
-      "slug": "adopt-stout-domestic-short-hair-cat",
+      "slug": "adopt-ettie-domestic-short-hair-cat",
       "isSponsorable": false,
-      "trackerimageUrl": "https://tracker.rescuegroups.org/pet?14052111",
       "videoCount": 0,
       "videoUrlCount": 0,
-      "createdDate": "2019-02-06T04:41:21Z",
-      "updatedDate": "2019-02-09T14:03:57Z"
+      "createdDate": "2016-11-20T05:31:20Z",
+      "updatedDate": "2026-05-07T21:09:08Z"
+    },
+    "relationships": {
+      "breeds": {
+        "data": [
+          {
+            "type": "breeds",
+            "id": "35"
+          }
+        ]
+      },
+      "colors": {
+        "data": [
+          {
+            "type": "colors",
+            "id": "11"
+          }
+        ]
+      },
+      "patterns": {
+        "data": [
+          {
+            "type": "patterns",
+            "id": "12"
+          }
+        ]
+      },
+      "species": {
+        "data": [
+          {
+            "type": "species",
+            "id": "3"
+          }
+        ]
+      },
+      "statuses": {
+        "data": [
+          {
+            "type": "statuses",
+            "id": "1"
+          }
+        ]
+      },
+      "locations": {
+        "data": [
+          {
+            "type": "locations",
+            "id": "1000006685"
+          }
+        ]
+      },
+      "orgs": {
+        "data": [
+          {
+            "type": "orgs",
+            "id": "6685"
+          }
+        ]
+      },
+      "pictures": {
+        "data": [
+          {
+            "type": "pictures",
+            "id": "64712505"
+          },
+          {
+            "type": "pictures",
+            "id": "64712506"
+          },
+          {
+            "type": "pictures",
+            "id": "67855669"
+          },
+          {
+            "type": "pictures",
+            "id": "67302181"
+          },
+          {
+            "type": "pictures",
+            "id": "67855670"
+          },
+          {
+            "type": "pictures",
+            "id": "74856673"
+          },
+          {
+            "type": "pictures",
+            "id": "78941235"
+          },
+          {
+            "type": "pictures",
+            "id": "79189750"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "animals",
+    "id": "10853766",
+    "attributes": {
+      "isAdoptionPending": false,
+      "ageGroup": "Senior",
+      "isBirthDateExact": false,
+      "breedString": "Domestic Short Hair (short coat)",
+      "breedPrimary": "Domestic Short Hair",
+      "breedPrimaryId": 35,
+      "coatLength": "Short",
+      "isCourtesyListing": false,
+      "descriptionHtml": "<p>I&rsquo;m Lucy! Born about March 2016, beautiful Autumn coloring. I am friendly and spunky! I have some resistance to using the litter but would love for you to sponsor me so I can continue being cared for at our wonderful shelter.&nbsp;I am spayed with updated shots and the volunteers take such good care of me here!&nbsp;</p>\n\n<p>Interested in Volunteering?&nbsp;<br>\nPlease visit our website to fill out a volunteer application:<br>\n<a href=\"http://bingosfoundation.org/wordpress/volunteer/\">http://bingosfoundation.org/wordpress/volunteer/</a><o:p></o:p></p><img src=\"https://tracker.rescuegroups.org/pet?10853766\" width=\"0\" height=\"0\" alt=\"\" />",
+      "descriptionText": "I&rsquo;m Lucy! Born about March 2016, beautiful Autumn coloring. I am friendly and spunky! I have some resistance to using the litter but would love for you to sponsor me so I can continue being cared for at our wonderful shelter.&nbsp;I am spayed with updated shots and the volunteers take such good care of me here!&nbsp;\n\nInterested in Volunteering?&nbsp;\nPlease visit our website to fill out a volunteer application:\nhttp://bingosfoundation.org/wordpress/volunteer/",
+      "isFound": false,
+      "priority": 10,
+      "isHousetrained": false,
+      "name": "Lucy",
+      "pictureCount": 6,
+      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/1339/pictures/animals/10853/10853766/40891961.jpg?width=100",
+      "searchString": "Lucy   Brown Tabby Female    Cats Domestic Short Hair (short coat)s",
+      "sex": "Female",
+      "sizeUOM": "Pounds",
+      "slug": "adopt-lucy-domestic-short-hair-cat",
+      "isSpecialNeeds": true,
+      "isSponsorable": true,
+      "sponsorshipMinimum": "5.00",
+      "trackerimageUrl": "https://tracker.rescuegroups.org/pet?10853766",
+      "videoCount": 0,
+      "videoUrlCount": 0,
+      "createdDate": "2016-12-04T20:07:41Z",
+      "updatedDate": "2026-02-15T18:55:44Z"
     },
     "relationships": {
       "breeds": {
@@ -1889,7 +1839,7 @@
         "data": [
           {
             "type": "locations",
-            "id": "1000003077"
+            "id": "1000001339"
           }
         ]
       },
@@ -1897,7 +1847,7 @@
         "data": [
           {
             "type": "orgs",
-            "id": "3077"
+            "id": "1339"
           }
         ]
       },
@@ -1905,7 +1855,27 @@
         "data": [
           {
             "type": "pictures",
-            "id": "64133499"
+            "id": "66463069"
+          },
+          {
+            "type": "pictures",
+            "id": "65670480"
+          },
+          {
+            "type": "pictures",
+            "id": "56365761"
+          },
+          {
+            "type": "pictures",
+            "id": "53443859"
+          },
+          {
+            "type": "pictures",
+            "id": "46019396"
+          },
+          {
+            "type": "pictures",
+            "id": "40891961"
           }
         ]
       }
@@ -1913,34 +1883,67 @@
   },
   {
     "type": "animals",
-    "id": "14068846",
+    "id": "10854998",
     "attributes": {
-      "distance": 29.59,
-      "adoptedDate": "2020-12-31T00:00:00Z",
       "isAdoptionPending": false,
+      "ageGroup": "Senior",
+      "ageString": "11 Years",
+      "birthDate": "2015-04-10T00:00:00Z",
       "isBirthDateExact": false,
-      "breedString": "Unknown breed",
+      "breedString": "Domestic Short Hair (short coat)",
+      "breedPrimary": "Domestic Short Hair",
+      "breedPrimaryId": 35,
+      "isCatsOk": true,
+      "coatLength": "Short",
       "isCourtesyListing": false,
-      "descriptionHtml": "<p>Don&#39;t know which cat to apply for yet? Select &quot;Any Cat&quot; on your application and decide later.</p><img src=\"https://tracker.rescuegroups.org/pet?14068846\" width=\"0\" height=\"0\" alt=\"\" />",
-      "descriptionText": "Don&#39;t know which cat to apply for yet? Select &quot;Any Cat&quot; on your application and decide later.",
+      "descriptionText": "Meet Clive &#128420;Senior gentleman. Social butterfly. Professional heart-stealer.Clive is a handsome black domestic shorthair with bright, soulful eyes and a calm confidence that only comes with age. He&#226;\u20ac\u2122s the kind of guy who knows what he likes&#226;\u20ac\u201dand what he likes is good company. Other cats? Big fan. Humans? Also excellent.He&#226;\u20ac\u2122s lovable but independent, happy to soak up affection and then wander off to do his own thing like the classy fellow he is. Clive is well-socialized, easygoing, and wouldn&#226;\u20ac\u2122t even mind cruising around in a stroller walk like the VIP he clearly is.If you&#226;\u20ac\u2122re looking for a sweet senior who brings charm, companionship, and just the right amount of sass, Clive is ready to be your new best friend.",
+      "earType": "Tipped",
+      "isNeedingFoster": false,
       "isFound": false,
-      "priority": 1,
-      "killReason": "0",
-      "name": "Any Cat",
-      "pictureCount": 1,
-      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/956/pictures/animals/14068/14068846/64209314.jpg?width=100",
-      "searchString": "Any Cat        Cats Unknown breeds",
+      "priority": 10,
+      "name": "Clive",
+      "pictureCount": 8,
+      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/6685/pictures/animals/10854/10854998/92357381.jpg?width=100",
+      "qualities": [
+        "independent"
+      ],
+      "rescueId": "-24782",
+      "searchString": "Clive   Black Male  -24782  Cats Domestic Short Hair (short coat)s",
+      "sex": "Male",
+      "sizeCurrent": 8.355500221252441,
       "sizeUOM": "Pounds",
-      "slug": "adopt-any-cat-cat",
+      "slug": "adopt-clive-domestic-short-hair-cat",
       "isSponsorable": false,
-      "trackerimageUrl": "https://tracker.rescuegroups.org/pet?14068846",
-      "url": "https://ehrdogs.rescuegroups.org/animals/detail?AnimalID=14068846",
       "videoCount": 0,
       "videoUrlCount": 0,
-      "createdDate": "2019-02-11T18:00:16Z",
-      "updatedDate": "2023-04-26T01:58:14Z"
+      "createdDate": "2016-12-05T05:36:04Z",
+      "updatedDate": "2026-05-08T01:10:54Z"
     },
     "relationships": {
+      "breeds": {
+        "data": [
+          {
+            "type": "breeds",
+            "id": "35"
+          }
+        ]
+      },
+      "colors": {
+        "data": [
+          {
+            "type": "colors",
+            "id": "1"
+          }
+        ]
+      },
+      "patterns": {
+        "data": [
+          {
+            "type": "patterns",
+            "id": "11"
+          }
+        ]
+      },
       "species": {
         "data": [
           {
@@ -1961,7 +1964,7 @@
         "data": [
           {
             "type": "locations",
-            "id": "1000000956"
+            "id": "1000006685"
           }
         ]
       },
@@ -1969,7 +1972,7 @@
         "data": [
           {
             "type": "orgs",
-            "id": "956"
+            "id": "6685"
           }
         ]
       },
@@ -1977,7 +1980,35 @@
         "data": [
           {
             "type": "pictures",
-            "id": "64209314"
+            "id": "77200375"
+          },
+          {
+            "type": "pictures",
+            "id": "77200372"
+          },
+          {
+            "type": "pictures",
+            "id": "77200373"
+          },
+          {
+            "type": "pictures",
+            "id": "77200374"
+          },
+          {
+            "type": "pictures",
+            "id": "75073347"
+          },
+          {
+            "type": "pictures",
+            "id": "71531424"
+          },
+          {
+            "type": "pictures",
+            "id": "66408628"
+          },
+          {
+            "type": "pictures",
+            "id": "92357381"
           }
         ]
       }
@@ -1985,39 +2016,531 @@
   },
   {
     "type": "animals",
-    "id": "14149459",
+    "id": "10909668",
     "attributes": {
-      "distance": 20,
+      "activityLevel": "Slightly Active",
+      "adoptedDate": "2017-01-17T00:00:00Z",
       "isAdoptionPending": false,
+      "adultSexesOk": "All",
       "ageGroup": "Adult",
-      "ageString": "5 Years 8 Months",
-      "birthDate": "2017-03-11T00:00:00Z",
+      "ageString": "9 Years 7 Months",
+      "birthDate": "2016-09-05T00:00:00Z",
+      "isBirthDateExact": false,
+      "breedString": "Domestic Short Hair / Mixed (short coat)",
+      "breedPrimary": "Domestic Short Hair",
+      "breedPrimaryId": 35,
+      "isBreedMixed": true,
+      "coatLength": "Short",
+      "isCourtesyListing": false,
+      "isDeclawed": false,
+      "descriptionText": "Meet Rosie! Rosie was adopted from the rescue as a kitten nine years ago and is now looking for a new home, through&nbsp;no fault of her own (members of Rosie&#39;s family have developed allergies).&nbsp;   \n\nRosie is a sweet cat who is friendly with adults but does not care for kids.&nbsp;She is skittish around children and would prefer an adult-only home, where she will be more comfortable. She has always been a solo cat and has lived fully indoors.&nbsp;She&nbsp;is spayed, negative for FIV/FeLV, and current on vaccines (Rabies, FVRCP, and feline leukemia). She is also current on parasite prevention.&nbsp;  \n\nRose&#39;s current owner says &quot; She is loyal and smart as a whip. She would fetch a string and bring it back to me like a dog. My sister was amazed. In the morning when I make my bed, I&rsquo;ll say, &#39;ok, Rose, you know the drill,&#39;&nbsp;and she immediately goes and sits at the end of the bed! Rose would be a wonderful companion to a couple with no kids and no pets, or a single person wanting a loyal and sweet buddy. She&rsquo;s not high energy and does not scratch everything up. In that way she is almost perfect for older people. &quot;   \n\nIf you are the right family for this lovely girl who is so deserving of a second chance,&nbsp;please apply by&nbsp;clicking on&nbsp;More About Rose&#39;s Rescue -&nbsp;you may fill out adoption application from there. Or, go to the Rose&#39;s Rescue website,&nbsp;www.rosesrescue.net, and click on Fees - Adoption Info - Online Application.&nbsp;Thank you for considering adoption - our adoptable cats can&#39;t wait to meet you!   ",
+      "energyLevel": "Moderate",
+      "exerciseNeeds": "Low",
+      "fenceNeeds": "Not Required",
+      "isNeedingFoster": false,
+      "isFound": false,
+      "groomingNeeds": "Low",
+      "priority": 10,
+      "isHousetrained": true,
+      "indoorOutdoor": "Indoor Only",
+      "isKidsOk": false,
+      "name": "Rosie",
+      "newPeopleReaction": "Friendly",
+      "obedienceTraining": "Well Trained",
+      "ownerExperience": "None",
+      "pictureCount": 4,
+      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/4002/pictures/animals/10909/10909668/41598556.jpg?width=100",
+      "qualities": [
+        "affectionate",
+        "apartment",
+        "gentle",
+        "lap",
+        "oKForSeniors",
+        "olderKidsOnly",
+        "timid"
+      ],
+      "rescueId": "C160098",
+      "searchString": "Rosie   Black Female Medium C160098  Cats Domestic Short Hair / Mixed (short coat)s",
+      "sex": "Female",
+      "sizeGroup": "Medium",
+      "sizeUOM": "Pounds",
+      "slug": "adopt-rosie-domestic-short-hair-cat",
+      "isSpecialNeeds": false,
+      "isSponsorable": false,
+      "url": "https://rosesrescue.rescuegroups.org/animals/detail?AnimalID=10909668",
+      "videoCount": 0,
+      "videoUrlCount": 0,
+      "vocalLevel": "Quiet",
+      "isYardRequired": false,
+      "createdDate": "2016-12-21T14:02:08Z",
+      "updatedDate": "2026-05-04T15:59:57Z"
+    },
+    "relationships": {
+      "breeds": {
+        "data": [
+          {
+            "type": "breeds",
+            "id": "35"
+          }
+        ]
+      },
+      "colors": {
+        "data": [
+          {
+            "type": "colors",
+            "id": "1"
+          }
+        ]
+      },
+      "species": {
+        "data": [
+          {
+            "type": "species",
+            "id": "3"
+          }
+        ]
+      },
+      "statuses": {
+        "data": [
+          {
+            "type": "statuses",
+            "id": "1"
+          }
+        ]
+      },
+      "locations": {
+        "data": [
+          {
+            "type": "locations",
+            "id": "1000004002"
+          }
+        ]
+      },
+      "orgs": {
+        "data": [
+          {
+            "type": "orgs",
+            "id": "4002"
+          }
+        ]
+      },
+      "pictures": {
+        "data": [
+          {
+            "type": "pictures",
+            "id": "103039477"
+          },
+          {
+            "type": "pictures",
+            "id": "103078949"
+          },
+          {
+            "type": "pictures",
+            "id": "103078950"
+          },
+          {
+            "type": "pictures",
+            "id": "41598556"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "animals",
+    "id": "10939557",
+    "attributes": {
+      "isAdoptionPending": false,
+      "ageGroup": "Young",
+      "isBirthDateExact": false,
+      "breedString": "American Shorthair (short coat)",
+      "breedPrimary": "American Shorthair",
+      "breedPrimaryId": 3,
+      "coatLength": "Short",
+      "isCourtesyListing": false,
+      "isDeclawed": false,
+      "descriptionHtml": "<p>We have several cats needing outside homes where they can roam, cat catch mice, and be an outside pet. Most are friendly and will come up for food and can be pet. We trap and remove them from parking lots where they are trying to survive, but need a place to call home and feed daily.</p><img src=\"https://tracker.rescuegroups.org/pet?10939557\" width=\"0\" height=\"0\" alt=\"\" />",
+      "descriptionText": "We have several cats needing outside homes where they can roam, cat catch mice, and be an outside pet. Most are friendly and will come up for food and can be pet. We trap and remove them from parking lots where they are trying to survive, but need a place to call home and feed daily.",
+      "isFound": false,
+      "groomingNeeds": "Not Required",
+      "priority": 10,
+      "indoorOutdoor": "Outdoor Only",
+      "name": "Barn / Outside cats",
+      "pictureCount": 0,
+      "searchString": "Barn / Outside cats    Female    Cats American Shorthair (short coat)s",
+      "sex": "Female",
+      "sizeUOM": "Pounds",
+      "slug": "adopt-barn-outside-cats-american-shorthair-cat",
+      "isSpecialNeeds": false,
+      "isSponsorable": false,
+      "trackerimageUrl": "https://tracker.rescuegroups.org/pet?10939557",
+      "videoCount": 0,
+      "videoUrlCount": 0,
+      "createdDate": "2017-01-02T04:44:45Z",
+      "updatedDate": "2017-05-06T16:00:41Z"
+    },
+    "relationships": {
+      "breeds": {
+        "data": [
+          {
+            "type": "breeds",
+            "id": "3"
+          }
+        ]
+      },
+      "species": {
+        "data": [
+          {
+            "type": "species",
+            "id": "3"
+          }
+        ]
+      },
+      "statuses": {
+        "data": [
+          {
+            "type": "statuses",
+            "id": "1"
+          }
+        ]
+      },
+      "locations": {
+        "data": [
+          {
+            "type": "locations",
+            "id": "1000008038"
+          }
+        ]
+      },
+      "orgs": {
+        "data": [
+          {
+            "type": "orgs",
+            "id": "8038"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "animals",
+    "id": "10990092",
+    "attributes": {
+      "adoptionFeeString": "$100.00",
+      "isAdoptionPending": false,
+      "adultSexesOk": "All",
+      "ageGroup": "Adult",
+      "ageString": "9 Years 11 Months",
+      "birthDate": "2014-02-07T00:00:00Z",
       "isBirthDateExact": false,
       "breedString": "Domestic Short Hair (short coat)",
       "breedPrimary": "Domestic Short Hair",
       "breedPrimaryId": 35,
+      "isCatsOk": true,
       "coatLength": "Short",
       "isCourtesyListing": false,
-      "descriptionHtml": "<p>Val is an adult female tortie cat who came from Old Bridge Animal Shelter. &nbsp;</p><img src=\"https://tracker.rescuegroups.org/pet?14149459\" width=\"0\" height=\"0\" alt=\"\" />",
-      "descriptionText": "Val is an adult female tortie cat who came from Old Bridge Animal Shelter. &nbsp;",
+      "isDeclawed": false,
+      "descriptionHtml": "<p>\n<span style=\"font-family:arial,helvetica,sans-serif;\">Cora is 9&nbsp;years old. She loves getting attention and will roll over and beg you to rub her belly. She&#39;s a sweet little attention seeker.</span>\n</p>\n\n<p><strong>\n<span style=\"color: rgb(68, 68, 68); font-family: &quot;Helvetica Neue&quot;, Helvetica, Roboto, Arial, sans-serif; font-size: 13px; line-height: 19px; background-color: rgb(255, 255, 255);\">She has been spayed, combo tested for feline leukemia/feline aids, up to date on vaccinations, wormed, and flea treated.</span>\n</strong></p><img src=\"https://tracker.rescuegroups.org/pet?10990092\" width=\"0\" height=\"0\" alt=\"\" />",
+      "descriptionText": "\nCora is 9&nbsp;years old. She loves getting attention and will roll over and beg you to rub her belly. She&#39;s a sweet little attention seeker.\n\n\n\nShe has been spayed, combo tested for feline leukemia/feline aids, up to date on vaccinations, wormed, and flea treated.\n",
+      "isDogsOk": true,
+      "earType": "Natural/Uncropped",
+      "eyeColor": "Yellow",
+      "fenceNeeds": "Not Required",
+      "isNeedingFoster": false,
       "isFound": false,
       "priority": 10,
+      "isHousetrained": true,
       "indoorOutdoor": "Indoor Only",
-      "name": "Val",
+      "isKidsOk": true,
+      "name": "Cora",
       "newPeopleReaction": "Friendly",
-      "pictureCount": 1,
-      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/3077/pictures/animals/14149/14149459/64695016.jpg?width=100",
-      "searchString": "Val   Tortoiseshell Female Medium   Cats Domestic Short Hair (short coat)s",
+      "ownerExperience": "None",
+      "pictureCount": 6,
+      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/8038/pictures/animals/10990/10990092/57637130.jpg?width=100",
+      "qualities": [
+        "affectionate",
+        "eventempered",
+        "goofy",
+        "playful",
+        "playsToys"
+      ],
+      "searchString": "Cora   Black Female    Cats Domestic Short Hair (short coat)s",
       "sex": "Female",
-      "sizeGroup": "Medium",
       "sizeUOM": "Pounds",
-      "slug": "adopt-val-domestic-short-hair-cat",
+      "slug": "adopt-cora-domestic-short-hair-cat",
+      "isSpecialNeeds": false,
       "isSponsorable": false,
-      "trackerimageUrl": "https://tracker.rescuegroups.org/pet?14149459",
+      "trackerimageUrl": "https://tracker.rescuegroups.org/pet?10990092",
       "videoCount": 0,
       "videoUrlCount": 0,
-      "createdDate": "2019-03-12T03:27:13Z",
-      "updatedDate": "2019-03-15T01:00:57Z"
+      "isYardRequired": false,
+      "createdDate": "2017-01-18T03:35:57Z",
+      "updatedDate": "2024-02-01T02:38:52Z"
+    },
+    "relationships": {
+      "breeds": {
+        "data": [
+          {
+            "type": "breeds",
+            "id": "35"
+          }
+        ]
+      },
+      "colors": {
+        "data": [
+          {
+            "type": "colors",
+            "id": "1"
+          }
+        ]
+      },
+      "species": {
+        "data": [
+          {
+            "type": "species",
+            "id": "3"
+          }
+        ]
+      },
+      "statuses": {
+        "data": [
+          {
+            "type": "statuses",
+            "id": "1"
+          }
+        ]
+      },
+      "locations": {
+        "data": [
+          {
+            "type": "locations",
+            "id": "1000008038"
+          }
+        ]
+      },
+      "orgs": {
+        "data": [
+          {
+            "type": "orgs",
+            "id": "8038"
+          }
+        ]
+      },
+      "pictures": {
+        "data": [
+          {
+            "type": "pictures",
+            "id": "82509371"
+          },
+          {
+            "type": "pictures",
+            "id": "82445147"
+          },
+          {
+            "type": "pictures",
+            "id": "79702637"
+          },
+          {
+            "type": "pictures",
+            "id": "45140868"
+          },
+          {
+            "type": "pictures",
+            "id": "57637129"
+          },
+          {
+            "type": "pictures",
+            "id": "57637130"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "animals",
+    "id": "11017848",
+    "attributes": {
+      "activityLevel": "Moderately Active",
+      "adoptionFeeString": "100.00",
+      "isAdoptionPending": false,
+      "ageGroup": "Adult",
+      "ageString": "11 Years 11 Months",
+      "birthDate": "2013-01-25T00:00:00Z",
+      "isBirthDateExact": false,
+      "breedString": "Domestic Short Hair / Calico (short coat)",
+      "breedPrimary": "Domestic Short Hair",
+      "breedPrimaryId": 35,
+      "breedSecondary": "Calico",
+      "breedSecondaryId": 15,
+      "isCatsOk": false,
+      "coatLength": "Short",
+      "colorDetails": "Calico",
+      "isCourtesyListing": false,
+      "isCurrentVaccinations": true,
+      "isDeclawed": false,
+      "descriptionHtml": "<p><span style=\"font-size: 10pt;\" data-mce-mark=\"1\"><span style=\"text-decoration: underline;\" data-mce-mark=\"1\"><strong><span style=\"font-size: 10pt;\" data-mce-mark=\"1\">Our website is updated daily</span></strong></span></span></p>\n<p><span style=\"font-size: 10pt;\">Freya is spayed, UTD on vaccines and tested negative for FIV/FeLV. Approx. DOB is Jan. 2013.<br /></span><br /><span style=\"font-size: 10pt;\">Freya is a sweet girl who just needs someone to understand her &mdash; we all know Calico's can have a some of that Tortie-Tude. She was outside for a long time before being brought in to give birth to her kittens. She is friendly, but knows her boundaries. Freya likes to talk and get neck scratches.<br /><br />She would do best as an only cat in an experienced home. No dogs, no cats. She would do OK with older children that know cat behavior.</span><br /><br /><span style=\"font-size: 10pt;\">If interested in adopting Freya, please fill out an application online at <a href=\"../\">http://nar.rescuegroups.org</a>.</span></p><img src=\"https://tracker.rescuegroups.org/pet?11017848\" width=\"0\" height=\"0\" alt=\"\" />",
+      "descriptionText": "Our website is updated daily\nFreya is spayed, UTD on vaccines and tested negative for FIV/FeLV. Approx. DOB is Jan. 2013.Freya is a sweet girl who just needs someone to understand her &mdash; we all know Calico's can have a some of that Tortie-Tude. She was outside for a long time before being brought in to give birth to her kittens. She is friendly, but knows her boundaries. Freya likes to talk and get neck scratches.She would do best as an only cat in an experienced home. No dogs, no cats. She would do OK with older children that know cat behavior.If interested in adopting Freya, please fill out an application online at http://nar.rescuegroups.org.",
+      "isDogsOk": false,
+      "isNeedingFoster": false,
+      "isFound": false,
+      "priority": 10,
+      "isHousetrained": true,
+      "indoorOutdoor": "Indoor Only",
+      "isKidsOk": false,
+      "name": "Freya",
+      "pictureCount": 9,
+      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/126/pictures/animals/11017/11017848/42440048.jpg?width=100",
+      "searchString": "Freya  Calico Calico or Dilute Calico Female Large  Calico Cats Domestic Short Hair / Calico (short coat)s",
+      "sex": "Female",
+      "sizeGroup": "Large",
+      "sizeUOM": "Pounds",
+      "slug": "adopt-freya-domestic-short-hair-cat",
+      "isSpecialNeeds": false,
+      "isSponsorable": true,
+      "sponsorshipMinimum": "10.00",
+      "trackerimageUrl": "https://tracker.rescuegroups.org/pet?11017848",
+      "url": "https://nar.rescuegroups.org/animals/detail?AnimalID=11017848",
+      "videoCount": 0,
+      "videoUrlCount": 0,
+      "createdDate": "2017-01-24T23:09:04Z",
+      "updatedDate": "2024-12-29T18:07:50Z"
+    },
+    "relationships": {
+      "breeds": {
+        "data": [
+          {
+            "type": "breeds",
+            "id": "35"
+          },
+          {
+            "type": "breeds",
+            "id": "15"
+          }
+        ]
+      },
+      "colors": {
+        "data": [
+          {
+            "type": "colors",
+            "id": "10"
+          }
+        ]
+      },
+      "patterns": {
+        "data": [
+          {
+            "type": "patterns",
+            "id": "9"
+          }
+        ]
+      },
+      "species": {
+        "data": [
+          {
+            "type": "species",
+            "id": "3"
+          }
+        ]
+      },
+      "statuses": {
+        "data": [
+          {
+            "type": "statuses",
+            "id": "1"
+          }
+        ]
+      },
+      "locations": {
+        "data": [
+          {
+            "type": "locations",
+            "id": "1000000126"
+          }
+        ]
+      },
+      "orgs": {
+        "data": [
+          {
+            "type": "orgs",
+            "id": "126"
+          }
+        ]
+      },
+      "pictures": {
+        "data": [
+          {
+            "type": "pictures",
+            "id": "74894454"
+          },
+          {
+            "type": "pictures",
+            "id": "74894451"
+          },
+          {
+            "type": "pictures",
+            "id": "74211716"
+          },
+          {
+            "type": "pictures",
+            "id": "74211715"
+          },
+          {
+            "type": "pictures",
+            "id": "42440025"
+          },
+          {
+            "type": "pictures",
+            "id": "42440060"
+          },
+          {
+            "type": "pictures",
+            "id": "42440063"
+          },
+          {
+            "type": "pictures",
+            "id": "42440031"
+          },
+          {
+            "type": "pictures",
+            "id": "42440048"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "animals",
+    "id": "11024074",
+    "attributes": {
+      "isAdoptionPending": false,
+      "ageGroup": "Adult",
+      "ageString": "8 Years 10 Months",
+      "birthDate": "2014-01-17T00:00:00Z",
+      "isBirthDateExact": false,
+      "breedString": "Domestic Short Hair (medium coat)",
+      "breedPrimary": "Domestic Short Hair",
+      "breedPrimaryId": 35,
+      "isBreedMixed": false,
+      "coatLength": "Medium",
+      "isCourtesyListing": false,
+      "descriptionHtml": "Please Note: I am in a foster home! Please call 412.321.4625 ext: 228 to make an appointment to see me!<BR><BR>Hi, I''m Pookie! I''m a three-year-old shorthaired tortie who''s looking for my fur-ever home! I came to the shelter because my previous owner could no longer care for me. I have lived with other cats and dogs but I can still be shy around new people. I might do best in a home that''s quiet and has owners who will allow me to slowly gain their trust. <BR><BR>I have been medically evaluated, altered, microchipped, and am up to date on all my age appropriate vaccinations. <BR><BR>My Adoption Package includes:<BR>- Spay/Neuter surgery<BR>- The animal will be provided with age appropriate vaccines UP TO THE TIME OF ADOPTION. As many vaccines are given in a series or require that an animal be of a certain age, this means further vaccines MAY BE REQUIRED AT THE ADOPTERS EXPENSE.<BR>- Feline Leukemia Test<BR>- Deworming and/or fecal exam, Flea Treatment application<BR>- AVID Microchip (form of permanent identification)<BR>- Free Box Cat Carrier<BR>- LIFETIME OF LOVE!!!!<BR><img src=\"https://tracker.rescuegroups.org/pet?11024074\" width=\"0\" height=\"0\" alt=\"\" />",
+      "descriptionText": "Please Note: I am in a foster home! Please call 412.321.4625 ext: 228 to make an appointment to see me!Hi, I''m Pookie! I''m a three-year-old shorthaired tortie who''s looking for my fur-ever home! I came to the shelter because my previous owner could no longer care for me. I have lived with other cats and dogs but I can still be shy around new people. I might do best in a home that''s quiet and has owners who will allow me to slowly gain their trust. I have been medically evaluated, altered, microchipped, and am up to date on all my age appropriate vaccinations. My Adoption Package includes:- Spay/Neuter surgery- The animal will be provided with age appropriate vaccines UP TO THE TIME OF ADOPTION. As many vaccines are given in a series or require that an animal be of a certain age, this means further vaccines MAY BE REQUIRED AT THE ADOPTERS EXPENSE.- Feline Leukemia Test- Deworming and/or fecal exam, Flea Treatment application- AVID Microchip (form of permanent identification)- Free Box Cat Carrier- LIFETIME OF LOVE!!!!",
+      "isFound": false,
+      "priority": 10,
+      "name": "POOKIE",
+      "pictureCount": 1,
+      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/1948/pictures/animals/11024/11024074/43308772.jpg?width=100",
+      "rescueId": "A217079",
+      "searchString": "POOKIE   Tortoiseshell Female Medium A217079  Cats Domestic Short Hair (medium coat)s",
+      "sex": "Female",
+      "sizeGroup": "Medium",
+      "slug": "adopt-pookie-domestic-short-hair-cat",
+      "isSponsorable": false,
+      "trackerimageUrl": "https://tracker.rescuegroups.org/pet?11024074",
+      "videoCount": 0,
+      "videoUrlCount": 0,
+      "createdDate": "2017-01-26T22:06:32Z",
+      "updatedDate": "2017-04-21T23:31:35Z"
     },
     "relationships": {
       "breeds": {
@@ -2036,188 +2559,10 @@
           }
         ]
       },
-      "species": {
+      "patterns": {
         "data": [
           {
-            "type": "species",
-            "id": "3"
-          }
-        ]
-      },
-      "statuses": {
-        "data": [
-          {
-            "type": "statuses",
-            "id": "1"
-          }
-        ]
-      },
-      "locations": {
-        "data": [
-          {
-            "type": "locations",
-            "id": "1000003077"
-          }
-        ]
-      },
-      "orgs": {
-        "data": [
-          {
-            "type": "orgs",
-            "id": "3077"
-          }
-        ]
-      },
-      "pictures": {
-        "data": [
-          {
-            "type": "pictures",
-            "id": "64695016"
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "animals",
-    "id": "14160533",
-    "attributes": {
-      "distance": 20,
-      "isAdoptionPending": false,
-      "ageString": "4 Years 11 Months",
-      "birthDate": "2017-12-14T00:00:00Z",
-      "isBirthDateExact": false,
-      "breedString": "Domestic Short Hair",
-      "breedPrimary": "Domestic Short Hair",
-      "breedPrimaryId": 35,
-      "colorDetails": "White and black",
-      "isCourtesyListing": false,
-      "descriptionHtml": "<p>Owner surrender&nbsp;pulled from Elizabeth Animal Shelter on 3/14/19.&nbsp; Ciara is pregnant and due within 2 weeks.</p>\n\n<p>Ciara (Keera) - Gave birth two 2 white and black kittens on 3/26/19; Flopsy &amp; Mopsy</p><img src=\"https://tracker.rescuegroups.org/pet?14160533\" width=\"0\" height=\"0\" alt=\"\" />",
-      "descriptionText": "Owner surrender&nbsp;pulled from Elizabeth Animal Shelter on 3/14/19.&nbsp; Ciara is pregnant and due within 2 weeks.\n\nCiara (Keera) - Gave birth two 2 white and black kittens on 3/26/19; Flopsy &amp; Mopsy",
-      "isFound": false,
-      "priority": 10,
-      "name": "Ciara (Keera)",
-      "pictureCount": 2,
-      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/3077/pictures/animals/14160/14160533/64796074.jpg?width=100",
-      "searchString": "Ciara (Keera)  White and black Black and White Female   White and black Cats Domestic Short Hairs",
-      "sex": "Female",
-      "sizeUOM": "Pounds",
-      "slug": "adopt-ciara-keera-domestic-short-hair-cat",
-      "isSponsorable": false,
-      "trackerimageUrl": "https://tracker.rescuegroups.org/pet?14160533",
-      "videoCount": 0,
-      "videoUrlCount": 0,
-      "createdDate": "2019-03-15T17:00:00Z",
-      "updatedDate": "2019-05-06T14:50:47Z"
-    },
-    "relationships": {
-      "breeds": {
-        "data": [
-          {
-            "type": "breeds",
-            "id": "35"
-          }
-        ]
-      },
-      "colors": {
-        "data": [
-          {
-            "type": "colors",
-            "id": "6"
-          }
-        ]
-      },
-      "species": {
-        "data": [
-          {
-            "type": "species",
-            "id": "3"
-          }
-        ]
-      },
-      "statuses": {
-        "data": [
-          {
-            "type": "statuses",
-            "id": "1"
-          }
-        ]
-      },
-      "locations": {
-        "data": [
-          {
-            "type": "locations",
-            "id": "1000003077"
-          }
-        ]
-      },
-      "orgs": {
-        "data": [
-          {
-            "type": "orgs",
-            "id": "3077"
-          }
-        ]
-      },
-      "pictures": {
-        "data": [
-          {
-            "type": "pictures",
-            "id": "64707207"
-          },
-          {
-            "type": "pictures",
-            "id": "64796074"
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "animals",
-    "id": "14160539",
-    "attributes": {
-      "distance": 20,
-      "isAdoptionPending": false,
-      "ageString": "4 Years 7 Months",
-      "birthDate": "2018-04-15T00:00:00Z",
-      "isBirthDateExact": false,
-      "breedString": "Domestic Short Hair",
-      "breedPrimary": "Domestic Short Hair",
-      "breedPrimaryId": 35,
-      "colorDetails": "patch Calico",
-      "isCourtesyListing": false,
-      "descriptionHtml": "<p>Owner surrenders pulled from Elizabeth Animal Shelter on 3/14/19.&nbsp;&nbsp;3 year old mom Siobhan;&nbsp;11&nbsp;month old daughters&nbsp; Aileen, Darcy, Kyleigh.&nbsp; Siobhan is&nbsp;pregnant and due within 2 weeks.</p><img src=\"https://tracker.rescuegroups.org/pet?14160539\" width=\"0\" height=\"0\" alt=\"\" />",
-      "descriptionText": "Owner surrenders pulled from Elizabeth Animal Shelter on 3/14/19.&nbsp;&nbsp;3 year old mom Siobhan;&nbsp;11&nbsp;month old daughters&nbsp; Aileen, Darcy, Kyleigh.&nbsp; Siobhan is&nbsp;pregnant and due within 2 weeks.",
-      "isFound": false,
-      "priority": 10,
-      "name": "Aileen",
-      "pictureCount": 1,
-      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/3077/pictures/animals/14160/14160539/66519020.jpg?width=100",
-      "searchString": "Aileen 3 year old mom Siobhan, 11 month old daughters Aileen, Darcy, Kyleigh patch Calico Calico or Dilute Calico Female   patch Calico Cats Domestic Short Hairs",
-      "sex": "Female",
-      "sizeUOM": "Pounds",
-      "slug": "adopt-aileen-domestic-short-hair-cat",
-      "isSponsorable": false,
-      "trackerimageUrl": "https://tracker.rescuegroups.org/pet?14160539",
-      "videoCount": 0,
-      "videoUrlCount": 0,
-      "createdDate": "2019-03-15T17:02:23Z",
-      "updatedDate": "2019-06-26T14:29:16Z"
-    },
-    "relationships": {
-      "breeds": {
-        "data": [
-          {
-            "type": "breeds",
-            "id": "35"
-          }
-        ]
-      },
-      "colors": {
-        "data": [
-          {
-            "type": "colors",
+            "type": "patterns",
             "id": "10"
           }
         ]
@@ -2242,7 +2587,7 @@
         "data": [
           {
             "type": "locations",
-            "id": "1000003077"
+            "id": "1000001948"
           }
         ]
       },
@@ -2250,7 +2595,7 @@
         "data": [
           {
             "type": "orgs",
-            "id": "3077"
+            "id": "1948"
           }
         ]
       },
@@ -2258,7 +2603,7 @@
         "data": [
           {
             "type": "pictures",
-            "id": "66519020"
+            "id": "43308772"
           }
         ]
       }
@@ -2266,247 +2611,55 @@
   },
   {
     "type": "animals",
-    "id": "14549728",
+    "id": "11040720",
     "attributes": {
-      "distance": 20,
+      "activityLevel": "Moderately Active",
+      "adoptionFeeString": "100.00",
       "isAdoptionPending": false,
-      "ageGroup": "Baby",
-      "ageString": "3 Years 7 Months",
-      "birthDate": "2019-04-22T00:00:00Z",
+      "ageGroup": "Adult",
+      "ageString": "9 Years 6 Months",
+      "birthDate": "2015-06-13T00:00:00Z",
       "isBirthDateExact": false,
-      "breedString": "Domestic Short Hair",
+      "breedString": "Domestic Short Hair (short coat)",
       "breedPrimary": "Domestic Short Hair",
       "breedPrimaryId": 35,
+      "isCatsOk": true,
+      "coatLength": "Short",
+      "colorDetails": "Dilute Tortie",
       "isCourtesyListing": false,
-      "descriptionHtml": "<p>Cats found at Warinaco Park.&nbsp; Mom-Padme, Kittens-Luke &amp; Leia&nbsp;(in foster with Angela Sabarese)</p>\n\n<p>&nbsp;</p><img src=\"https://tracker.rescuegroups.org/pet?14549728\" width=\"0\" height=\"0\" alt=\"\" />",
-      "descriptionText": "Cats found at Warinaco Park.&nbsp; Mom-Padme, Kittens-Luke &amp; Leia&nbsp;(in foster with Angela Sabarese)\n\n&nbsp;",
+      "isCurrentVaccinations": true,
+      "isDeclawed": false,
+      "descriptionHtml": "<p><span style=\"font-size: 10pt;\"><span style=\"text-decoration: underline;\"><strong>Our website is updated daily</strong></span></span></p>\n<p><span style=\"font-size: 10pt;\">Maisie is spayed, UTD on vaccines and tested negative for FIV/FeLV. Approx. DOB June 2015.<br /></span><br /><span style=\"font-size: 10pt;\">Maise is a sweet and silly girl who's sure to steal your heart. She may need a little time to adjust to her new home, but once she's comfortable, she'll be your purring, playful companion. She loves to observe the world around her and often follows her humans from room to room, curious about what they're up to.<br /><br />Maisie would do best with older children. She is cat friendly, but has not met dogs. </span><br /><br /><span style=\"font-size: 10pt;\">If interested in adopting Maisie, please fill out an application online at <a href=\"../\">http://nar.rescuegroups.org</a>.</span></p><img src=\"https://tracker.rescuegroups.org/pet?11040720\" width=\"0\" height=\"0\" alt=\"\" />",
+      "descriptionText": "Our website is updated daily\nMaisie is spayed, UTD on vaccines and tested negative for FIV/FeLV. Approx. DOB June 2015.Maise is a sweet and silly girl who's sure to steal your heart. She may need a little time to adjust to her new home, but once she's comfortable, she'll be your purring, playful companion. She loves to observe the world around her and often follows her humans from room to room, curious about what they're up to.Maisie would do best with older children. She is cat friendly, but has not met dogs. If interested in adopting Maisie, please fill out an application online at http://nar.rescuegroups.org.",
+      "isNeedingFoster": false,
       "isFound": false,
       "priority": 10,
-      "name": "Leia",
-      "pictureCount": 4,
-      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/3077/pictures/animals/14549/14549728/73922795.jpg?width=100",
-      "searchString": "Leia Mom-Padme, Kittens-Luke & Leia  Black Female    Cats Domestic Short Hairs",
-      "sex": "Female",
-      "sizeUOM": "Pounds",
-      "slug": "adopt-leia-domestic-short-hair-cat",
-      "isSponsorable": false,
-      "trackerimageUrl": "https://tracker.rescuegroups.org/pet?14549728",
-      "videoCount": 0,
-      "videoUrlCount": 0,
-      "createdDate": "2019-07-05T16:11:23Z",
-      "updatedDate": "2020-08-16T01:29:21Z"
-    },
-    "relationships": {
-      "breeds": {
-        "data": [
-          {
-            "type": "breeds",
-            "id": "35"
-          }
-        ]
-      },
-      "colors": {
-        "data": [
-          {
-            "type": "colors",
-            "id": "1"
-          }
-        ]
-      },
-      "species": {
-        "data": [
-          {
-            "type": "species",
-            "id": "3"
-          }
-        ]
-      },
-      "statuses": {
-        "data": [
-          {
-            "type": "statuses",
-            "id": "1"
-          }
-        ]
-      },
-      "fosters": {
-        "data": [
-          {
-            "type": "fosters",
-            "id": "6825954"
-          }
-        ]
-      },
-      "locations": {
-        "data": [
-          {
-            "type": "locations",
-            "id": "1000003077"
-          }
-        ]
-      },
-      "orgs": {
-        "data": [
-          {
-            "type": "orgs",
-            "id": "3077"
-          }
-        ]
-      },
-      "pictures": {
-        "data": [
-          {
-            "type": "pictures",
-            "id": "66731671"
-          },
-          {
-            "type": "pictures",
-            "id": "66750863"
-          },
-          {
-            "type": "pictures",
-            "id": "66750867"
-          },
-          {
-            "type": "pictures",
-            "id": "73922795"
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "animals",
-    "id": "14556468",
-    "attributes": {
-      "distance": 20,
-      "isAdoptionPending": false,
-      "ageGroup": "Baby",
-      "ageString": "3 Years 7 Months",
-      "birthDate": "2019-04-27T00:00:00Z",
-      "isBirthDateExact": false,
-      "breedString": "Domestic Short Hair",
-      "breedPrimary": "Domestic Short Hair",
-      "breedPrimaryId": 35,
-      "colorDetails": "tiger",
-      "isCourtesyListing": false,
-      "descriptionHtml": "<p>Siblings - Rowen, Fergus, Angus, Nora.&nbsp; Fostered by Amy Inka.</p><img src=\"https://tracker.rescuegroups.org/pet?14556468\" width=\"0\" height=\"0\" alt=\"\" />",
-      "descriptionText": "Siblings - Rowen, Fergus, Angus, Nora.&nbsp; Fostered by Amy Inka.",
-      "isFound": false,
-      "priority": 10,
-      "name": "Rowen",
-      "pictureCount": 1,
-      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/3077/pictures/animals/14556/14556468/66731699.jpg?width=100",
-      "searchString": "Rowen Siblings - Rowen, Fergus, Angus, Nora tiger Brown Tabby Male   tiger Cats Domestic Short Hairs",
-      "sex": "Male",
-      "sizeUOM": "Pounds",
-      "slug": "adopt-rowen-domestic-short-hair-cat",
-      "isSponsorable": false,
-      "trackerimageUrl": "https://tracker.rescuegroups.org/pet?14556468",
-      "videoCount": 0,
-      "videoUrlCount": 0,
-      "createdDate": "2019-07-07T14:55:23Z",
-      "updatedDate": "2019-07-07T17:28:00Z"
-    },
-    "relationships": {
-      "breeds": {
-        "data": [
-          {
-            "type": "breeds",
-            "id": "35"
-          }
-        ]
-      },
-      "colors": {
-        "data": [
-          {
-            "type": "colors",
-            "id": "9"
-          }
-        ]
-      },
-      "species": {
-        "data": [
-          {
-            "type": "species",
-            "id": "3"
-          }
-        ]
-      },
-      "statuses": {
-        "data": [
-          {
-            "type": "statuses",
-            "id": "1"
-          }
-        ]
-      },
-      "locations": {
-        "data": [
-          {
-            "type": "locations",
-            "id": "1000003077"
-          }
-        ]
-      },
-      "orgs": {
-        "data": [
-          {
-            "type": "orgs",
-            "id": "3077"
-          }
-        ]
-      },
-      "pictures": {
-        "data": [
-          {
-            "type": "pictures",
-            "id": "66731699"
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "animals",
-    "id": "14557108",
-    "attributes": {
-      "distance": 20,
-      "isAdoptionPending": false,
-      "ageGroup": "Baby",
-      "ageString": "3 Years 7 Months",
-      "birthDate": "2019-04-26T00:00:00Z",
-      "isBirthDateExact": false,
-      "breedString": "Domestic Medium Hair (medium coat)",
-      "breedPrimary": "Domestic Medium Hair",
-      "breedPrimaryId": 29,
-      "coatLength": "Medium",
-      "colorDetails": "black swirls",
-      "isCourtesyListing": false,
-      "descriptionHtml": "<p>Born to feral mom in Piscataway. In foster with Donna D son. Brother-Panther</p><img src=\"https://tracker.rescuegroups.org/pet?14557108\" width=\"0\" height=\"0\" alt=\"\" />",
-      "descriptionText": "Born to feral mom in Piscataway. In foster with Donna D son. Brother-Panther",
-      "isFound": false,
-      "priority": 10,
-      "name": "Swirly Girl",
-      "pictureCount": 0,
-      "searchString": "Swirly Girl  black swirls Brown Tabby Female Medium  black swirls Cats Domestic Medium Hair (medium coat)s",
+      "isHousetrained": true,
+      "indoorOutdoor": "Indoor Only",
+      "name": "Maisie",
+      "pictureCount": 2,
+      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/126/pictures/animals/11040/11040720/42192007.jpg?width=100",
+      "searchString": "Maisie  Dilute Tortie Tortoiseshell Female Medium  Dilute Tortie Cats Domestic Short Hair (short coat)s",
       "sex": "Female",
       "sizeGroup": "Medium",
       "sizeUOM": "Pounds",
-      "slug": "adopt-swirly-girl-domestic-medium-hair-cat",
-      "isSponsorable": false,
-      "trackerimageUrl": "https://tracker.rescuegroups.org/pet?14557108",
+      "slug": "adopt-maisie-domestic-short-hair-cat",
+      "isSpecialNeeds": false,
+      "isSponsorable": true,
+      "sponsorshipMinimum": "10.00",
+      "trackerimageUrl": "https://tracker.rescuegroups.org/pet?11040720",
+      "url": "https://nar.rescuegroups.org/animals/detail?AnimalID=11040720",
       "videoCount": 0,
       "videoUrlCount": 0,
-      "createdDate": "2019-07-07T18:45:25Z",
-      "updatedDate": "2019-07-07T18:45:25Z"
+      "createdDate": "2017-02-01T03:45:19Z",
+      "updatedDate": "2024-12-29T18:12:15Z"
     },
     "relationships": {
       "breeds": {
         "data": [
           {
             "type": "breeds",
-            "id": "29"
+            "id": "35"
           }
         ]
       },
@@ -2514,7 +2667,121 @@
         "data": [
           {
             "type": "colors",
-            "id": "9"
+            "id": "20"
+          }
+        ]
+      },
+      "patterns": {
+        "data": [
+          {
+            "type": "patterns",
+            "id": "10"
+          }
+        ]
+      },
+      "species": {
+        "data": [
+          {
+            "type": "species",
+            "id": "3"
+          }
+        ]
+      },
+      "statuses": {
+        "data": [
+          {
+            "type": "statuses",
+            "id": "1"
+          }
+        ]
+      },
+      "locations": {
+        "data": [
+          {
+            "type": "locations",
+            "id": "1000000126"
+          }
+        ]
+      },
+      "orgs": {
+        "data": [
+          {
+            "type": "orgs",
+            "id": "126"
+          }
+        ]
+      },
+      "pictures": {
+        "data": [
+          {
+            "type": "pictures",
+            "id": "100091106"
+          },
+          {
+            "type": "pictures",
+            "id": "42192007"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "animals",
+    "id": "11046170",
+    "attributes": {
+      "activityLevel": "Moderately Active",
+      "isAdoptionPending": false,
+      "ageGroup": "Adult",
+      "ageString": "8 Years 11 Months",
+      "birthDate": "2016-10-12T00:00:00Z",
+      "isBirthDateExact": false,
+      "breedString": "Domestic Short Hair / Mixed (short coat)",
+      "breedPrimary": "Domestic Short Hair",
+      "breedPrimaryId": 35,
+      "isBreedMixed": true,
+      "isCatsOk": true,
+      "coatLength": "Short",
+      "isCourtesyListing": false,
+      "isDeclawed": false,
+      "descriptionHtml": "<p>\n<span style=\"color: rgb(51, 51, 51); font-family: Roboto; font-size: 15px; background-color: rgb(255, 255, 255);\">Hi, I&rsquo;m Beamer. Four other kittens and I were rescued by Animal Control and luckily came to the SBACC, where we were safe, warm, and well-fed while waiting for our forever homes. I was the smallest of the group and was more scared and shy. I&rsquo;ve been at the shelter for several years now, and I have a lot of fun zooming around the room, playing, and spending time with my roommates.&nbsp; I am still nervous around people, and I don&rsquo;t allow pets or being picked up, but I LOVE other cats. I would need a patient family willing to let me be me, and not expect me to become a people-friendly cat. I would definitely have to have another feline in my home.&nbsp; My best friends at SBACC are Osaka, Oshkosh, Abbie, and Angelique.&nbsp; We&rsquo;re all shy and hang out together, and I would love to go home with one of them.&nbsp; I&rsquo;m with Abbie and Oshkosh in one of the pics.</span>\n</p><img src=\"https://tracker.rescuegroups.org/pet?11046170\" width=\"0\" height=\"0\" alt=\"\" />",
+      "descriptionText": "\nHi, I&rsquo;m Beamer. Four other kittens and I were rescued by Animal Control and luckily came to the SBACC, where we were safe, warm, and well-fed while waiting for our forever homes. I was the smallest of the group and was more scared and shy. I&rsquo;ve been at the shelter for several years now, and I have a lot of fun zooming around the room, playing, and spending time with my roommates.&nbsp; I am still nervous around people, and I don&rsquo;t allow pets or being picked up, but I LOVE other cats. I would need a patient family willing to let me be me, and not expect me to become a people-friendly cat. I would definitely have to have another feline in my home.&nbsp; My best friends at SBACC are Osaka, Oshkosh, Abbie, and Angelique.&nbsp; We&rsquo;re all shy and hang out together, and I would love to go home with one of them.&nbsp; I&rsquo;m with Abbie and Oshkosh in one of the pics.\n",
+      "isFound": false,
+      "groomingNeeds": "Moderate",
+      "priority": 10,
+      "isHousetrained": true,
+      "indoorOutdoor": "Indoor Only",
+      "name": "Beamer",
+      "newPeopleReaction": "Cautious",
+      "pictureCount": 6,
+      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/5166/pictures/animals/11046/11046170/101839129.jpg?width=100",
+      "searchString": "Beamer   Fawn (Mostly) Male Medium   Cats Domestic Short Hair / Mixed (short coat)s",
+      "sex": "Male",
+      "sheddingLevel": "Moderate",
+      "sizeGroup": "Medium",
+      "sizeUOM": "Pounds",
+      "slug": "adopt-beamer-domestic-short-hair-cat",
+      "isSpecialNeeds": false,
+      "isSponsorable": false,
+      "trackerimageUrl": "https://tracker.rescuegroups.org/pet?11046170",
+      "videoCount": 0,
+      "videoUrlCount": 0,
+      "createdDate": "2017-02-02T19:30:54Z",
+      "updatedDate": "2025-09-22T01:47:13Z"
+    },
+    "relationships": {
+      "breeds": {
+        "data": [
+          {
+            "type": "breeds",
+            "id": "35"
+          }
+        ]
+      },
+      "colors": {
+        "data": [
+          {
+            "type": "colors",
+            "id": "66"
           }
         ]
       },
@@ -2546,7 +2813,7 @@
         "data": [
           {
             "type": "locations",
-            "id": "1000003077"
+            "id": "1000005166"
           }
         ]
       },
@@ -2554,7 +2821,375 @@
         "data": [
           {
             "type": "orgs",
-            "id": "3077"
+            "id": "5166"
+          }
+        ]
+      },
+      "pictures": {
+        "data": [
+          {
+            "type": "pictures",
+            "id": "101839130"
+          },
+          {
+            "type": "pictures",
+            "id": "54608194"
+          },
+          {
+            "type": "pictures",
+            "id": "95037794"
+          },
+          {
+            "type": "pictures",
+            "id": "101839128"
+          },
+          {
+            "type": "pictures",
+            "id": "95037797"
+          },
+          {
+            "type": "pictures",
+            "id": "101839129"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "animals",
+    "id": "11073040",
+    "attributes": {
+      "activityLevel": "Moderately Active",
+      "adoptionFeeString": "$59",
+      "isAdoptionPending": false,
+      "adultSexesOk": "All",
+      "ageGroup": "Young",
+      "isBirthDateExact": false,
+      "breedString": "Domestic Short Hair (short coat)",
+      "breedPrimary": "Domestic Short Hair",
+      "breedPrimaryId": 35,
+      "isCatsOk": true,
+      "coatLength": "Short",
+      "isCourtesyListing": false,
+      "isDeclawed": false,
+      "descriptionText": "\nHello, my name is Newman. I was found as a stray by someone that cared enough to get me to safety. Being called a stray made me sad. The word stray meant I was homeless and friendless. That was a sad time for me, but things are looking up. I am technically not homeless anymore. It&#39;s more like foster care until I am adopted and in a home of my own. I am no longer friendless either. I have lots of roommates that I play and wrestle with. I am a bit timid when I meet new people, but will quickly warm up and purr so you know I enjoy your company. With love and a little time I will gain confidence. Wouldn&#39;t you like to be the one to show me just how wonderful life can be?\n",
+      "energyLevel": "Moderate",
+      "exerciseNeeds": "Low",
+      "fenceNeeds": "Not Required",
+      "isFound": false,
+      "groomingNeeds": "Low",
+      "priority": 10,
+      "isHousetrained": true,
+      "indoorOutdoor": "Indoor Only",
+      "isKidsOk": true,
+      "name": "Newman",
+      "newPeopleReaction": "Friendly",
+      "ownerExperience": "None",
+      "pictureCount": 1,
+      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/6514/pictures/animals/11073/11073040/42489904.jpg?width=100",
+      "qualities": [
+        "intelligent",
+        "playful"
+      ],
+      "rescueId": "477",
+      "searchString": "Newman   Gray and White Male Medium 477  Cats Domestic Short Hair (short coat)s",
+      "sex": "Male",
+      "sheddingLevel": "Moderate",
+      "sizeGroup": "Medium",
+      "sizeUOM": "Pounds",
+      "slug": "adopt-newman-domestic-short-hair-cat",
+      "isSpecialNeeds": false,
+      "isSponsorable": false,
+      "videoCount": 0,
+      "videoUrlCount": 0,
+      "isYardRequired": false,
+      "createdDate": "2017-02-11T15:51:10Z",
+      "updatedDate": "2017-02-11T15:51:10Z"
+    },
+    "relationships": {
+      "breeds": {
+        "data": [
+          {
+            "type": "breeds",
+            "id": "35"
+          }
+        ]
+      },
+      "colors": {
+        "data": [
+          {
+            "type": "colors",
+            "id": "616"
+          }
+        ]
+      },
+      "species": {
+        "data": [
+          {
+            "type": "species",
+            "id": "3"
+          }
+        ]
+      },
+      "statuses": {
+        "data": [
+          {
+            "type": "statuses",
+            "id": "1"
+          }
+        ]
+      },
+      "locations": {
+        "data": [
+          {
+            "type": "locations",
+            "id": "1000006514"
+          }
+        ]
+      },
+      "orgs": {
+        "data": [
+          {
+            "type": "orgs",
+            "id": "6514"
+          }
+        ]
+      },
+      "pictures": {
+        "data": [
+          {
+            "type": "pictures",
+            "id": "42489904"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "animals",
+    "id": "11077298",
+    "attributes": {
+      "isAdoptionPending": false,
+      "ageGroup": "Adult",
+      "isBirthDateExact": false,
+      "breedString": "Domestic Short Hair",
+      "breedPrimary": "Domestic Short Hair",
+      "breedPrimaryId": 35,
+      "isBreedMixed": false,
+      "isCourtesyListing": false,
+      "isCurrentVaccinations": true,
+      "isDeclawed": false,
+      "descriptionHtml": "<br />=========================<br />About Our Rescue Group: <br /><br />The St. Mary's Animal Welfare League is a nonprofit, rescue organization that specializes in the rescue, care and placement of abused, neglected and homeless companion animals. Our animals are vaccinated, microchipped, spayed or neutered and receive medical treatment before being placed in carefully selected homes. We strive to educate the community in areas of humane education and responsible pet ownership as well as helping to control the pet overpopulation in our area by promoting the spaying and neutering of all companion animals.  <br /><br />===Come Meet Our Pets: <br />Come meet our cats every Saturday from 10 a.m. to 2 p.m. located at Petco in California Maryland.<br />We also have a cat facility in Callaway. The Cat Castle Rescue Center is located in the Callaway Village Shopping Center and is open every Saturday and Sunday from 11am to 3pm. <br />Please contact info@smawl.org for appointments to meet our dogs.<br /><br />===Our Adoption Process: <br />It is the St. Mary\u2019s Animal Welfare League\u2019s policy to attempt to place each of our rescued animals in a home that is well- suited to their needs. Once an animal is placed from our rescue, the animal cannot be sold, given away or otherwise transferred. If the adopter is, at any time, unable to keep or continue to maintain the animal for any reason, the animal must be returned to the St. Mary\u2019s Animal Welfare League. <br /><br />We work hard at matching our animals to adopters, so they may end their search for a loving, permanent home. Temperament, special needs and personality are all factors in our placements. <br /><br />===Step #1 <br />The Adoption Application <br />The initial step in our adoption process is the Adoption Application. This can either be done online or in person. The Adoption form must be filled out completely including vet references and two personal non-family references. Your application will be reviewed and your references will be contacted. We contact your veterinarian to ensure that your current or recently deceased pets were properly taken care of---this means being current on all vaccinations and spayed or neutered. In order to speed up the process, please contact your veterinarian and let them know to expect our call. <br /><br />===Step #2<br />Personal Interview You will be interviewed by a SMAWL Board Member or Volunteer either through phone, email or in person. This is an opportunity to learn more specifics about you, your family, your pets and the type of pet you are looking for. At this time, we may suggest that you consider a different animal---one that we may feel might be more acceptable for your situation. If you are completing your application in person, this will most likely be done at that time of completion.<br /><br />===Step #3<br />The Home Visit If all goes well with the application verification, we will schedule a home visit. A home visit is required to ensure that your home is everything you say it is on the Adoption Application. It needs to be a suitable safe environment for your new pet. All pets and family members should be home at this time.<br /><br />===Step #4<br />Meeting Your Potential Adoptee Once the Application has been reviewed and all references checked, arrangements will be made for you to meet with the animal you wish to adopt, either through the foster parent or the animal\u2019s Case Manager. As a courtesy to our foster families, we do not ask them to show their animals to individuals until we have completed the application approval process. If you have other animals, we recommend a neutral meeting place, such as PETCO or a local park to ensure the animals are compatible outside of their own territory.<br /><br />===Step #5<br />Finalizing The Adoption Once the adoption has been approved, we will contact you to finalize the adoption. You will need to sign the contract and pay our adoption fee. (Young Dogs Under 1 =$300, Dogs over 1 = $250, Young Cats 2 years and under =$125, Older Cats over 2 years = $75) <br />Foster to adopt over a two week period may be available on a case by case basis.<br /><br />Any applications received for adoptions from beyond St Mary's county line, will be subject to additional terms and conditions available on request.<br /><br />Please Remember: Our entire organization is staffed by volunteers. We have NO paid staff. Our volunteers must work your application around their business and personal lives. We do our best to respond to all inquiries within 2-3 days, and most of the time we are able to respond within 1 day.  Please be patient and thank the volunteers you meet for their service to our community\u2019s homeless pet population. <br />===<br />We Serve the Following Cities, Towns, and/or Counties: <br />  We serve the Southern Maryland area.<img src=\"https://tracker.rescuegroups.org/pet?11077298\" width=\"0\" height=\"0\" alt=\"\" />",
+      "descriptionText": "=========================About Our Rescue Group: The St. Mary's Animal Welfare League is a nonprofit, rescue organization that specializes in the rescue, care and placement of abused, neglected and homeless companion animals. Our animals are vaccinated, microchipped, spayed or neutered and receive medical treatment before being placed in carefully selected homes. We strive to educate the community in areas of humane education and responsible pet ownership as well as helping to control the pet overpopulation in our area by promoting the spaying and neutering of all companion animals.  ===Come Meet Our Pets: Come meet our cats every Saturday from 10 a.m. to 2 p.m. located at Petco in California Maryland.We also have a cat facility in Callaway. The Cat Castle Rescue Center is located in the Callaway Village Shopping Center and is open every Saturday and Sunday from 11am to 3pm. Please contact info@smawl.org for appointments to meet our dogs.===Our Adoption Process: It is the St. Mary\u2019s Animal Welfare League\u2019s policy to attempt to place each of our rescued animals in a home that is well- suited to their needs. Once an animal is placed from our rescue, the animal cannot be sold, given away or otherwise transferred. If the adopter is, at any time, unable to keep or continue to maintain the animal for any reason, the animal must be returned to the St. Mary\u2019s Animal Welfare League. We work hard at matching our animals to adopters, so they may end their search for a loving, permanent home. Temperament, special needs and personality are all factors in our placements. ===Step #1 The Adoption Application The initial step in our adoption process is the Adoption Application. This can either be done online or in person. The Adoption form must be filled out completely including vet references and two personal non-family references. Your application will be reviewed and your references will be contacted. We contact your veterinarian to ensure that your current or recently deceased pets were properly taken care of---this means being current on all vaccinations and spayed or neutered. In order to speed up the process, please contact your veterinarian and let them know to expect our call. ===Step #2Personal Interview You will be interviewed by a SMAWL Board Member or Volunteer either through phone, email or in person. This is an opportunity to learn more specifics about you, your family, your pets and the type of pet you are looking for. At this time, we may suggest that you consider a different animal---one that we may feel might be more acceptable for your situation. If you are completing your application in person, this will most likely be done at that time of completion.===Step #3The Home Visit If all goes well with the application verification, we will schedule a home visit. A home visit is required to ensure that your home is everything you say it is on the Adoption Application. It needs to be a suitable safe environment for your new pet. All pets and family members should be home at this time.===Step #4Meeting Your Potential Adoptee Once the Application has been reviewed and all references checked, arrangements will be made for you to meet with the animal you wish to adopt, either through the foster parent or the animal\u2019s Case Manager. As a courtesy to our foster families, we do not ask them to show their animals to individuals until we have completed the application approval process. If you have other animals, we recommend a neutral meeting place, such as PETCO or a local park to ensure the animals are compatible outside of their own territory.===Step #5Finalizing The Adoption Once the adoption has been approved, we will contact you to finalize the adoption. You will need to sign the contract and pay our adoption fee. (Young Dogs Under 1 =$300, Dogs over 1 = $250, Young Cats 2 years and under =$125, Older Cats over 2 years = $75) Foster to adopt over a two week period may be available on a case by case basis.Any applications received for adoptions from beyond St Mary's county line, will be subject to additional terms and conditions available on request.Please Remember: Our entire organization is staffed by volunteers. We have NO paid staff. Our volunteers must work your application around their business and personal lives. We do our best to respond to all inquiries within 2-3 days, and most of the time we are able to respond within 1 day.  Please be patient and thank the volunteers you meet for their service to our community\u2019s homeless pet population. ===We Serve the Following Cities, Towns, and/or Counties:   We serve the Southern Maryland area.",
+      "isNeedingFoster": false,
+      "isFound": false,
+      "priority": 10,
+      "name": "Grace",
+      "pictureCount": 1,
+      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/7029/pictures/animals/11077/11077298/88061291.jpg?width=100",
+      "rescueId": "C170482",
+      "searchString": "Grace    Female Small C170482  Cats Domestic Short Hairs",
+      "sex": "Female",
+      "sizeGroup": "Small",
+      "slug": "adopt-grace-domestic-short-hair-cat",
+      "isSponsorable": false,
+      "trackerimageUrl": "https://tracker.rescuegroups.org/pet?11077298",
+      "videoCount": 0,
+      "videoUrlCount": 0,
+      "createdDate": "2017-02-13T10:11:45Z",
+      "updatedDate": "2022-05-26T10:29:11Z"
+    },
+    "relationships": {
+      "breeds": {
+        "data": [
+          {
+            "type": "breeds",
+            "id": "35"
+          }
+        ]
+      },
+      "species": {
+        "data": [
+          {
+            "type": "species",
+            "id": "3"
+          }
+        ]
+      },
+      "statuses": {
+        "data": [
+          {
+            "type": "statuses",
+            "id": "1"
+          }
+        ]
+      },
+      "locations": {
+        "data": [
+          {
+            "type": "locations",
+            "id": "1000007029"
+          }
+        ]
+      },
+      "orgs": {
+        "data": [
+          {
+            "type": "orgs",
+            "id": "7029"
+          }
+        ]
+      },
+      "pictures": {
+        "data": [
+          {
+            "type": "pictures",
+            "id": "88061291"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "animals",
+    "id": "11086425",
+    "attributes": {
+      "activityLevel": "Moderately Active",
+      "isAdoptionPending": false,
+      "adultSexesOk": "All",
+      "ageGroup": "Adult",
+      "ageString": "4 Years 1 Month",
+      "availableDate": "2026-01-26T00:00:00Z",
+      "birthDate": "2022-03-21T00:00:00Z",
+      "isBirthDateExact": false,
+      "breedString": "Domestic Short Hair / Mixed (short coat)",
+      "breedPrimary": "Domestic Short Hair",
+      "breedPrimaryId": 35,
+      "isBreedMixed": true,
+      "isCatsOk": true,
+      "coatLength": "Short",
+      "isCourtesyListing": false,
+      "isCurrentVaccinations": true,
+      "isDeclawed": false,
+      "descriptionText": "FRED is a sweet and gentle boy, looking for a forever home with his sister, Ginger. These two have been together since they were found as kittens in a car engine back in 2022.&nbsp; Fred's shy yet, friendly demeanor makes him the perfect companion for cozy evenings. Once he feels safe with you, he loves to cuddle; offering comfort and affection to anyone who needs a friend. Fred and Ginger are inseparable, providing each other with support and love.\n&nbsp;\nThese bonded siblings were recently surrendered to us through no fault of their own.&nbsp; They need a calm, quiet home with consistent, unconditional love.&nbsp;\n&nbsp;\nTEXT Anita to adopt Fred and Ginger:&nbsp; 407-460-2305.See the home page for adoption fee info:&nbsp; https://spaythestrays.rescuegroups.org/",
+      "energyLevel": "High",
+      "exerciseNeeds": "Low",
+      "fenceNeeds": "Not Required",
+      "isNeedingFoster": true,
+      "isFound": false,
+      "groomingNeeds": "Low",
+      "priority": 10,
+      "indoorOutdoor": "Indoor Only",
+      "isKidsOk": true,
+      "name": "Fred",
+      "newPeopleReaction": "Friendly",
+      "ownerExperience": "Species",
+      "pictureCount": 4,
+      "pictureThumbnailUrl": "https://cdn.rescuegroups.org/892/pictures/animals/11086/11086425/103101391.jpg?width=100",
+      "qualities": [
+        "affectionate",
+        "apartment",
+        "eagerToPlease",
+        "eventempered",
+        "gentle",
+        "goofy",
+        "intelligent",
+        "needsCompanionAnimal",
+        "playful",
+        "playsToys"
+      ],
+      "rescueId": "981020043845251",
+      "searchString": "Fred   Black and White Male Medium 981020043845251  Cats Domestic Short Hair / Mixed (short coat)s",
+      "sex": "Male",
+      "sheddingLevel": "Moderate",
+      "sizeCurrent": 11.600000381469727,
+      "sizeGroup": "Medium",
+      "sizeUOM": "Pounds",
+      "slug": "adopt-fred-domestic-short-hair-cat",
+      "isSpecialNeeds": false,
+      "isSponsorable": false,
+      "url": "https://spaythestrays.rescuegroups.org/animals/detail?AnimalID=11086425",
+      "videoCount": 0,
+      "videoUrlCount": 0,
+      "vocalLevel": "Some",
+      "isYardRequired": false,
+      "createdDate": "2017-02-16T00:56:09Z",
+      "updatedDate": "2026-05-08T13:48:48Z"
+    },
+    "relationships": {
+      "breeds": {
+        "data": [
+          {
+            "type": "breeds",
+            "id": "35"
+          }
+        ]
+      },
+      "colors": {
+        "data": [
+          {
+            "type": "colors",
+            "id": "6"
+          }
+        ]
+      },
+      "patterns": {
+        "data": [
+          {
+            "type": "patterns",
+            "id": "14"
+          }
+        ]
+      },
+      "species": {
+        "data": [
+          {
+            "type": "species",
+            "id": "3"
+          }
+        ]
+      },
+      "statuses": {
+        "data": [
+          {
+            "type": "statuses",
+            "id": "1"
+          }
+        ]
+      },
+      "locations": {
+        "data": [
+          {
+            "type": "locations",
+            "id": "1000000892"
+          }
+        ]
+      },
+      "orgs": {
+        "data": [
+          {
+            "type": "orgs",
+            "id": "892"
+          }
+        ]
+      },
+      "pictures": {
+        "data": [
+          {
+            "type": "pictures",
+            "id": "102619672"
+          },
+          {
+            "type": "pictures",
+            "id": "102580121"
+          },
+          {
+            "type": "pictures",
+            "id": "102619671"
+          },
+          {
+            "type": "pictures",
+            "id": "103101391"
           }
         ]
       }

@@ -8,3 +8,11 @@ __pycache__/
 
 # For cat shelter pipeline only
 .env
+# Data files
+*.parquet
+*.json
+data/
+logs/
+output/
+*.png
+*.csv

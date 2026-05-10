@@ -1,0 +1,11 @@
+requests==2.31.0
+sqlalchemy==2.0.30
+duckdb==0.10.2
+duckdb-engine==0.13.0
+dbt-core==1.8.3
+dbt-duckdb==1.8.1
+python-dotenv==1.0.1
+pytest==8.2.0
+pytest-mock==3.14.0
+responses==0.25.3
+ruff==0.4.4

@@ -1,0 +1,25 @@
+name: dbt_rawg
+version: "1.0.0"
+config-version: 2
+
+profile: dbt_rawg
+
+model-paths: ["models"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+seed-paths: ["seeds"]
+
+target-path: "target"
+clean-targets: ["target", "dbt_packages"]
+
+models:
+  dbt_rawg:
+    bronze:
+      +materialized: view        # Bronze = views over raw DuckDB tables
+      +schema: bronze
+    silver:
+      +materialized: table       # Silver = cleaned persistent tables
+      +schema: silver
+    gold:
+      +materialized: table       # Gold = aggregated persistent tables
+      +schema: gold

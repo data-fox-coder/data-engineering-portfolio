@@ -10,6 +10,15 @@ A portfolio of Python learning projects. Projects are designed to map existing s
 
 ## Projects
 
+### 🕹️ [rawg_pipeline](./projects/rawg_pipeline)
+
+An automated ETL pipeline that extracts rich video game metadata from the [RAWG.io API](https://rawg.io/apidocs) to create a structured database, demonstrating the transition from GUI-based data tools to programmatic ingestion.
+
+**Skills demonstrated:** REST API calls (`requests`), handling API pagination and rate limits, JSON flattening, `pandas` data cleaning, SQLite storage, modular Python project structure.
+**BI equivalent:** Power Query API Connection → SQL Server Dimension Table
+
+---
+
 ### 🐱 [cat_shelter_pipeline](./projects/cat_shelter_pipeline)
 
 An end-to-end ETL pipeline built using the [RescueGroups.org v5 API](https://rescuegroups.org/services/adoptable-pet-data-api/) to extract, transform, and load real-world cat adoption data into a local SQLite database.

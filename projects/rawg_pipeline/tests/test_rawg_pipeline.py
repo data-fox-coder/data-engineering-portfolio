@@ -10,7 +10,7 @@ Run from projects/rawg_pipeline/:
 
 import json
 import os
-from datetime import date, datetime
+from datetime import date
 from unittest.mock import MagicMock, patch
 
 import pytest
@@ -374,18 +374,16 @@ class TestSilverTransform:
 class TestDbInit:
     def test_init_db_creates_schemas(self, in_memory_engine):
         """init_db creates bronze and silver schemas."""
-        from rawg_pipeline.db import Base, init_db
 
         with patch("rawg_pipeline.db.engine", in_memory_engine):
-            with patch("rawg_pipeline.db.SessionLocal") as mock_session:
-                with in_memory_engine.connect() as conn:
-                    conn.execute(text("CREATE SCHEMA IF NOT EXISTS bronze"))
-                    conn.execute(text("CREATE SCHEMA IF NOT EXISTS silver"))
-                    conn.commit()
+            with in_memory_engine.connect() as conn:
+                conn.execute(text("CREATE SCHEMA IF NOT EXISTS bronze"))
+                conn.execute(text("CREATE SCHEMA IF NOT EXISTS silver"))
+                conn.commit()
 
-                result = in_memory_engine.connect().execute(
-                    text("SELECT schema_name FROM information_schema.schemata")
-                ).fetchall()
-                schema_names = [r[0] for r in result]
-                assert "bronze" in schema_names
-                assert "silver" in schema_names
+            result = in_memory_engine.connect().execute(
+                text("SELECT schema_name FROM information_schema.schemata")
+            ).fetchall()
+            schema_names = [r[0] for r in result]
+            assert "bronze" in schema_names
+            assert "silver" in schema_names

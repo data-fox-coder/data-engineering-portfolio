@@ -5,7 +5,6 @@ SQLAlchemy engine and session factory.
 Uses DuckDB as the storage backend — bronze and silver tables are written here,
 and dbt reads from the same file to build gold models.
 """
-
 import os
 from pathlib import Path
 

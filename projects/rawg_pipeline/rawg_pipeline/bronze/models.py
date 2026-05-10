@@ -2,10 +2,7 @@
 rawg_pipeline/bronze/models.py
 -------------------------------
 Bronze layer: append-only raw API responses stored as JSON strings.
-Tables live in the 'bronze' schema in DuckDB so dbt can reference them
-via source('bronze', 'bronze_games') etc.
 """
-
 from datetime import datetime
 
 from sqlalchemy import DateTime, Integer, Text, func

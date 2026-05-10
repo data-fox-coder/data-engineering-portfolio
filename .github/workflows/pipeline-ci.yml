@@ -22,8 +22,5 @@ jobs:
       - name: Install ruff
         run: pip install ruff
 
-      - name: Lint check
-        run: ruff check . --exclude learning/python_intermediate_d2i/workshops --fix
-
       - name: Verify no remaining issues
         run: ruff check . --exclude learning/python_intermediate_d2i/workshops

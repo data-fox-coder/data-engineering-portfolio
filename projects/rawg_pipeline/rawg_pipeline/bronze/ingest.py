@@ -6,18 +6,32 @@ and stores append-only JSON strings in the bronze DuckDB schema.
 """
 import json
 import os
+from dotenv import load_dotenv
 
 import requests
 from sqlalchemy.orm import Session
 
+from rawg_pipeline.db import engine, Base, init_db, SessionLocal  # Add SessionLocal here
 from rawg_pipeline.bronze.models import BronzeGame, BronzeGenre, BronzePlatform
-from rawg_pipeline.db import SessionLocal, init_db
 
+# Load environment variable from .env file
+load_dotenv()
+
+# Retrieve the key from the environment variable
 API_KEY = os.getenv("RAWG_API_KEY")
+
+# Validate the key immediately
+if not API_KEY:
+    raise ValueError(
+        "RAWG_API_KEY is missing! "
+        "Make sure you have a .env file in your root directory with: "
+        "RAWG_API_KEY=your_actual_key_here"
+    )
+
 BASE_URL = "https://api.rawg.io/api"
 
 
-def fetch_games(page_size: int = 100) -> list[dict]:
+def fetch_games(page_size: int = 40) -> list[dict]:
     url = f"{BASE_URL}/games"
     params = {"key": API_KEY, "page_size": page_size}
     response = requests.get(url, params=params)

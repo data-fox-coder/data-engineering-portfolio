@@ -1,0 +1,20 @@
+# Data Manipulation & Analysis
+pandas
+numpy
+
+# API & Database
+requests
+sqlalchemy
+python-dotenv
+
+# Visualization & UI
+matplotlib
+streamlit
+
+# Utilities & Configuration
+pyyaml
+ipykernel
+
+# Quality Assurance (New addition for polishing)
+ruff
+pytest

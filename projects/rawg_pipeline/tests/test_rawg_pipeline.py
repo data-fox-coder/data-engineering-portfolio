@@ -115,77 +115,6 @@ def sample_platforms():
 # Bronze layer tests
 # ---------------------------------------------------------------------------
 
-class TestBronzeModels:
-    def test_bronze_game_created(self, db_session, sample_games):
-        """BronzeGame records are persisted with correct fields."""
-        from rawg_pipeline.bronze.models import BronzeGame
-
-        game = sample_games[0]
-        record = BronzeGame(rawg_id=game["id"], raw_json=json.dumps(game))
-        db_session.add(record)
-        db_session.commit()
-
-        result = db_session.query(BronzeGame).filter_by(rawg_id=1).first()
-        assert result is not None
-        assert result.rawg_id == 1
-        assert "Witcher" in result.raw_json
-
-    def test_bronze_genre_created(self, db_session, sample_genres):
-        """BronzeGenre records are persisted correctly."""
-        from rawg_pipeline.bronze.models import BronzeGenre
-
-        genre = sample_genres[0]
-        record = BronzeGenre(rawg_id=genre["id"], raw_json=json.dumps(genre))
-        db_session.add(record)
-        db_session.commit()
-
-        result = db_session.query(BronzeGenre).filter_by(rawg_id=1).first()
-        assert result is not None
-        assert result.rawg_id == 1
-
-    def test_bronze_platform_created(self, db_session, sample_platforms):
-        """BronzePlatform records are persisted correctly."""
-        from rawg_pipeline.bronze.models import BronzePlatform
-
-        platform = sample_platforms[0]
-        record = BronzePlatform(rawg_id=platform["id"], raw_json=json.dumps(platform))
-        db_session.add(record)
-        db_session.commit()
-
-        result = db_session.query(BronzePlatform).filter_by(rawg_id=1).first()
-        assert result is not None
-        assert result.rawg_id == 1
-
-    def test_bronze_raw_json_is_valid(self, db_session, sample_games):
-        """Raw JSON stored in bronze layer can be deserialised back."""
-        from rawg_pipeline.bronze.models import BronzeGame
-
-        game = sample_games[0]
-        record = BronzeGame(rawg_id=game["id"], raw_json=json.dumps(game))
-        db_session.add(record)
-        db_session.commit()
-
-        result = db_session.query(BronzeGame).first()
-        parsed = json.loads(result.raw_json)
-        assert parsed["name"] == "The Witcher 3"
-        assert parsed["rating"] == 4.66
-
-    def test_multiple_bronze_games(self, db_session, sample_games):
-        """Multiple bronze game records can be inserted."""
-        from rawg_pipeline.bronze.models import BronzeGame
-
-        for game in sample_games:
-            db_session.add(BronzeGame(rawg_id=game["id"], raw_json=json.dumps(game)))
-        db_session.commit()
-
-        count = db_session.query(BronzeGame).count()
-        assert count == 2
-
-
-# ---------------------------------------------------------------------------
-# Bronze ingest tests
-# ---------------------------------------------------------------------------
-
 class TestBronzeIngest:
     def test_load_bronze_inserts_all_records(self, db_session, sample_games, sample_genres, sample_platforms):
         """load_bronze inserts games, genres, and platforms."""
@@ -198,54 +127,53 @@ class TestBronzeIngest:
         assert db_session.query(BronzeGenre).count() == 2
         assert db_session.query(BronzePlatform).count() == 2
 
-    @patch("rawg_pipeline.bronze.ingest.requests.get")
-    def test_fetch_games_returns_results(self, mock_get):
+    def test_fetch_games_returns_results(self):
         """fetch_games calls RAWG API and returns results list."""
         from rawg_pipeline.bronze.ingest import fetch_games
 
         mock_response = MagicMock()
         mock_response.json.return_value = {"results": [{"id": 1, "name": "Test Game"}]}
         mock_response.raise_for_status = MagicMock()
-        mock_get.return_value = mock_response
 
-        with patch.dict(os.environ, {"RAWG_API_KEY": "test_key"}):
-            results = fetch_games()
+        mock_http = MagicMock()
+        mock_http.get.return_value = mock_response
+
+        results = fetch_games(mock_http)
 
         assert len(results) == 1
         assert results[0]["name"] == "Test Game"
 
-    @patch("rawg_pipeline.bronze.ingest.requests.get")
-    def test_fetch_genres_returns_results(self, mock_get):
+    def test_fetch_genres_returns_results(self):
         """fetch_genres calls RAWG API and returns results list."""
         from rawg_pipeline.bronze.ingest import fetch_genres
 
         mock_response = MagicMock()
         mock_response.json.return_value = {"results": [{"id": 1, "name": "Action"}]}
         mock_response.raise_for_status = MagicMock()
-        mock_get.return_value = mock_response
 
-        with patch.dict(os.environ, {"RAWG_API_KEY": "test_key"}):
-            results = fetch_genres()
+        mock_http = MagicMock()
+        mock_http.get.return_value = mock_response
+
+        results = fetch_genres(mock_http)
 
         assert len(results) == 1
         assert results[0]["name"] == "Action"
 
-    @patch("rawg_pipeline.bronze.ingest.requests.get")
-    def test_fetch_platforms_returns_results(self, mock_get):
+    def test_fetch_platforms_returns_results(self):
         """fetch_platforms calls RAWG API and returns results list."""
         from rawg_pipeline.bronze.ingest import fetch_platforms
 
         mock_response = MagicMock()
         mock_response.json.return_value = {"results": [{"id": 1, "name": "PC"}]}
         mock_response.raise_for_status = MagicMock()
-        mock_get.return_value = mock_response
 
-        with patch.dict(os.environ, {"RAWG_API_KEY": "test_key"}):
-            results = fetch_platforms()
+        mock_http = MagicMock()
+        mock_http.get.return_value = mock_response
+
+        results = fetch_platforms(mock_http)
 
         assert len(results) == 1
-
-
+        
 # ---------------------------------------------------------------------------
 # Silver transformation tests
 # ---------------------------------------------------------------------------

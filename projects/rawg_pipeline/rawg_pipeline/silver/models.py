@@ -11,18 +11,26 @@ from sqlalchemy.orm import Mapped, mapped_column
 from rawg_pipeline.db import Base
 
 
-class SilverGame(Base):
+class SilverBase(Base):
+    """
+    Abstract base for all silver tables.
+    DuckDB does not support SERIAL/AUTOINCREMENT natively,
+    so we use explicit sequences for primary key generation.
+    """
+    __abstract__ = True
+
+    rawg_id: Mapped[int] = mapped_column(Integer, nullable=False, unique=True, index=True)
+    name: Mapped[str] = mapped_column(Text, nullable=False)
+
+
+class SilverGame(SilverBase):
     __tablename__ = "silver_games"
     __table_args__ = {"schema": "silver"}
 
-    # DuckDB-compatible auto-increment using sequence defaults.
     id: Mapped[int] = mapped_column(
-        Integer,
-        primary_key=True,
+        Integer, primary_key=True,
         server_default=text("nextval('silver_games_id_seq')"),
     )
-    rawg_id: Mapped[int] = mapped_column(Integer, nullable=False, unique=True, index=True)
-    name: Mapped[str] = mapped_column(Text, nullable=False)
     rating: Mapped[float | None] = mapped_column(Float, nullable=True)
     ratings_count: Mapped[int | None] = mapped_column(Integer, nullable=True)
     released: Mapped[date | None] = mapped_column(Date, nullable=True)
@@ -31,31 +39,23 @@ class SilverGame(Base):
     )
 
 
-class SilverGenre(Base):
+class SilverGenre(SilverBase):
     __tablename__ = "silver_genres"
     __table_args__ = {"schema": "silver"}
 
-    # DuckDB-compatible auto-increment using sequence defaults.
     id: Mapped[int] = mapped_column(
-        Integer,
-        primary_key=True,
+        Integer, primary_key=True,
         server_default=text("nextval('silver_genres_id_seq')"),
     )
-    rawg_id: Mapped[int] = mapped_column(Integer, nullable=False, unique=True, index=True)
-    name: Mapped[str] = mapped_column(Text, nullable=False)
     slug: Mapped[str | None] = mapped_column(Text, nullable=True)
 
 
-class SilverPlatform(Base):
+class SilverPlatform(SilverBase):
     __tablename__ = "silver_platforms"
     __table_args__ = {"schema": "silver"}
 
-    # DuckDB-compatible auto-increment using sequence defaults.
     id: Mapped[int] = mapped_column(
-        Integer,
-        primary_key=True,
+        Integer, primary_key=True,
         server_default=text("nextval('silver_platforms_id_seq')"),
     )
-    rawg_id: Mapped[int] = mapped_column(Integer, nullable=False, unique=True, index=True)
-    name: Mapped[str] = mapped_column(Text, nullable=False)
     slug: Mapped[str | None] = mapped_column(Text, nullable=True)

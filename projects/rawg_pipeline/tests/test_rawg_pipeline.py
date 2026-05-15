@@ -8,8 +8,6 @@ Run from projects/rawg_pipeline/:
     pytest tests/test_rawg_pipeline.py -v
 """
 
-import json
-import os
 from datetime import date
 from unittest.mock import MagicMock, patch
 

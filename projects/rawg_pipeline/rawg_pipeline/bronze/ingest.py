@@ -14,7 +14,7 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 from sqlalchemy.orm import Session
 
-from rawg_pipeline.db import engine, Base, init_db, SessionLocal
+from rawg_pipeline.db import init_db, SessionLocal
 from rawg_pipeline.bronze.models import BronzeGame, BronzeGenre, BronzePlatform
 
 # Configure logging

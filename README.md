@@ -28,15 +28,6 @@ An end-to-end ETL pipeline built using the [RescueGroups.org v5 API](https://res
 
 ---
 
-### 🐈 [cat_breeds](./projects/cat_breeds)
-
-A data pipeline and analysis project exploring cat breed data from an external API, applying similar ETL patterns to the shelter pipeline project.
-
-**Skills demonstrated:** API integration, `pandas` data wrangling, structured data storage  
-**BI equivalent:** Power Query M transformations → structured dataset
-
----
-
 ### 📘 [python_intermediate_d2i](/learning/python_intermediate_d2i)
 
 Exercises and worked examples based on the [Data to Insight ERN intermediate Python sessions](https://github.com/data-to-insight/ERN-sessions/tree/main/intermediate_python) — a structured course covering core Python and pandas concepts for data practitioners.

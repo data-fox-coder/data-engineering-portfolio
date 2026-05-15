@@ -1,19 +1,16 @@
-# Python environment and temporary files
+# ==============================================================================
+# GLOBAL ENVIRONMENT & TEMPORARY FILES
+# ==============================================================================
+
+.env
 .venv/
 __pycache__/
+.DS_Store
+*.log
 
-# Local databases (Data security & size management)
+# ==============================================================================
+# GLOBAL DATA SECURITY (Prevents committing local DBs anywhere)
+# ==============================================================================
 *.db
 *.sqlite
 *.duckdb
-
-# For cat shelter pipeline only
-.env
-# Data files
-*.parquet
-*.json
-data/
-logs/
-output/
-*.png
-*.csv

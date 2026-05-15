@@ -1,7 +1,12 @@
 # ==============================================================================
-# RAWG GAMING (DBT SPECIFIC RULES)
+# CAT SHELTER PIPELINE SPECIFIC RULES
 # ==============================================================================
 
-target/
-dbt_packages/
+# Ignore heavy data processing and output files in this directory
+data/
+output/
 logs/
+*.parquet
+*.json
+*.csv
+*.png

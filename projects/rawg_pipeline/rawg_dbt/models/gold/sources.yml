@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: silver
+    schema: silver
+    tables:
+      - name: silver_games
+      - name: silver_genres
+      - name: silver_platforms

@@ -1,6 +1,5 @@
 import streamlit as st
 import duckdb
-import pandas as pd
 import plotly.express as px
 
 # 1. Page Configuration
@@ -30,7 +29,7 @@ def load_gold_data():
 # Load the data
 try:
     df_games, df_genres, df_platforms = load_gold_data()
-except Exception as e:
+except Exception:
     st.error(f"⚠️ Could not connect to DuckDB at `{DB_PATH}`. Check your path or ensure another process hasn't locked the file.")
     st.stop()
 

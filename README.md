@@ -1,10 +1,11 @@
 # 🐍 data-engineering-portfolio
 
-A portfolio of Python learning projects. Projects are designed to map existing skills onto Python equivalents — pandas ↔ Power Query, SQLite ↔ SQL Server, ETL structure ↔ SSIS packages.
+A portfolio of Python data engineering pipelines and learning projects. Projects are designed to map existing enterprise skills onto programmatic equivalents — pandas ↔ Power Query, SQLite/DuckDB ↔ SQL Server, dbt/ETL structure ↔ SSIS packages.
 
 ![Python](https://img.shields.io/badge/python-3670A0?style=flat-square&logo=python&logoColor=ffdd54)
 ![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=flat-square&logo=pandas&logoColor=white)
-![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=flat-square&logo=sqlite&logoColor=white)
+![DuckDB](https://img.shields.io/badge/DuckDB-%23FFF000.svg?style=flat-square&logo=duckdb&logoColor=black)
+![dbt](https://img.shields.io/badge/dbt-FF694B?style=flat-square&logo=dbt&logoColor=white)
 
 ---
 
@@ -12,61 +13,57 @@ A portfolio of Python learning projects. Projects are designed to map existing s
 
 ### 🕹️ [rawg_pipeline](./projects/rawg_pipeline)
 
-An automated ETL pipeline that extracts rich video game metadata from the [RAWG.io API](https://rawg.io/apidocs) to create a structured database, demonstrating the transition from GUI-based data tools to programmatic ingestion.
+An automated Medallion Architecture (Bronze/Silver/Gold) ETL pipeline that extracts rich video game metadata from the [RAWG.io API](https://rawg.io/apidocs), processes transformations via **dbt** and **DuckDB**, and serves insights through an interactive **Streamlit** dashboard.
 
-**Skills demonstrated:** REST API calls (`requests`), handling API pagination and rate limits, JSON flattening, `pandas` data cleaning, SQLite storage, modular Python project structure.
-**BI equivalent:** Power Query API Connection → SQL Server Dimension Table
+**Skills demonstrated:** REST API extraction (`requests`), JSON flattening, pipeline orchestration, analytics engineering with dbt, local data warehouse optimization with DuckDB, interactive data presentation.  
+**BI equivalent:** Power Query API Connection ➔ SQL Server Staging ➔ dbt Core Transformations ➔ Power BI / Tableau Dashboard
 
 ---
 
 ### 🐱 [cat_shelter_pipeline](./projects/cat_shelter_pipeline)
 
-An end-to-end ETL pipeline built using the [RescueGroups.org v5 API](https://rescuegroups.org/services/adoptable-pet-data-api/) to extract, transform, and load real-world cat adoption data into a local SQLite database.
+An end-to-end ETL pipeline built using the [RescueGroups.org v5 API](https://rescuegroups.org/services/adoptable-pet-data-api/) to extract, transform, and load real-world cat adoption data into a local relational database structure.
 
-**Skills demonstrated:** REST API calls (`requests`), JSON parsing, `pandas` data transformation, SQLite via `sqlite3`, ETL pipeline structure, `.env` secret management  
-**BI equivalent:** SSIS package → SQL Server staging table
+**Skills demonstrated:** REST API integration, cursor-based pagination, `pandas` data transformation, `.env` secret management, automated testing with `pytest`.  
+**BI equivalent:** SSIS package ➔ SQL Server staging table
 
 ---
 
 ### 📘 [python_intermediate_d2i](/learning/python_intermediate_d2i)
 
-Exercises and worked examples based on the [Data to Insight ERN intermediate Python sessions](https://github.com/data-to-insight/ERN-sessions/tree/main/intermediate_python) — a structured course covering core Python and pandas concepts for data practitioners.
+Exercises and worked examples based on the Data to Insight ERN intermediate Python sessions — a structured course covering core Python and pandas concepts for data practitioners.
 
-**Topics covered:** pandas Series & DataFrames, filtering & aggregation, merging datasets, handling nulls, applying functions, data visualisation  
-**BI equivalent:** Moving from Excel/SQL-based analysis to pandas-based workflows
+**Topics covered:** pandas Series & DataFrames, filtering & aggregation, merging datasets, handling nulls, data visualization.  
+**BI equivalent:** Moving from Excel/SQL-based analysis to programmatic pandas-based data wrangling.
 
 ---
 
 ## Tech Stack
 
-| Tool | Purpose |
+| Tool / Framework | Purpose |
 |---|---|
-| Python 3.x | Core language |
-| pandas | Data transformation & analysis |
-| requests | API calls |
-| sqlite3 | Local data storage |
-| python-dotenv | Secret/config management |
-| Jupyter Notebooks | Exploration & documentation |
+| **Python 3.x** | Core language for ingestion, scripting, and application serving |
+| **pandas / PyArrow** | High-performance data manipulation and evaluation |
+| **dbt-duckdb** | Modern Data Stack modeling, transformation logic, and testing |
+| **DuckDB** | In-process analytical database for lightning-fast local queries |
+| **Streamlit / Plotly** | Interactive visualization and user-facing presentation layer |
+| **pip-tools** | Explicit dependency management (`requirements.in` / `requirements.txt` compilation) |
 
 ---
 
 ## Background
 
-I'm a data professional with a background in SQL Server and Excel automation (Power Query M), currently learning Python to expand into programmatic data engineering and analytics. This repo documents that journey — each project is chosen to apply Python to something meaningful rather than toy examples.
+I am a data professional with a deep background in SQL Server, local government data analysis, and Excel automation (Power Query M / DAX), expanding into programmatic data engineering. This repository documents that journey — each project is carefully engineered to handle messy, real-world API data rather than generic toy datasets.
 
-Currently pursuing the **Databricks Data Analyst certification** alongside this learning.
+Currently tracking towards the **Databricks Certified Data Analyst Associate** certification in parallel with these builds.
 
 ---
 
-## Setup
+## Setup & Project Isolation
 
+This repository uses a **monorepo structure** where each independent project contains its own isolated virtual environment (`.venv`) and pinned dependencies via `pip-tools`. This ensures individual pipelines never suffer from package version conflicts.
+
+### 1. Clone the repository
 ```bash
-# Clone the repo
-git clone https://github.com/data-fox-coder/data-engineering-portfolio.git
-cd python-learning-repo
-
-# Install dependencies
-pip install -r requirements.txt
-```
-
-For projects that use API keys, copy `.env.example` to `.env` and add your credentials (see individual project READMEs).
+git clone [https://github.com/data-fox-coder/data-engineering-portfolio.git](https://github.com/data-fox-coder/data-engineering-portfolio.git)
+cd data-engineering-portfolio

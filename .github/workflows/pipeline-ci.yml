@@ -2,7 +2,7 @@ name: Pipeline CI
 
 on:
   push:
-    branches: [main, add-github-actions]
+    branches: [main]
   pull_request:
     branches: [main]
 
@@ -23,4 +23,4 @@ jobs:
         run: pip install ruff
 
       - name: Verify no remaining issues
-        run: ruff check . --exclude learning/python_intermediate_d2i/workshops
+        run: ruff check . --exclude "**/python_intermediate_d2i/workshops"

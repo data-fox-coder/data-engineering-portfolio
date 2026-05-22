@@ -2,7 +2,15 @@ import os
 import streamlit as st
 import duckdb
 import plotly.express as px
+import subprocess
+import sys
 
+DB_PATH = os.path.join(os.path.dirname(__file__), "rawg_data.duckdb")
+
+if not os.path.exists(DB_PATH):
+    import run_pipeline
+    run_pipeline.run()
+    
 # 1. Page Configuration
 st.set_page_config(
     page_title="RAWG Gaming Insights",

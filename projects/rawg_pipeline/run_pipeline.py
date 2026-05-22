@@ -42,15 +42,15 @@ def run():
     logger.info("Running dbt gold layer...")
     env = os.environ.copy()
     env["DBT_DUCKDB_PATH"] = DB_PATH
+    dbt_path = os.path.join(os.path.dirname(sys.executable), "dbt")
     result = subprocess.run(
-        [sys.executable, "-m", "dbt", "run", "--profiles-dir", DBT_DIR],
+        [dbt_path, "run", "--profiles-dir", DBT_DIR],
         cwd=DBT_DIR, env=env, capture_output=True, text=True
     )
     logger.info(result.stdout)
     if result.returncode != 0:
         logger.error(result.stderr)
         raise RuntimeError(f"dbt run failed:\n{result.stderr}")
-
 
 if __name__ == "__main__":
     run()

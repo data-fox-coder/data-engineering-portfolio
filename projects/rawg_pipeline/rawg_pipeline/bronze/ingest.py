@@ -7,44 +7,66 @@ and stores append-only JSON strings in the bronze DuckDB schema.
 import json
 import logging
 import os
-from dotenv import load_dotenv
+from datetime import datetime, timezone
 
+import duckdb
 import requests
+from dotenv import load_dotenv
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
-from sqlalchemy.orm import Session
 
-from rawg_pipeline.db import init_db, SessionLocal
-from rawg_pipeline.bronze.models import BronzeGame, BronzeGenre, BronzePlatform
-
-# Configure logging
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
 )
 logger = logging.getLogger(__name__)
 
-# Load environment variables from .env file
 load_dotenv()
 
-# Retrieve and validate API key immediately
 API_KEY = os.getenv("RAWG_API_KEY")
 if not API_KEY:
     raise ValueError(
         "RAWG_API_KEY is missing! "
-        "Make sure you have a .env file in your root directory with: "
-        "RAWG_API_KEY=your_actual_key_here"
+        "Make sure you have a .env file with: RAWG_API_KEY=your_key"
     )
 
 BASE_URL = "https://api.rawg.io/api"
+DB_PATH = os.getenv("DB_PATH", "rawg_data.duckdb")
+
+
+def get_conn() -> duckdb.DuckDBPyConnection:
+    return duckdb.connect(DB_PATH)
+
+
+def init_bronze(conn: duckdb.DuckDBPyConnection) -> None:
+    conn.execute("CREATE SCHEMA IF NOT EXISTS bronze")
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS bronze.bronze_games (
+            id          INTEGER PRIMARY KEY,
+            rawg_id     INTEGER NOT NULL,
+            raw_json    TEXT NOT NULL,
+            ingested_at TIMESTAMP DEFAULT current_timestamp
+        )
+    """)
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS bronze.bronze_genres (
+            id          INTEGER PRIMARY KEY,
+            rawg_id     INTEGER NOT NULL,
+            raw_json    TEXT NOT NULL,
+            ingested_at TIMESTAMP DEFAULT current_timestamp
+        )
+    """)
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS bronze.bronze_platforms (
+            id          INTEGER PRIMARY KEY,
+            rawg_id     INTEGER NOT NULL,
+            raw_json    TEXT NOT NULL,
+            ingested_at TIMESTAMP DEFAULT current_timestamp
+        )
+    """)
 
 
 def build_session() -> requests.Session:
-    """
-    Returns a requests Session with a retry adapter mounted.
-    Retries up to 3 times on transient errors (429, 500, 502, 503, 504)
-    with exponential backoff.
-    """
     retry_strategy = Retry(
         total=3,
         backoff_factor=1,
@@ -58,7 +80,6 @@ def build_session() -> requests.Session:
 
 
 def fetch_games(http: requests.Session, page_size: int = 40) -> list[dict]:
-    """Fetch a single page of games from the RAWG API."""
     url = f"{BASE_URL}/games"
     params = {"key": API_KEY, "page_size": page_size}
     response = http.get(url, params=params)
@@ -67,7 +88,6 @@ def fetch_games(http: requests.Session, page_size: int = 40) -> list[dict]:
 
 
 def fetch_genres(http: requests.Session) -> list[dict]:
-    """Fetch all genres from the RAWG API."""
     url = f"{BASE_URL}/genres"
     params = {"key": API_KEY}
     response = http.get(url, params=params)
@@ -76,7 +96,6 @@ def fetch_genres(http: requests.Session) -> list[dict]:
 
 
 def fetch_platforms(http: requests.Session) -> list[dict]:
-    """Fetch all platforms from the RAWG API."""
     url = f"{BASE_URL}/platforms"
     params = {"key": API_KEY}
     response = http.get(url, params=params)
@@ -84,27 +103,41 @@ def fetch_platforms(http: requests.Session) -> list[dict]:
     return response.json().get("results", [])
 
 
-def load_bronze(session: Session, games: list, genres: list, platforms: list) -> None:
-    """Write raw API results to the bronze DuckDB schema as append-only JSON."""
-    for game in games:
-        session.add(BronzeGame(rawg_id=game["id"], raw_json=json.dumps(game)))
-    for genre in genres:
-        session.add(BronzeGenre(rawg_id=genre["id"], raw_json=json.dumps(genre)))
-    for platform in platforms:
-        session.add(BronzePlatform(rawg_id=platform["id"], raw_json=json.dumps(platform)))
-    session.commit()
+def load_bronze(
+    conn: duckdb.DuckDBPyConnection,
+    games: list[dict],
+    genres: list[dict],
+    platforms: list[dict],
+) -> None:
+    now = datetime.now(timezone.utc)
+    conn.executemany(
+        "INSERT INTO bronze.bronze_games (id, rawg_id, raw_json, ingested_at) VALUES (nextval('bronze_games_seq'), ?, ?, ?)",
+        [(g["id"], json.dumps(g), now) for g in games],
+    )
+    conn.executemany(
+        "INSERT INTO bronze.bronze_genres (id, rawg_id, raw_json, ingested_at) VALUES (nextval('bronze_genres_seq'), ?, ?, ?)",
+        [(g["id"], json.dumps(g), now) for g in genres],
+    )
+    conn.executemany(
+        "INSERT INTO bronze.bronze_platforms (id, rawg_id, raw_json, ingested_at) VALUES (nextval('bronze_platforms_seq'), ?, ?, ?)",
+        [(p["id"], json.dumps(p), now) for p in platforms],
+    )
 
 
 if __name__ == "__main__":
-    init_db()
+    conn = get_conn()
+    init_bronze(conn)
+    conn.execute("CREATE SEQUENCE IF NOT EXISTS bronze_games_seq")
+    conn.execute("CREATE SEQUENCE IF NOT EXISTS bronze_genres_seq")
+    conn.execute("CREATE SEQUENCE IF NOT EXISTS bronze_platforms_seq")
     http = build_session()
-    with SessionLocal() as session:
-        logger.info("Fetching from RAWG API...")
-        games = fetch_games(http)
-        genres = fetch_genres(http)
-        platforms = fetch_platforms(http)
-        load_bronze(session, games, genres, platforms)
-        logger.info(
-            "Loaded %d games, %d genres, %d platforms.",
-            len(games), len(genres), len(platforms),
-        )
+    logger.info("Fetching from RAWG API...")
+    games = fetch_games(http)
+    genres = fetch_genres(http)
+    platforms = fetch_platforms(http)
+    load_bronze(conn, games, genres, platforms)
+    conn.close()
+    logger.info(
+        "Loaded %d games, %d genres, %d platforms.",
+        len(games), len(genres), len(platforms),
+    )

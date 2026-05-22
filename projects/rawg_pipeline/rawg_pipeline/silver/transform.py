@@ -6,14 +6,11 @@ and upserts into the silver DuckDB schema.
 """
 import json
 import logging
-from datetime import date
-from typing import Callable, Type
+import os
+from datetime import date, datetime, timezone
 
-from sqlalchemy.orm import Session
-
-from rawg_pipeline.bronze.models import BronzeGame, BronzeGenre, BronzePlatform
-from rawg_pipeline.db import SessionLocal, init_db
-from rawg_pipeline.silver.models import SilverBase, SilverGame, SilverGenre, SilverPlatform
+import duckdb
+from dotenv import load_dotenv
 
 logging.basicConfig(
     level=logging.INFO,
@@ -21,9 +18,47 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+load_dotenv()
+
+DB_PATH = os.getenv("DB_PATH", "rawg_data.duckdb")
+
+
+def get_conn() -> duckdb.DuckDBPyConnection:
+    return duckdb.connect(DB_PATH)
+
+
+def init_silver(conn: duckdb.DuckDBPyConnection) -> None:
+    conn.execute("CREATE SCHEMA IF NOT EXISTS silver")
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS silver.silver_games (
+            id           INTEGER PRIMARY KEY,
+            rawg_id      INTEGER NOT NULL UNIQUE,
+            name         TEXT NOT NULL,
+            rating       DOUBLE,
+            ratings_count INTEGER,
+            released     DATE,
+            updated_at   TIMESTAMP DEFAULT current_timestamp
+        )
+    """)
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS silver.silver_genres (
+            id      INTEGER PRIMARY KEY,
+            rawg_id INTEGER NOT NULL UNIQUE,
+            name    TEXT NOT NULL,
+            slug    TEXT
+        )
+    """)
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS silver.silver_platforms (
+            id      INTEGER PRIMARY KEY,
+            rawg_id INTEGER NOT NULL UNIQUE,
+            name    TEXT NOT NULL,
+            slug    TEXT
+        )
+    """)
+
 
 def parse_date(value: str | None) -> date | None:
-    """Parse an ISO date string, returning None if missing or invalid."""
     if not value:
         return None
     try:
@@ -32,81 +67,85 @@ def parse_date(value: str | None) -> date | None:
         return None
 
 
-def _transform(
-    session: Session,
-    bronze_model: Type,
-    silver_model: Type[SilverBase],
-    build_record: Callable[[dict], SilverBase],
-) -> None:
-    """
-    Generic transform helper.
-    Reads all bronze rows, deduplicates by rawg_id,
-    skips existing silver records, and inserts new ones.
-    """
-    rows = session.query(bronze_model).all()
+def transform_games(conn: duckdb.DuckDBPyConnection) -> None:
+    rows = conn.execute("SELECT raw_json FROM bronze.bronze_games").fetchall()
     seen = set()
-    for row in rows:
-        data = json.loads(row.raw_json)
+    records = []
+    for (raw,) in rows:
+        data = json.loads(raw)
         rawg_id = data["id"]
         if rawg_id in seen:
             continue
         seen.add(rawg_id)
-        existing = session.query(silver_model).filter_by(rawg_id=rawg_id).first()
-        if existing:
+        records.append((
+            rawg_id,
+            data.get("name", ""),
+            data.get("rating"),
+            data.get("ratings_count"),
+            parse_date(data.get("released")),
+            datetime.now(timezone.utc),
+        ))
+    conn.executemany("""
+        INSERT INTO silver.silver_games (id, rawg_id, name, rating, ratings_count, released, updated_at)
+        VALUES (nextval('silver_games_seq'), ?, ?, ?, ?, ?, ?)
+        ON CONFLICT (rawg_id) DO UPDATE SET
+            name = excluded.name,
+            rating = excluded.rating,
+            ratings_count = excluded.ratings_count,
+            released = excluded.released,
+            updated_at = excluded.updated_at
+    """, records)
+
+
+def transform_genres(conn: duckdb.DuckDBPyConnection) -> None:
+    rows = conn.execute("SELECT raw_json FROM bronze.bronze_genres").fetchall()
+    seen = set()
+    records = []
+    for (raw,) in rows:
+        data = json.loads(raw)
+        rawg_id = data["id"]
+        if rawg_id in seen:
             continue
-        session.add(build_record(data))
-    session.commit()
+        seen.add(rawg_id)
+        records.append((rawg_id, data.get("name", ""), data.get("slug")))
+    conn.executemany("""
+        INSERT INTO silver.silver_genres (id, rawg_id, name, slug)
+        VALUES (nextval('silver_genres_seq'), ?, ?, ?)
+        ON CONFLICT (rawg_id) DO UPDATE SET
+            name = excluded.name,
+            slug = excluded.slug
+    """, records)
 
 
-def transform_games(session: Session) -> None:
-    """Transform bronze games into typed silver records."""
-    _transform(
-        session,
-        bronze_model=BronzeGame,
-        silver_model=SilverGame,
-        build_record=lambda data: SilverGame(
-            rawg_id=data["id"],
-            name=data.get("name", ""),
-            rating=data.get("rating"),
-            ratings_count=data.get("ratings_count"),
-            released=parse_date(data.get("released")),
-        ),
-    )
-
-
-def transform_genres(session: Session) -> None:
-    """Transform bronze genres into typed silver records."""
-    _transform(
-        session,
-        bronze_model=BronzeGenre,
-        silver_model=SilverGenre,
-        build_record=lambda data: SilverGenre(
-            rawg_id=data["id"],
-            name=data.get("name", ""),
-            slug=data.get("slug"),
-        ),
-    )
-
-
-def transform_platforms(session: Session) -> None:
-    """Transform bronze platforms into typed silver records."""
-    _transform(
-        session,
-        bronze_model=BronzePlatform,
-        silver_model=SilverPlatform,
-        build_record=lambda data: SilverPlatform(
-            rawg_id=data["id"],
-            name=data.get("name", ""),
-            slug=data.get("slug"),
-        ),
-    )
+def transform_platforms(conn: duckdb.DuckDBPyConnection) -> None:
+    rows = conn.execute("SELECT raw_json FROM bronze.bronze_platforms").fetchall()
+    seen = set()
+    records = []
+    for (raw,) in rows:
+        data = json.loads(raw)
+        rawg_id = data["id"]
+        if rawg_id in seen:
+            continue
+        seen.add(rawg_id)
+        records.append((rawg_id, data.get("name", ""), data.get("slug")))
+    conn.executemany("""
+        INSERT INTO silver.silver_platforms (id, rawg_id, name, slug)
+        VALUES (nextval('silver_platforms_seq'), ?, ?, ?)
+        ON CONFLICT (rawg_id) DO UPDATE SET
+            name = excluded.name,
+            slug = excluded.slug
+    """, records)
 
 
 if __name__ == "__main__":
-    init_db()
-    with SessionLocal() as session:
-        logger.info("Transforming bronze -> silver...")
-        transform_games(session)
-        transform_genres(session)
-        transform_platforms(session)
-        logger.info("Silver layer complete.")
+    conn = get_conn()
+    init_silver(conn)
+    conn.execute("CREATE SEQUENCE IF NOT EXISTS silver_games_seq")
+    conn.execute("CREATE SEQUENCE IF NOT EXISTS silver_genres_seq")
+    conn.execute("CREATE SEQUENCE IF NOT EXISTS silver_platforms_seq")
+    logger.info("Transforming bronze -> silver...")
+    transform_games(conn)
+    transform_genres(conn)
+    transform_platforms(conn)
+    conn.close()
+    logger.info("Silver layer complete.")

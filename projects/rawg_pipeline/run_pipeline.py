@@ -44,7 +44,7 @@ def run():
     env["DBT_DUCKDB_PATH"] = DB_PATH
     dbt_path = os.path.join(os.path.dirname(sys.executable), "dbt")
     result = subprocess.run(
-        [dbt_path, "run", "--profiles-dir", DBT_DIR],
+        [dbt_path, "run", "--profiles-dir", DBT_DIR, "--target", "dev"],
         cwd=DBT_DIR, env=env, capture_output=True, text=True
     )
     logger.info(result.stdout)

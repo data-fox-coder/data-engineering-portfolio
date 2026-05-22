@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 BASE_DIR = os.path.dirname(__file__)
 DBT_DIR = os.path.join(BASE_DIR, "rawg_dbt")
-
+DB_PATH = os.path.join(BASE_DIR, "rawg_data.duckdb")
 
 def run():
     logger.info("Running bronze ingest...")
@@ -25,8 +25,14 @@ def run():
     subprocess.run([sys.executable, "-m", "rawg_pipeline.silver.transform"], cwd=BASE_DIR, check=True)
 
     logger.info("Running dbt gold layer...")
-    subprocess.run([sys.executable, "-m", "dbt", "run"], cwd=DBT_DIR, check=True)
-
+    env = os.environ.copy()
+    env["DBT_DUCKDB_PATH"] = DB_PATH
+    subprocess.run(
+        [sys.executable, "-m", "dbt", "run", "--profiles-dir", DBT_DIR],
+        cwd=DBT_DIR,
+        env=env,
+        check=True
+    )
 
 if __name__ == "__main__":
     run()

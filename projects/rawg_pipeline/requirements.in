@@ -3,9 +3,7 @@ requests
 python-dotenv
 
 # --- Database & Storage ---
-sqlalchemy
 duckdb
-duckdb-engine
 
 # --- Transformation (The dbt Stack) ---
 dbt-duckdb

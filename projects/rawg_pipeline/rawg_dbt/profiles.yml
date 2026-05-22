@@ -2,12 +2,11 @@ rawg_dbt:
   outputs:
     dev:
       type: duckdb
-      path: ../rawg_data.duckdb
+      path: "{{ env_var('DBT_DUCKDB_PATH', '../rawg_data.duckdb') }}"
       schema: main
       threads: 1
     prod:
       type: duckdb
-      path: ../rawg_data.duckdb
+      path: "{{ env_var('DBT_DUCKDB_PATH', '../rawg_data.duckdb') }}"
       schema: main
       threads: 4
-  target: dev

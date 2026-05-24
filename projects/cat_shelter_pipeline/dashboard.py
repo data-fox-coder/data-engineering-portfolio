@@ -170,8 +170,8 @@ def show_metrics(df: pd.DataFrame) -> None:
     col1, col2, col3, col4 = st.columns(4)
     col1.metric("Total Cats", f"{len(df):,}")
     col2.metric("Unique Breeds", f"{df['attributes_breedprimary'].nunique():,}")
-    col3.metric("Special Needs", f"{df['attributes_isspecialneeds'].sum():,}")
-    col4.metric("With Pictures", f"{(df['attributes_picturecount'] > 0).sum():,}")
+    col3.metric("Special Needs", f"{pd.to_numeric(df['attributes_isspecialneeds'], errors='coerce').fillna(0).sum():,.0f}")
+    col4.metric("With Pictures", f"{pd.to_numeric(df['attributes_picturecount'], errors='coerce').fillna(0).gt(0).sum():,}")
 
 
 # ---------------------------------------------------------------------------

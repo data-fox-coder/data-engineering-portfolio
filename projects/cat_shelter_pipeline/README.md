@@ -1,8 +1,10 @@
 # Cat Shelter Pipeline 🐱
 
-An end-to-end ETL data pipeline that extracts real-world cat adoption data from the [RescueGroups.org v5 API](https://rescuegroups.org/services/adoptable-pet-data-api/), transforms it using pandas, and loads it into a local SQLite database for analysis.
+An end-to-end data pipeline that extracts real-world cat adoption data from the [RescueGroups.org v5 API](https://rescuegroups.org/services/adoptable-pet-data-api/), transforms it through a medallion architecture, and serves it via an interactive Streamlit dashboard.
 
 Built to demonstrate practical data engineering skills in Python, using production-oriented patterns from a background in SSIS, Power Query M, and SQL Server.
+
+**[🐱 Live Dashboard →](https://data-engineering-portfolio-wcn4sfvy8fvfuuyz4emqli.streamlit.app/)**
 
 ---
 
@@ -10,9 +12,11 @@ Built to demonstrate practical data engineering skills in Python, using producti
 
 | Stage | Tool | What it does |
 |---|---|---|
-| **Extract** | `requests` | Authenticates with the RescueGroups v5 API, paginates through available cat listings, resolves related data (breeds, orgs, locations) from the JSON `included` array |
-| **Transform** | `pandas` | Flattens nested JSON into a clean tabular structure, cleans and standardises fields, deduplicates on animal ID |
-| **Load** | `sqlite3` | Upserts records into a local SQLite database — safe to re-run without creating duplicates |
+| **Extract** | `requests` | Authenticates with the RescueGroups v5 API and fetches available cat listings |
+| **Bronze** | JSON | Raw API response persisted as-is for auditability |
+| **Silver** | `pandas` + Parquet | Flattens nested JSON, standardises column names, applies config-driven field selection and deduplication |
+| **Gold** | `SQLAlchemy` + SQLite | Upserts clean records into SQLite — safe to re-run without duplicates |
+| **Dashboard** | `Streamlit` | Interactive dashboard with filters, metrics and charts served from the gold layer |
 
 ---
 
@@ -20,23 +24,48 @@ Built to demonstrate practical data engineering skills in Python, using producti
 
 ```
 cat_shelter_pipeline/
-├── pipeline.py         # Full ETL pipeline: extract → transform → load
-├── config.yml          # Config-driven settings (API URL, DB path, page size)
-├── .env.example        # Template for API credentials
+├── pipeline.py            # ETL pipeline: extract → bronze → silver → gold
+├── dashboard.py           # Streamlit dashboard with pipeline bootstrap
+├── config.yml             # Config-driven settings (API URL, field selection, paths)
+├── requirements.in        # Direct dependencies
+├── requirements.txt       # Pinned dependencies (compiled with pip-tools)
+├── .env.example           # Template for API credentials
+├── data/
+│   ├── bronze/cats/       # Raw JSON from API
+│   ├── silver/cats/       # Cleaned Parquet
+│   └── cats_shelter.db    # Gold SQLite database
 └── README.md
 ```
 
 ---
 
+## Dashboard
+
+The Streamlit dashboard reads from the gold SQLite layer and includes:
+
+- **Summary metrics** — total cats, unique breeds, special needs count, cats with pictures
+- **Age distribution** — bar chart across Baby / Young / Adult / Senior
+- **Gender split** — pie chart
+- **Top 10 breeds** — horizontal bar chart
+- **Activity levels** — bar chart
+- **Compatibility & characteristics** — % of cats OK with kids, cats, dogs, housetrained, special needs
+- **Sidebar filters** — filter all charts by age group, gender, and activity level
+
+The dashboard triggers the pipeline automatically on first load and refreshes data every 24 hours, using the `RESCUEGROUPS_API_KEY` secret configured in Streamlit Community Cloud.
+
+---
+
 ## Skills Demonstrated
 
-- Authenticating with and paginating a REST API (`requests`)
-- Parsing and normalising nested, relational JSON into a flat DataFrame
-- Data cleaning and transformation with `pandas`
+- Medallion architecture (Bronze → Silver → Gold) with JSON and Parquet intermediate layers
+- REST API authentication and data extraction with `requests`
+- Nested JSON normalisation and transformation with `pandas`
 - Config-driven pipeline design with `yaml`
+- Upsert semantics (`INSERT OR REPLACE`) for idempotent loads via `SQLAlchemy`
 - Secret management with `python-dotenv`
-- Upsert logic (`INSERT OR REPLACE`) for idempotent loads
-- Structured, modular Python code (not just a notebook)
+- Streamlit dashboard with pipeline bootstrap and staleness guard
+- Dependency management with `pip-tools` (`requirements.in` → `requirements.txt`)
+- Modular, production-oriented Python (not just a notebook)
 
 ---
 
@@ -70,7 +99,11 @@ pip install -r requirements.txt
 python pipeline.py
 ```
 
-The pipeline will print progress by page and confirm the row count loaded into SQLite.
+Or launch the dashboard — it will trigger the pipeline automatically if no data is found:
+
+```bash
+streamlit run dashboard.py
+```
 
 ---
 
@@ -84,22 +117,25 @@ source:
   page_size: 100       # max 250
 
 layers:
+  silver:
+    fields_to_keep:    # config-driven field selection
+      - id
+      - attributes_name
+      - attributes_agegroup
+      # ... (23 fields total)
   gold:
     path: data/cats_shelter.db
 ```
 
 ---
 
-## Planned Enhancements
-
-- Medallion architecture (Bronze → Silver → Gold layers with JSON and Parquet intermediate storage)
-- GitHub Actions scheduled run
-- RAWG gaming pipeline as a second project
-
----
-
 ## Dependencies
 
-See `requirements.txt` in the repo root.
+Managed with `pip-tools`. To update:
 
-Key packages: `requests`, `pandas`, `python-dotenv`, `pyyaml`
+```bash
+pip-compile requirements.in
+pip install -r requirements.txt
+```
+
+Key packages: `requests`, `pandas`, `sqlalchemy`, `python-dotenv`, `pyyaml`, `streamlit`, `matplotlib`, `pyarrow`

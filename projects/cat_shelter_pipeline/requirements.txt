@@ -130,7 +130,9 @@ ptyprocess==0.7.0
 pure-eval==0.2.3
     # via stack-data
 pyarrow==24.0.0
-    # via streamlit
+    # via
+    #   -r requirements.in
+    #   streamlit
 pydeck==0.9.2
     # via streamlit
 pygments==2.20.0

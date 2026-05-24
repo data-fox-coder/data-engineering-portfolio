@@ -6,6 +6,7 @@ numpy
 requests
 sqlalchemy
 python-dotenv
+pyarrow
 
 # Visualization & UI
 matplotlib

@@ -15,7 +15,9 @@ A portfolio of Python data engineering pipelines and learning projects. Projects
 
 An automated Medallion Architecture (Bronze/Silver/Gold) ETL pipeline that extracts rich video game metadata from the [RAWG.io API](https://rawg.io/apidocs), processes transformations via **dbt** and **DuckDB**, and serves insights through an interactive **Streamlit** dashboard.
 
-**Skills demonstrated:** REST API extraction (`requests`), JSON flattening, pipeline orchestration, analytics engineering with dbt, local data warehouse optimization with DuckDB, interactive data presentation.  
+[![Live Dashboard](https://img.shields.io/badge/Live%20Dashboard-Streamlit-ff4b4b?logo=streamlit)](https://data-engineering-portfolio-mxxbvanhcjuvkrgtjhemzr.streamlit.app)
+
+**Skills demonstrated:** REST API extraction (`requests`), JSON flattening, pipeline orchestration, analytics engineering with dbt, local data warehouse optimisation with DuckDB, interactive data presentation.  
 **BI equivalent:** Power Query API Connection ➔ SQL Server Staging ➔ dbt Core Transformations ➔ Power BI / Tableau Dashboard
 
 ---
@@ -65,5 +67,6 @@ This repository uses a **monorepo structure** where each independent project con
 
 ### 1. Clone the repository
 ```bash
-git clone [https://github.com/data-fox-coder/data-engineering-portfolio.git](https://github.com/data-fox-coder/data-engineering-portfolio.git)
+git clone https://github.com/data-fox-coder/data-engineering-portfolio.git
 cd data-engineering-portfolio
+```

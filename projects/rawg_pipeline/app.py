@@ -81,7 +81,7 @@ with left_chart_col:
         color_continuous_scale=px.colors.sequential.Viridis
     )
     fig_scatter.update_traces(textposition='top center')
-    st.plotly_chart(fig_scatter, use_container_width=True)
+    st.plotly_chart(fig_scatter, width='stretch')
 
 with right_chart_col:
     st.subheader("📊 Rating Distribution")
@@ -92,7 +92,7 @@ with right_chart_col:
         labels={"rating": "User Rating", "count": "Number of Games"},
         color_discrete_sequence=["#b44fff"]
     )
-    st.plotly_chart(fig_hist, use_container_width=True)
+    st.plotly_chart(fig_hist, width='stretch')
 
 st.markdown("---")
 
@@ -103,9 +103,9 @@ tab1, tab2 = st.tabs(["⭐ Top Rated Games", "🏷️ Genre Summary"])
 with tab1:
     st.dataframe(
         filtered_games[['rating_rank', 'name', 'rating', 'ratings_count', 'released']],
-        use_container_width=True,
+        width='stretch',
         hide_index=True
     )
 
 with tab2:
-    st.dataframe(df_genres, use_container_width=True, hide_index=True)
+    st.dataframe(df_genres, width='stretch', hide_index=True)

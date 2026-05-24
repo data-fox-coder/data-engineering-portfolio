@@ -24,10 +24,12 @@ An automated Medallion Architecture (Bronze/Silver/Gold) ETL pipeline that extra
 
 ### 🐱 [cat_shelter_pipeline](./projects/cat_shelter_pipeline)
 
-An end-to-end ETL pipeline built using the [RescueGroups.org v5 API](https://rescuegroups.org/services/adoptable-pet-data-api/) to extract, transform, and load real-world cat adoption data into a local relational database structure.
+An end-to-end Medallion Architecture (Bronze/Silver/Gold) ETL pipeline that extracts real-world cat adoption data from the [RescueGroups.org v5 API](https://rescuegroups.org/services/adoptable-pet-data-api/), transforms it through pandas and Parquet intermediate layers, and serves it via an interactive Streamlit dashboard.
 
-**Skills demonstrated:** REST API integration, cursor-based pagination, `pandas` data transformation, `.env` secret management, automated testing with `pytest`.  
-**BI equivalent:** SSIS package ➔ SQL Server staging table
+[![Live Dashboard](https://img.shields.io/badge/Live%20Dashboard-Streamlit-ff4b4b?logo=streamlit)](https://data-engineering-portfolio-wcn4sfvy8fvfuuyz4emqli.streamlit.app/)
+
+**Skills demonstrated:** REST API integration, medallion architecture, `pandas` transformation, config-driven field selection, SQLAlchemy upserts, Streamlit dashboard with pipeline bootstrap and staleness guard.  
+**BI equivalent:** SSIS package ➔ SQL Server staging ➔ Power BI Dashboard
 
 ---
 

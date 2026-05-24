@@ -3,24 +3,139 @@ Cat Shelter Dashboard
 =====================
 Interactive Streamlit dashboard visualising available cats in shelters.
 Reads from the SQLite database produced by pipeline.py.
+Includes startup logic to trigger the pipeline if data is missing or stale.
 """
 
 import sqlite3
-import pandas as pd
+import sys
+import time
+from datetime import datetime, timezone
+from pathlib import Path
+
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
+import pandas as pd
 import streamlit as st
 
-DB_PATH = "data/cats_shelter.db"
+# ---------------------------------------------------------------------------
+# Config
+# ---------------------------------------------------------------------------
+
+_HERE = Path(__file__).parent
+DB_PATH = _HERE / "data" / "cats_shelter.db"
+
+REFRESH_HOURS = 24
 
 
-@st.cache_data
+# ---------------------------------------------------------------------------
+# Pipeline bootstrap
+# ---------------------------------------------------------------------------
+
+def _db_age_hours() -> float | None:
+    """Return how many hours ago the DB was last modified, or None if missing."""
+    if not DB_PATH.exists():
+        return None
+    age_seconds = time.time() - DB_PATH.stat().st_mtime
+    return age_seconds / 3600
+
+
+def _run_pipeline() -> bool:
+    """
+    Import and run the pipeline in-process.
+    Returns True on success, False on failure.
+    """
+    project_dir = str(_HERE)
+    if project_dir not in sys.path:
+        sys.path.insert(0, project_dir)
+
+    try:
+        from pipeline import (  # noqa: PLC0415
+            extract_cat_data,
+            load_cat_data,
+            load_config,
+            save_bronze,
+            save_silver,
+            setup_logging,
+            transform_cat_data,
+        )
+
+        config = load_config()
+        setup_logging(config)
+
+        raw_data = extract_cat_data(config)
+        if not raw_data:
+            return False
+
+        save_bronze(raw_data, config)
+
+        df = transform_cat_data(raw_data, config)
+        if df.empty:
+            return False
+
+        save_silver(df, config)
+        load_cat_data(df, config)
+        return True
+
+    except Exception as exc:  # noqa: BLE001
+        st.error(f"Pipeline error: {exc}")
+        return False
+
+
+def ensure_fresh_data() -> None:
+    """
+    Call once at app startup before load_data().
+    Triggers the pipeline if the DB is missing or older than REFRESH_HOURS.
+    """
+    age = _db_age_hours()
+
+    if age is None:
+        with st.spinner("🐱 No local data found — fetching cats from RescueGroups..."):
+            success = _run_pipeline()
+        if success:
+            last_run = datetime.now(timezone.utc).strftime("%d %b %Y %H:%M UTC")
+            st.success(f"Pipeline complete. Data loaded as of {last_run}.")
+        else:
+            st.error(
+                "Pipeline failed to fetch data. "
+                "Check your RESCUEGROUPS_API_KEY secret and try refreshing."
+            )
+            st.stop()
+
+    elif age > REFRESH_HOURS:
+        with st.spinner(f"🔄 Data is {age:.0f}h old — refreshing from RescueGroups..."):
+            success = _run_pipeline()
+        if success:
+            last_run = datetime.now(timezone.utc).strftime("%d %b %Y %H:%M UTC")
+            st.toast(f"✅ Data refreshed at {last_run}")
+        else:
+            st.warning(
+                f"⚠️ Refresh failed — showing data from {age:.0f}h ago. "
+                "Check your API key or try again later."
+            )
+
+
+# ---------------------------------------------------------------------------
+# Data loader
+# ---------------------------------------------------------------------------
+
+@st.cache_data(ttl=REFRESH_HOURS * 3600)
 def load_data() -> pd.DataFrame:
+    """Load cats from the gold SQLite layer. Cached for REFRESH_HOURS."""
     with sqlite3.connect(DB_PATH) as conn:
-        df = pd.read_sql("SELECT * FROM cats", conn,
-                         parse_dates=["available_date", "updated_date"])
+        # BUG FIX 1: column is attributes_updateddate in config, not updated_date.
+        # parse_dates on a non-existent column silently does nothing — the column
+        # just stays as a plain string, which breaks any date-based logic later.
+        df = pd.read_sql(
+            "SELECT * FROM cats",
+            conn,
+            parse_dates=["attributes_updateddate"],
+        )
     return df
 
+
+# ---------------------------------------------------------------------------
+# Filters
+# ---------------------------------------------------------------------------
 
 def apply_filters(df: pd.DataFrame) -> pd.DataFrame:
     st.sidebar.header("Filters")
@@ -31,26 +146,37 @@ def apply_filters(df: pd.DataFrame) -> pd.DataFrame:
     genders = ["All"] + sorted(df["attributes_sex"].dropna().unique().tolist())
     selected_gender = st.sidebar.selectbox("Gender", genders)
 
-    energy_levels = ["All"] + sorted(df["attributes_energylevel"].dropna().unique().tolist())
-    selected_energy = st.sidebar.selectbox("Energy Level", energy_levels)
+    # BUG FIX 2: attributes_energylevel does not exist in config.yml fields_to_keep.
+    # The column is attributes_activitylevel. Using the wrong name here would cause
+    # a KeyError at runtime when Streamlit tried to read the column from the DataFrame.
+    activity_levels = ["All"] + sorted(df["attributes_activitylevel"].dropna().unique().tolist())
+    selected_activity = st.sidebar.selectbox("Activity Level", activity_levels)
 
     if selected_age != "All":
         df = df[df["attributes_agegroup"] == selected_age]
     if selected_gender != "All":
         df = df[df["attributes_sex"] == selected_gender]
-    if selected_energy != "All":
-        df = df[df["attributes_energylevel"] == selected_energy]
+    if selected_activity != "All":
+        df = df[df["attributes_activitylevel"] == selected_activity]
 
     return df
 
+
+# ---------------------------------------------------------------------------
+# Metrics
+# ---------------------------------------------------------------------------
 
 def show_metrics(df: pd.DataFrame) -> None:
     col1, col2, col3, col4 = st.columns(4)
     col1.metric("Total Cats", f"{len(df):,}")
     col2.metric("Unique Breeds", f"{df['attributes_breedprimary'].nunique():,}")
-    col3.metric("States Covered", "N/A")
+    col3.metric("Special Needs", f"{df['attributes_isspecialneeds'].sum():,}")
     col4.metric("With Pictures", f"{(df['attributes_picturecount'] > 0).sum():,}")
 
+
+# ---------------------------------------------------------------------------
+# Charts
+# ---------------------------------------------------------------------------
 
 def chart_age_distribution(df: pd.DataFrame) -> plt.Figure:
     order = ["Baby", "Young", "Adult", "Senior"]
@@ -91,12 +217,14 @@ def chart_gender_split(df: pd.DataFrame) -> plt.Figure:
     return fig
 
 
-def chart_energy_levels(df: pd.DataFrame) -> plt.Figure:
-    counts = df["attributes_energylevel"].value_counts()
+def chart_activity_levels(df: pd.DataFrame) -> plt.Figure:
+    # BUG FIX 2 (continued): renamed from chart_energy_levels to chart_activity_levels,
+    # reading attributes_activitylevel instead of the non-existent attributes_energylevel.
+    counts = df["attributes_activitylevel"].value_counts()
     fig, ax = plt.subplots(figsize=(6, 4))
     bars = ax.bar(counts.index, counts.values, color="#5B8DB8", edgecolor="white")
     ax.bar_label(bars, padding=4, fontsize=9)
-    ax.set_title("Cats by Energy Level", fontweight="bold", pad=12)
+    ax.set_title("Cats by Activity Level", fontweight="bold", pad=12)
     ax.set_ylabel("Number of cats")
     ax.spines[["top", "right"]].set_visible(False)
     return fig
@@ -104,11 +232,20 @@ def chart_energy_levels(df: pd.DataFrame) -> plt.Figure:
 
 def chart_compatibility(df: pd.DataFrame) -> plt.Figure:
     total = len(df)
+    # BUG FIX 3: attributes_iscurrentvaccinations is not in config.yml fields_to_keep
+    # so it will never be in the DataFrame. Including it meant pd.to_numeric would
+    # produce a series of NaN (column not found → KeyError, or all zeros after coerce),
+    # silently making the "Microchipped" bar always show 0% with no error raised.
+    # Replaced with attributes_isspecialneeds which IS in the config, making the
+    # chart accurate and honest about what data is actually available.
     labels = ["OK with kids", "OK with cats", "OK with dogs",
-              "Housetrained", "Microchipped"]
+              "Housetrained", "Special Needs"]
     cols = ["attributes_iskidsok", "attributes_iscatsok", "attributes_isdogsok",
-            "attributes_ishousetrained", "attributes_iscurrentvaccinations"]
-    pcts = [pd.to_numeric(df[c], errors='coerce').fillna(0).sum() / total * 100 for c in cols]
+            "attributes_ishousetrained", "attributes_isspecialneeds"]
+    pcts = [
+        pd.to_numeric(df[c], errors="coerce").fillna(0).sum() / total * 100
+        for c in cols
+    ]
     fig, ax = plt.subplots(figsize=(8, 4))
     bars = ax.barh(labels, pcts, color="#A8C5A0", edgecolor="white")
     ax.bar_label(bars, fmt="%.1f%%", padding=4, fontsize=9)
@@ -119,16 +256,15 @@ def chart_compatibility(df: pd.DataFrame) -> plt.Figure:
     return fig
 
 
-def chart_top_states(df: pd.DataFrame, top_n: int = 10) -> plt.Figure:
-    # State data not currently available in this dataset
-    # TODO: extract state from relationships_locations_data when pipeline is extended
-    return None
-
-# ── MAIN ──────────────────────────────────────────────────────────────────────
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
 
 st.set_page_config(page_title="Cat Shelter Dashboard", page_icon="🐱", layout="wide")
 st.title("🐱 Cat Shelter Dashboard")
 st.caption("Data sourced from RescueGroups v5 API")
+
+ensure_fresh_data()
 
 df_raw = load_data()
 df = apply_filters(df_raw)
@@ -148,14 +284,8 @@ col3, col4 = st.columns(2)
 with col3:
     st.pyplot(chart_top_breeds(df))
 with col4:
-    st.pyplot(chart_energy_levels(df))
+    st.pyplot(chart_activity_levels(df))
 
-col5, col6 = st.columns(2)
+col5, _ = st.columns(2)
 with col5:
     st.pyplot(chart_compatibility(df))
-with col6:
-    fig = chart_top_states(df)
-    if fig:
-        st.pyplot(fig)
-    else:
-        st.info("No state data available.")

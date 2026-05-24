@@ -6,11 +6,17 @@
     },
     {
       "name": "🎮 RAWG Pipeline",
-      "path": "projects/rawg_pipeline"
+      "path": "projects/rawg_pipeline",
+      "settings": {
+        "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python"
+      }
     },
     {
       "name": "🐱 Cat Shelter Pipeline",
-      "path": "projects/cat_shelter_pipeline"
+      "path": "projects/cat_shelter_pipeline",
+      "settings": {
+        "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python"
+      }
     }
   ],
   "settings": {

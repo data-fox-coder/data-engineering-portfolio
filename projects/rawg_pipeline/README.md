@@ -3,27 +3,33 @@
 A data engineering portfolio project implementing a medallion architecture pipeline
 ingesting gaming data from the [RAWG API](https://rawg.io/apidocs).
 
+[![Live Dashboard](https://img.shields.io/badge/Live%20Dashboard-Streamlit-ff4b4b?logo=streamlit)](https://data-engineering-portfolio-mxxbvanhcjuvkrgtjhemzr.streamlit.app)
+
 ## Architecture
 
 ```
 RAWG API
    │
    ▼
-Bronze (Python + SQLAlchemy)
+Bronze (Python + DuckDB)
    │  Raw JSON stored in DuckDB bronze schema
    ▼
-Silver (Python + SQLAlchemy)
+Silver (Python + DuckDB)
    │  Cleaned, typed, deduplicated records in DuckDB silver schema
    ▼
 Gold (dbt + DuckDB)
-      Aggregated, analytics-ready models built and tested by dbt
+   │  Aggregated, analytics-ready models built and tested by dbt
+   ▼
+Dashboard (Streamlit + Plotly)
+      Live visualisations of gold layer data
 ```
 
-| Layer  | Managed by          | Storage              | Description                        |
-|--------|---------------------|----------------------|------------------------------------|
-| Bronze | Python / SQLAlchemy | DuckDB `bronze.*`    | Raw API responses, append-only     |
-| Silver | Python / SQLAlchemy | DuckDB `silver.*`    | Cleaned, typed, deduplicated       |
-| Gold   | dbt                 | DuckDB `gold.*`      | Aggregated, analytics-ready        |
+| Layer     | Managed by      | Storage           | Description                       |
+|-----------|-----------------|-------------------|-----------------------------------|
+| Bronze    | Python / DuckDB | DuckDB `bronze.*` | Raw API responses, append-only    |
+| Silver    | Python / DuckDB | DuckDB `silver.*` | Cleaned, typed, deduplicated      |
+| Gold      | dbt             | DuckDB `gold.*`   | Aggregated, analytics-ready       |
+| Dashboard | Streamlit       | Reads from Gold   | Interactive Plotly visualisations |
 
 ## Setup
 
@@ -36,19 +42,19 @@ python -m rawg_pipeline.bronze.ingest
 python -m rawg_pipeline.silver.transform
 
 # Run dbt gold models
-cd dbt_rawg
+cd rawg_dbt
 dbt build --profiles-dir .
+
+# Run the dashboard
+streamlit run app.py
 ```
 
 ## dbt Models
 
-| Model                  | Layer  | Description                                      |
-|------------------------|--------|--------------------------------------------------|
-| `stg_games`            | Silver | Cleaned game records with typed fields           |
-| `stg_genres`           | Silver | Cleaned genre reference data                     |
-| `stg_platforms`        | Silver | Cleaned platform reference data                  |
-| `top_rated_games`      | Gold   | Top 100 games by rating (min 10 ratings filter)  |
-| `yearly_release_summary` | Gold | Aggregated stats per release year               |
+| Model                  | Layer | Description                           |
+|------------------------|-------|---------------------------------------|
+| `gold_top_rated_games` | Gold  | Top rated games ranked by user rating |
+| `gold_genre_summary`   | Gold  | Genre reference data                  |
 
 ## Testing
 
@@ -57,13 +63,13 @@ dbt build --profiles-dir .
 pytest tests/ -v
 
 # dbt model tests
-cd dbt_rawg
+cd rawg_dbt
 dbt test --profiles-dir .
 ```
 
 ## Environment Variables
 
-| Variable       | Description                                        |
-|----------------|----------------------------------------------------|
-| `RAWG_API_KEY` | Your RAWG API key                                  |
-| `DB_PATH`      | DuckDB file path (default: `data/rawg.duckdb`)     |
+| Variable       | Description                                    |
+|----------------|------------------------------------------------|
+| `RAWG_API_KEY` | Your RAWG API key                              |
+| `DB_PATH`      | DuckDB file path (default: `rawg_data.duckdb`) |

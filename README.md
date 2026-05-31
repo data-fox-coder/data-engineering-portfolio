@@ -59,7 +59,7 @@ Exercises and worked examples based on the Data to Insight ERN intermediate Pyth
 
 I am a data professional with a deep background in SQL Server, local government data analysis, and Excel automation (Power Query M / DAX), expanding into programmatic data engineering. This repository documents that journey — each project is carefully engineered to handle messy, real-world API data rather than generic toy datasets.
 
-Currently tracking towards the **Databricks Certified Data Analyst Associate** certification in parallel with these builds.
+I hold the **Databricks Certified Data Analyst Associate** and **SnowPro Associate** certifications, and am actively expanding into programmatic data engineering.
 
 ---
 

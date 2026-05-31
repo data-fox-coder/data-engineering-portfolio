@@ -52,6 +52,9 @@ Exercises and worked examples based on the Data to Insight ERN intermediate Pyth
 | **DuckDB** | In-process analytical database for lightning-fast local queries |
 | **Streamlit / Plotly** | Interactive visualization and user-facing presentation layer |
 | **pip-tools** | Explicit dependency management (`requirements.in` / `requirements.txt` compilation) |
+| **pytest** | Automated testing and data quality validation |
+| **GitHub Actions** | CI/CD pipeline for automated testing on push |
+| **SQLAlchemy** | Database upserts and connection management |
 
 ---
 

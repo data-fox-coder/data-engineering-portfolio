@@ -14,24 +14,38 @@ RAWG API
 Bronze (Python + DuckDB)
    │  Raw JSON stored in DuckDB bronze schema
    ▼
-Silver (Python + DuckDB)
-   │  Cleaned, typed, deduplicated records in DuckDB silver schema
-   ▼
-Gold (dbt + DuckDB)
+Silver (Python + DuckDB)        PySpark (optional scale-out layer)
+   │  Cleaned, typed,               │  Same bronze source, transforms
+   │  deduplicated records          │  via Spark DataFrames, writes Parquet
+   ▼                               ▼
+Gold (dbt + DuckDB)          data/spark/ (Parquet)
    │  Aggregated, analytics-ready models built and tested by dbt
    ▼
 Dashboard (Streamlit + Plotly)
       Live visualisations of gold layer data
 ```
 
-| Layer     | Managed by      | Storage           | Description                       |
-|-----------|-----------------|-------------------|-----------------------------------|
-| Bronze    | Python / DuckDB | DuckDB `bronze.*` | Raw API responses, append-only    |
-| Silver    | Python / DuckDB | DuckDB `silver.*` | Cleaned, typed, deduplicated      |
-| Gold      | dbt             | DuckDB `gold.*`   | Aggregated, analytics-ready       |
-| Dashboard | Streamlit       | Reads from Gold   | Interactive Plotly visualisations |
+| Layer     | Managed by      | Storage                 | Description                           |
+|-----------|-----------------|-------------------------|---------------------------------------|
+| Bronze    | Python / DuckDB | DuckDB `bronze.*`       | Raw API responses, append-only        |
+| Silver    | Python / DuckDB | DuckDB `silver.*`       | Cleaned, typed, deduplicated          |
+| PySpark   | PySpark         | Parquet (`data/spark/`) | Scale-out alternative to silver       |
+| Gold      | dbt             | DuckDB `gold.*`         | Aggregated, analytics-ready           |
+| Dashboard | Streamlit       | Reads from Gold         | Interactive Plotly visualisations     |
 
 ## Setup
+
+### Prerequisites
+
+PySpark requires Java 17 or above. Install it before running the PySpark layer:
+
+```bash
+sudo apt-get install -y default-jdk
+```
+
+This is a system-level dependency and is not included in `requirements.txt`.
+
+### Installation
 
 ```bash
 pip install -r requirements.txt
@@ -41,6 +55,9 @@ cp .env.example .env          # add your RAWG_API_KEY
 python -m rawg_pipeline.bronze.ingest
 python -m rawg_pipeline.silver.transform
 
+# Optional: run the PySpark transformation layer (requires Java)
+python -m rawg_pipeline.spark.transform
+
 # Run dbt gold models
 cd rawg_dbt
 dbt build --profiles-dir .
@@ -49,12 +66,29 @@ dbt build --profiles-dir .
 streamlit run app.py
 ```
 
+## PySpark Layer
+
+The PySpark layer is a modular, scale-out alternative to the SQLAlchemy silver transform.
+It reads the same bronze DuckDB tables, applies identical cleaning and typing logic using
+Spark DataFrames, and writes Parquet output to `data/spark/`.
+
+In production, PySpark would replace the SQLAlchemy silver layer when dataset size
+outgrows what DuckDB can handle locally. Both approaches are included here to demonstrate
+proficiency with both paradigms.
+
+| Output                  | Description                       |
+|-------------------------|-----------------------------------|
+| `data/spark/games/`     | Typed game records (Parquet)      |
+| `data/spark/genres/`    | Genre reference data (Parquet)    |
+| `data/spark/platforms/` | Platform reference data (Parquet) |
+
 ## dbt Models
 
-| Model                  | Layer | Description                           |
-|------------------------|-------|---------------------------------------|
-| `gold_top_rated_games` | Gold  | Top rated games ranked by user rating |
-| `gold_genre_summary`   | Gold  | Genre reference data                  |
+| Model                   | Layer | Description                           |
+|-------------------------|-------|---------------------------------------|
+| `gold_top_rated_games`  | Gold  | Top rated games ranked by user rating |
+| `gold_genre_summary`    | Gold  | Genre reference data                  |
+| `gold_platform_summary` | Gold  | Platform reference data               |
 
 ## Testing
 

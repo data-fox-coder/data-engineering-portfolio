@@ -13,26 +13,25 @@ def run():
     conn = duckdb.connect(DB_PATH)
     
     try:
-        # Audit: Log database file location for diagnostic purposes
-        path_check = conn.execute("SELECT current_setting('database_path')").fetchone()[0]
-        logger.info(f"Database connection established at: {path_check}")
-
         # Phase 1: Bronze Layer Ingestion
+        logger.info("Executing Bronze layer initialization...")
         init_bronze(conn)
-        conn.commit()  # Persist schema DDL to disk
+        conn.commit()  # Persist schema DDL
         
-        # Ingestion logic should follow here
-        conn.commit()  # Flush ingested records to storage
+        # Add your ingestion call here if needed
+        # load_bronze(conn, ...)
+        conn.commit()  # Flush raw data
         
         # Phase 2: Silver Layer Transformation
+        logger.info("Executing Silver layer transformations...")
         init_silver(conn)
-        conn.commit()  # Ensure schema registration prior to dbt model execution
+        conn.commit()  # Ensure schema registration
         
         transform_games(conn)
         transform_genres(conn)
         transform_platforms(conn)
         
-        conn.commit()  # Commit structural transformations
+        conn.commit()  # Final structural commit
         logger.info("Pipeline execution completed successfully.")
         
     except Exception as e:

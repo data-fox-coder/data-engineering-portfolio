@@ -40,7 +40,7 @@ def run():
     env["DBT_DUCKDB_PATH"] = DB_PATH
     
     # Let the system path locate the 'dbt' executable inside the container runtime
-    dbt_command = ["dbt", "run", "--profiles-dir", ".", "--target", "dev"]
+    dbt_command = ["dbt", "run", "--profiles-dir", "..", "--target", "dev"]
     
     result = subprocess.run(
         dbt_command,

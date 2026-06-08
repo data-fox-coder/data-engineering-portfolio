@@ -66,7 +66,7 @@ try:
     df_games = conn.execute("SELECT * FROM main_gold.gold_top_rated_games ORDER BY rating_rank").df()
     df_genres = conn.execute("SELECT * FROM main_gold.gold_genre_summary ORDER BY name").df()
 except Exception as e:
-    st.error(f"⚠️ Could not read Gold layer views from DuckDB.")
+    st.error("⚠️ Could not read Gold layer views from DuckDB.")
     st.sidebar.error(f"Error compilation logs: {e}")
     st.stop()
 

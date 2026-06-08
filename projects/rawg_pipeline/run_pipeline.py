@@ -2,6 +2,7 @@ import os
 import subprocess
 import time
 import logging
+import gc  # Core addition for explicit memory/file handle flush
 import orchestrate
 
 logger = logging.getLogger(__name__)
@@ -14,8 +15,9 @@ def run():
     logger.info("Starting ETL process...")
     orchestrate.run() 
     
-    # Synchronization: Wait to ensure file handle release by Python process
-    time.sleep(2) 
+    # Core Fix: Force Python to run garbage collection and release DuckDB file handles
+    gc.collect()
+    time.sleep(3) 
     
     # Path configuration: Force absolute path for dbt connection
     abs_db_path = os.path.abspath("rawg_data.duckdb")
@@ -29,7 +31,6 @@ def run():
     
     logger.info(f"Targeting dbt project directory path: {dbt_project_dir}")
     
-    # Core Fix: Point dbt to the project directory for BOTH the models and the profiles.yml file
     cmd = [
         "dbt", "run", 
         "--project-dir", dbt_project_dir,

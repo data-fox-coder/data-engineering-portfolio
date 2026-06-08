@@ -23,14 +23,19 @@ def run():
     
     logger.info(f"Executing dbt with target path: {abs_db_path}")
     
-    # Core Fix: Target rawg_dbt directly in the current directory
+    # Locate rawg_dbt directory
     current_dir = os.path.dirname(os.path.abspath(__file__))
     dbt_project_dir = os.path.join(current_dir, "rawg_dbt")
     
     logger.info(f"Targeting dbt project directory path: {dbt_project_dir}")
     
-    # Execution: Invoke dbt via subprocess with the absolute project path
-    cmd = ["dbt", "run", "--project-dir", dbt_project_dir]
+    # Core Fix: Point dbt to the project directory for BOTH the models and the profiles.yml file
+    cmd = [
+        "dbt", "run", 
+        "--project-dir", dbt_project_dir,
+        "--profiles-dir", dbt_project_dir
+    ]
+    
     result = subprocess.run(cmd, capture_output=True, text=True)
     
     if result.returncode != 0:

@@ -1,67 +1,34 @@
-"""
-run_pipeline.py
----------------
-Bootstraps the full pipeline on Streamlit Cloud startup:
-Runs Bronze & Silver natively, then triggers dbt for Gold.
-"""
-
 import os
-import sys
 import subprocess
+import time
 import logging
+import orchestrate
 
-# Import your orchestrator logic directly to avoid multi-process file locks
-from orchestrate import run_pipeline
-
-logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger(__name__)
 
-# Locate the base directory of the repository (The Root)
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DB_PATH = os.path.join(BASE_DIR, "rawg_data.duckdb")
-
 def run():
-    # 1. RUN BRONZE & SILVER NATIVELY
-    logger.info("⚡ Executing Python pipeline (Bronze Ingest -> Silver Transform)...")
-    try:
-        run_pipeline()
-    except Exception as e:
-        logger.error(f"❌ Python pipeline execution failed: {e}")
-        raise RuntimeError("Pipeline failed during Python execution phase.") from e
-
-    # 2. RUN DBT FOR THE GOLD LAYER
-    logger.info("🚀 Running dbt gold layer via root context...")
+    """
+    Orchestrates the ETL execution followed by dbt transformation.
+    Ensures process isolation and file-system synchronization.
+    """
+    logger.info("Starting ETL process...")
+    orchestrate.run() 
     
-    # Setup environment variables so profiles.yml reads the absolute DB path
-    env = os.environ.copy()
-    env["DBT_DUCKDB_PATH"] = DB_PATH
+    # Synchronization: Wait to ensure file handle release by Python process
+    time.sleep(2) 
     
-    # Absolute paths tell dbt exactly where things are, no matter what directory it's in
-    dbt_project_dir = os.path.join(BASE_DIR, "rawg_dbt")
+    # Path configuration: Force absolute path for dbt connection
+    abs_db_path = os.path.abspath("rawg_data.duckdb")
+    os.environ["DBT_DUCKDB_PATH"] = abs_db_path
     
-    # Run dbt from the ROOT directory (BASE_DIR) and point explicitly to the project and profiles
-    dbt_command = [
-        "dbt", "run", 
-        "--project-dir", dbt_project_dir, 
-        "--profiles-dir", dbt_project_dir, 
-        "--target", "dev"
-    ]
+    logger.info(f"Executing dbt with target path: {abs_db_path}")
     
-    result = subprocess.run(
-        dbt_command,
-        cwd=BASE_DIR, # <--- Run from the repository root context!
-        env=env, 
-        capture_output=True, 
-        text=True
-    )
-    
-    # Log compilation outputs to Streamlit Cloud console
-    if result.stdout:
-        logger.info(result.stdout)
+    # Execution: Invoke dbt via subprocess for isolated model processing
+    cmd = ["dbt", "run", "--project-dir", "rawg_dbt"]
+    result = subprocess.run(cmd, capture_output=True, text=True)
     
     if result.returncode != 0:
-        logger.error(f"DBT Error Output:\n{result.stderr}")
-        raise RuntimeError(f"dbt run failed:\n{result.stderr}")
-
-if __name__ == "__main__":
-    run()
+        logger.error(f"dbt runtime error: {result.stderr}")
+        raise RuntimeError("dbt model execution failed.")
+    
+    logger.info("dbt model execution successful.")

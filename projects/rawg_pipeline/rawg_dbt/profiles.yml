@@ -1,13 +1,14 @@
 rawg_dbt:
-  target: dev # <--- Added right here at the root of the profile
+  target: dev
   outputs:
     dev:
       type: duckdb
-      path: "{{ env_var('DBT_DUCKDB_PATH', '../rawg_data.duckdb') }}"
+      # Reference root-level database file. Environment variable override enabled for CI/CD flexibility.
+      path: "{{ env_var('DBT_DUCKDB_PATH', 'rawg_data.duckdb') }}"
       schema: main
       threads: 1
     prod:
       type: duckdb
-      path: "{{ env_var('DBT_DUCKDB_PATH', '../rawg_data.duckdb') }}"
+      path: "{{ env_var('DBT_DUCKDB_PATH', 'rawg_data.duckdb') }}"
       schema: main
       threads: 4

@@ -1,4 +1,5 @@
 rawg_dbt:
+  target: dev # <--- Added right here at the root of the profile
   outputs:
     dev:
       type: duckdb

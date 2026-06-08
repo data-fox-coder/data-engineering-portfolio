@@ -1,6 +1,6 @@
 import duckdb
 import logging
-from rawg_pipeline.bronze.ingest import init_bronze, load_bronze
+from rawg_pipeline.bronze.ingest import init_bronze, build_session, fetch_games, fetch_genres, fetch_platforms, load_bronze
 from rawg_pipeline.silver.transform import init_silver, transform_games, transform_genres, transform_platforms
 
 logging.basicConfig(level=logging.INFO)
@@ -16,11 +16,19 @@ def run():
         # Phase 1: Bronze Layer Ingestion
         logger.info("Executing Bronze layer initialization...")
         init_bronze(conn)
-        conn.commit()  # Persist schema DDL
+        conn.commit()  # Persist schema and sequences DDL
         
-        # Add your ingestion call here if needed
-        # load_bronze(conn, ...)
-        conn.commit()  # Flush raw data
+        # Core fix: Instantiate the network session and fetch live API data
+        logger.info("Connecting to RAWG API and fetching raw datasets...")
+        http_session = build_session()
+        
+        raw_games = fetch_games(http_session)
+        raw_genres = fetch_genres(http_session)
+        raw_platforms = fetch_platforms(http_session)
+        
+        # Load data into the database
+        load_bronze(conn, raw_games, raw_genres, raw_platforms)
+        conn.commit()  # Flush raw data to disk
         
         # Phase 2: Silver Layer Transformation
         logger.info("Executing Silver layer transformations...")

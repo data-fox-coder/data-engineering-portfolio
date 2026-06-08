@@ -55,6 +55,12 @@ def get_conn() -> duckdb.DuckDBPyConnection:
 
 def init_bronze(conn: duckdb.DuckDBPyConnection) -> None:
     conn.execute("CREATE SCHEMA IF NOT EXISTS bronze")
+    
+    # Core fix: Ensure sequences are created as part of the schema definition
+    conn.execute("CREATE SEQUENCE IF NOT EXISTS bronze_games_seq START 1")
+    conn.execute("CREATE SEQUENCE IF NOT EXISTS bronze_genres_seq START 1")
+    conn.execute("CREATE SEQUENCE IF NOT EXISTS bronze_platforms_seq START 1")
+    
     conn.execute("""
         CREATE TABLE IF NOT EXISTS bronze.bronze_games (
             id          INTEGER PRIMARY KEY,
@@ -79,7 +85,6 @@ def init_bronze(conn: duckdb.DuckDBPyConnection) -> None:
             ingested_at TIMESTAMP DEFAULT current_timestamp
         )
     """)
-
 
 def build_session() -> requests.Session:
     retry_strategy = Retry(

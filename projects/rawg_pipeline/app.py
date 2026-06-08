@@ -3,7 +3,8 @@ app.py
 ------
 The primary Streamlit web application dashboard. 
 Checks for the local DuckDB database file, lazily triggers 
-the bootstrap pipeline if missing, and renders Gold layer analytical views.
+the bootstrap pipeline if missing via a session state guard, 
+and renders Gold layer analytical views.
 """
 
 import os
@@ -24,34 +25,50 @@ st.set_page_config(
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(BASE_DIR, "rawg_data.duckdb")
 
-# 2. LAZY-BOOTSTRAP PIPELINE DATA IF COLD STARTING
-# Added a file size check to ensure it's not a ghost empty file
-if not os.path.exists(DB_PATH) or os.path.getsize(DB_PATH) == 0:
-    with st.spinner("📦 First-time initialization: Executing full Medallion pipeline layers (API -> DuckDB -> dbt)..."):
-        import run_pipeline
-        run_pipeline.run()
-        time.sleep(2) # Give the OS a moment to register the closed file handle
-    st.success("🎉 Pipeline execution successful!")
+# 2. STATE-GUARDED LAZY BOOTSTRAP
+# Initialize our execution tracker in Streamlit session state if it doesn't exist
+if "pipeline_executed" not in st.session_state:
+    st.session_state.pipeline_executed = False
+
+# Only execute the pipeline if the file is missing/empty AND we haven't already run it in this container session
+if (not os.path.exists(DB_PATH) or os.path.getsize(DB_PATH) == 0) and not st.session_state.pipeline_executed:
+    with st.spinner("📦 Cold-start initialization: Executing full Medallion pipeline (API -> DuckDB -> dbt)..."):
+        try:
+            import run_pipeline
+            run_pipeline.run()
+            # Set flag to True immediately so hot-reloads bypass this entirely
+            st.session_state.pipeline_executed = True
+            time.sleep(2)  # Give the file system a brief window to clear handles
+            st.success("🎉 Pipeline execution successful! Loading database structures...")
+            st.rerun()  # Clean re-run to establish the fresh cached database resource link
+        except Exception as pipeline_err:
+            st.error("❌ Critical failure during cold-start pipeline execution.")
+            st.exception(pipeline_err)
+            st.stop()
 
 # 3. DATABASE CONNECTION INTERACTION (Using cache_resource for the connection asset)
 @st.cache_resource
 def get_db_connection(path):
     """Creates a persistent, read-only connection pool to the DuckDB file."""
-    return duckdb.connect(path, read_only=True)
+    if os.path.exists(path) and os.path.getsize(path) > 0:
+        return duckdb.connect(path, read_only=True)
+    return None
 
-# Attempt to safely query data using a volatile layout wrapper (No cache_data on the query block)
+conn = get_db_connection(DB_PATH)
+
+# Safety check if the database layout isn't ready
+if conn is None:
+    st.title("🕹️ RAWG Pipeline: Gold Layer Insights")
+    st.markdown("---")
+    st.info("📦 Data platform database is initializing or unavailable. Please refresh the page in a moment.")
+    st.stop()
+
+# Fetch data frames cleanly from the Gold schema views compiled by dbt
 try:
-    conn = get_db_connection(DB_PATH)
-    # Fetch data frames cleanly
     df_games = conn.execute("SELECT * FROM main_gold.gold_top_rated_games ORDER BY rating_rank").df()
     df_genres = conn.execute("SELECT * FROM main_gold.gold_genre_summary ORDER BY name").df()
-except duckdb.OperationalError as db_err:
-    # Fail-safe backup if dbt is writing checkpoints mid-click
-    st.warning("🔄 Finalizing database structural sync. Refreshing UI...")
-    time.sleep(2)
-    st.rerun()
 except Exception as e:
-    st.error(f"⚠️ Could not read Gold layer views from DuckDB at `{DB_PATH}`.")
+    st.error(f"⚠️ Could not read Gold layer views from DuckDB.")
     st.sidebar.error(f"Error compilation logs: {e}")
     st.stop()
 

@@ -23,21 +23,10 @@ def run():
     
     logger.info(f"Executing dbt with target path: {abs_db_path}")
     
-    # Dynamic root calculation
-    base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    # Core Fix: Target rawg_dbt directly in the current directory
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    dbt_project_dir = os.path.join(current_dir, "rawg_dbt")
     
-    # --- DIAGNOSTIC LOGGING ---
-    logger.info(f"Calculated base directory: {base_dir}")
-    try:
-        if os.path.exists(base_dir):
-            logger.info(f"Contents of base directory: {os.listdir(base_dir)}")
-        else:
-            logger.error("Base directory path itself does not exist!")
-    except Exception as diag_err:
-        logger.error(f"Failed to list directory contents: {diag_err}")
-    # ---------------------------
-
-    dbt_project_dir = os.path.join(base_dir, "rawg_dbt")
     logger.info(f"Targeting dbt project directory path: {dbt_project_dir}")
     
     # Execution: Invoke dbt via subprocess with the absolute project path

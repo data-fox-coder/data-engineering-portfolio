@@ -20,7 +20,8 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 load_dotenv()
-DB_PATH = os.getenv("DB_PATH", "rawg_data.duckdb")
+# CHANGED: Check 'DBT_DUCKDB_PATH' to match the variable run_pipeline.py passes to dbt
+DB_PATH = os.getenv("DBT_DUCKDB_PATH", "rawg_data.duckdb")
 
 def run_pipeline():
     logger.info("=============================================")

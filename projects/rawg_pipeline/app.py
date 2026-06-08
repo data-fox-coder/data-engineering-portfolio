@@ -7,6 +7,7 @@ the bootstrap pipeline if missing, and renders Gold layer analytical views.
 """
 
 import os
+import time
 import streamlit as st
 import duckdb
 import plotly.express as px
@@ -24,27 +25,33 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(BASE_DIR, "rawg_data.duckdb")
 
 # 2. LAZY-BOOTSTRAP PIPELINE DATA IF COLD STARTING
-if not os.path.exists(DB_PATH):
-    with st.spinner("📦 First-time initialization: Executing full Medallion pipeline layers..."):
+# Added a file size check to ensure it's not a ghost empty file
+if not os.path.exists(DB_PATH) or os.path.getsize(DB_PATH) == 0:
+    with st.spinner("📦 First-time initialization: Executing full Medallion pipeline layers (API -> DuckDB -> dbt)..."):
         import run_pipeline
         run_pipeline.run()
+        time.sleep(2) # Give the OS a moment to register the closed file handle
+    st.success("🎉 Pipeline execution successful!")
 
-# 3. DATABASE CONNECTION WITH STREAMLIT CACHING
-@st.cache_data(ttl=3600)
-def load_gold_data():
-    """Connects to DuckDB and fetches the compiled Gold layer summaries."""
-    conn = duckdb.connect(DB_PATH, read_only=True)
-    # Using the main_gold schema names compiled by dbt
-    top_games = conn.execute("SELECT * FROM main_gold.gold_top_rated_games ORDER BY rating_rank").df()
-    genres = conn.execute("SELECT * FROM main_gold.gold_genre_summary ORDER BY name").df()
-    conn.close()
-    return top_games, genres
+# 3. DATABASE CONNECTION INTERACTION (Using cache_resource for the connection asset)
+@st.cache_resource
+def get_db_connection(path):
+    """Creates a persistent, read-only connection pool to the DuckDB file."""
+    return duckdb.connect(path, read_only=True)
 
-# Attempt to load data assets safely
+# Attempt to safely query data using a volatile layout wrapper (No cache_data on the query block)
 try:
-    df_games, df_genres = load_gold_data()
+    conn = get_db_connection(DB_PATH)
+    # Fetch data frames cleanly
+    df_games = conn.execute("SELECT * FROM main_gold.gold_top_rated_games ORDER BY rating_rank").df()
+    df_genres = conn.execute("SELECT * FROM main_gold.gold_genre_summary ORDER BY name").df()
+except duckdb.OperationalError as db_err:
+    # Fail-safe backup if dbt is writing checkpoints mid-click
+    st.warning("🔄 Finalizing database structural sync. Refreshing UI...")
+    time.sleep(2)
+    st.rerun()
 except Exception as e:
-    st.error(f"⚠️ Could not connect to DuckDB at `{DB_PATH}`. Check your schema path or ensure a file lock isn't active.")
+    st.error(f"⚠️ Could not read Gold layer views from DuckDB at `{DB_PATH}`.")
     st.sidebar.error(f"Error compilation logs: {e}")
     st.stop()
 
@@ -78,9 +85,7 @@ with col2:
 
 st.markdown("---")
 
-# Row 2: Interactive Plotly Charts (De-cluttered Full-Width Layout)
-
-# CHART 1: ENGAGEMENT SCATTER
+# Row 2: Interactive Plotly Charts
 st.subheader("🏆 Top Games by User Engagement")
 if not filtered_games.empty:
     fig_scatter = px.scatter(
@@ -94,14 +99,13 @@ if not filtered_games.empty:
         color_continuous_scale=px.colors.sequential.Viridis
     )
     
-    # Clean up margins, shift text labels, and customize chart appearance
     fig_scatter.update_traces(
         textposition='top center',
-        marker=dict(line=dict(width=1, color='DarkSlateGrey')) # Adds a sharp border to markers
+        marker=dict(line=dict(width=1, color='DarkSlateGrey')) 
     )
     fig_scatter.update_layout(
-        margin=dict(l=40, r=40, t=20, b=40), # Strips out wasted border padding
-        height=650, # Boosts height to give text room to spread out
+        margin=dict(l=40, r=40, t=20, b=40), 
+        height=650, 
         xaxis=dict(showgrid=True, gridcolor='rgba(255,255,255,0.1)'),
         yaxis=dict(showgrid=True, gridcolor='rgba(255,255,255,0.1)')
     )
@@ -110,7 +114,6 @@ if not filtered_games.empty:
 else:
     st.info("No games match the selected rating threshold.")
 
-# CHART 2: RATING HISTOGRAM
 st.subheader("📊 Rating Distribution")
 if not df_games.empty:
     fig_hist = px.histogram(
@@ -121,11 +124,10 @@ if not df_games.empty:
         color_discrete_sequence=["#b44fff"]
     )
     
-    # Strip padding margins out of the histogram as well
     fig_hist.update_layout(
         margin=dict(l=40, r=40, t=20, b=40),
         height=400,
-        bargap=0.05 # Adds a tiny, crisp gap between bars for a clean look
+        bargap=0.05 
     )
     
     st.plotly_chart(fig_hist, use_container_width=True)

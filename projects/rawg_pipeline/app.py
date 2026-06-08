@@ -2,7 +2,7 @@
 app.py
 ------
 The primary Streamlit web application dashboard. 
-Checks for the local DuckDB database file, lazily triggers 
+Checks for the local DuckDB database file at the repository root, lazily triggers 
 the bootstrap pipeline if missing via a session state guard, 
 and renders Gold layer analytical views.
 """
@@ -21,26 +21,24 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Define paths relative to this file's root location
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DB_PATH = os.path.join(BASE_DIR, "rawg_data.duckdb")
+# Define paths relative to the repository root location
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+DB_PATH = os.path.join(REPO_ROOT, "rawg_data.duckdb")
 
 # 2. STATE-GUARDED LAZY BOOTSTRAP
-# Initialize our execution tracker in Streamlit session state if it doesn't exist
 if "pipeline_executed" not in st.session_state:
     st.session_state.pipeline_executed = False
 
-# Only execute the pipeline if the file is missing/empty AND we haven't already run it in this container session
+# Only execute if the file is missing/empty AND we haven't already run it in this container session
 if (not os.path.exists(DB_PATH) or os.path.getsize(DB_PATH) == 0) and not st.session_state.pipeline_executed:
     with st.spinner("📦 Cold-start initialization: Executing full Medallion pipeline (API -> DuckDB -> dbt)..."):
         try:
             import run_pipeline
             run_pipeline.run()
-            # Set flag to True immediately so hot-reloads bypass this entirely
             st.session_state.pipeline_executed = True
             time.sleep(2)  # Give the file system a brief window to clear handles
             st.success("🎉 Pipeline execution successful! Loading database structures...")
-            st.rerun()  # Clean re-run to establish the fresh cached database resource link
+            st.rerun()  
         except Exception as pipeline_err:
             st.error("❌ Critical failure during cold-start pipeline execution.")
             st.exception(pipeline_err)

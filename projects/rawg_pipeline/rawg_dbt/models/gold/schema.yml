@@ -1,0 +1,9 @@
+version: 2
+
+models:
+  - name: gold_top_rated_games # Put your actual model filename here
+    columns:
+      - name: game_id  # Put a column name here (e.g., cat_id or game_id)
+        tests:
+          - unique
+          - not_null

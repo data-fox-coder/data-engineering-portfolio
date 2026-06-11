@@ -1,7 +1,11 @@
--- Genre reference data
+-- Genre reference data with sequential ranking
 select
     rawg_id,
     name,
-    slug
+    slug,
+    row_number() over (order by name) as genre_rank
 from {{ source('silver', 'silver_genres') }}
-order by name
+where name is not null 
+  and name != ''
+  and slug is not null
+order by genre_rank

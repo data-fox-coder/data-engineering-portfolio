@@ -1,8 +1,11 @@
--- Platform reference data with ranking
+-- Platform reference data with sequential ranking
 select
     rawg_id,
     name,
     slug,
-    rank() over (order by name) as platform_rank
+    row_number() over (order by name) as platform_rank
 from {{ source('silver', 'silver_platforms') }}
-order by name
+where name is not null 
+  and name != ''
+  and slug is not null
+order by platform_rank

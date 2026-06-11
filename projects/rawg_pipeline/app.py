@@ -11,6 +11,13 @@ import streamlit as st
 import duckdb
 import plotly.express as px
 
+# Removed the redundant path definitions since they are now centralized in config.py
+#REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+#DB_PATH = os.path.join(REPO_ROOT, "rawg_data.duckdb")
+
+# Importing the centralized paths from config.py
+import config
+
 # 1. PAGE CONFIGURATION (Must be the absolute first Streamlit command executed)
 st.set_page_config(
     page_title="RAWG Gaming Insights",
@@ -18,10 +25,6 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
-
-# Define paths relative to the repository root location
-REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-DB_PATH = os.path.join(REPO_ROOT, "rawg_data.duckdb")
 
 # 2. DATABASE CONNECTION (Using cache_resource for the connection asset)
 @st.cache_resource
@@ -31,7 +34,7 @@ def get_db_connection(path):
         return duckdb.connect(path, read_only=True)
     return None
 
-conn = get_db_connection(DB_PATH)
+conn = get_db_connection(config.DB_PATH)
 
 # Safety check if the database file isn't present
 if conn is None:

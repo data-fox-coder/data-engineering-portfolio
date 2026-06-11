@@ -5,6 +5,10 @@ import logging
 import gc  # Core addition for explicit memory/file handle flush
 import orchestrate
 
+# 1. Importing the centralized paths from config.py
+from config import DB_PATH
+
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 def run():
@@ -19,11 +23,10 @@ def run():
     gc.collect()
     time.sleep(3) 
     
-    # Path configuration: Force absolute path for dbt connection
-    abs_db_path = os.path.abspath("rawg_data.duckdb")
-    os.environ["DBT_DUCKDB_PATH"] = abs_db_path
+    # 2. Fix: Direct os.environ to the absolute, imported DB_PATH instead of guessing with abspath()
+    os.environ["DBT_DUCKDB_PATH"] = DB_PATH
     
-    logger.info(f"Executing dbt with target path: {abs_db_path}")
+    logger.info(f"Executing dbt with target path: {DB_PATH}")
     
     # Locate rawg_dbt directory
     current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -44,3 +47,6 @@ def run():
         raise RuntimeError("dbt model execution failed.")
     
     logger.info("dbt model execution successful.")
+
+if __name__ == "__main__":
+    run()

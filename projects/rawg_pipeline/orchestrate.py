@@ -1,12 +1,15 @@
 import duckdb
 import logging
+
 from rawg_pipeline.bronze.ingest import init_bronze, build_session, fetch_games, fetch_genres, fetch_platforms, load_bronze
 from rawg_pipeline.silver.transform import init_silver, transform_games, transform_genres, transform_platforms
+from config import DB_PATH
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-DB_PATH = "rawg_data.duckdb"
+# Removed the redundant path definition since they are now centralized in config.py
+# DB_PATH = "rawg_data.duckdb"
 
 def run():
     logger.info("Initializing Medallion pipeline execution.")

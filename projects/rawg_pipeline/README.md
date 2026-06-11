@@ -49,16 +49,24 @@ sudo apt-get install -y default-jdk
 ### Installation & Execution
 
 ```bash
+
 # Clone the repository and navigate to the project root
+git clone https://github.com/your-username/your-repo-name.git
+cd your-repo-name
+
+# Install project dependencies
 pip install -r requirements.txt
-cp .env.example .env          # Add your RAWG_API_KEY
+
+# Configure your environment parameters
+cp config.example.py config.py  # Add your RAWG_API_KEY and local database paths
+
 ```
 
 #### Option A: Run the End-to-End Orchestrated Pipeline
 You can trigger the entire operational back-end data pipeline sequentially (Bronze Ingest -> Silver Transform -> dbt Gold compilation) with a single script execution:
 
 ```bash
-python orchestrate.py
+python run_pipeline.py
 ```
 
 #### Option B: Run the Self-Bootstrapping App Directly
@@ -88,16 +96,16 @@ In production, PySpark would replace the local DuckDB silver layer when dataset 
 
 The semantic layer is managed using dbt core, targeting the compiled `main_gold` schema context inside DuckDB. The compilation profiles utilize dynamic environment parsing via `{{ env_var() }}` to maintain identical structural configuration across both development environments and container runtimes.
 
-| Model                       | Layer | Description                                         |
-|-----------------------------|-------|-----------------------------------------------------|
-| `main_gold.gold_top_rated`  | Gold  | Top-tier game assets ranked by global user ratings  |
-| `main_gold.gold_genre`      | Gold  | Aggregated genre analytical metric summaries        |
-| `main_gold.gold_platform`   | Gold  | Aggregated platform footprint analytical summaries  |
+| Model | Layer | Description |
+|---|---|---|
+| `main_gold.gold_top_rated_games` | Gold | Top-tier game assets ranked by global user ratings |
+| `main_gold.gold_genre_summary` | Gold | Aggregated genre analytical metric summaries |
+| `main_gold.gold_platform_summary` | Gold | Aggregated platform footprint analytical summaries |
 
 To manually compile or inspect the dbt models from the repository root:
 
 ```bash
-dbt run --project-dir rawg_dbt --profiles-dir rawg_dbt
+dbt run --project-dir rawg_dbt
 ```
 
 ---
@@ -109,14 +117,17 @@ dbt run --project-dir rawg_dbt --profiles-dir rawg_dbt
 pytest tests/ -v
 
 # Run dbt data quality assertions and schema tests
-dbt test --project-dir rawg_dbt --profiles-dir rawg_dbt
+dbt test --project-dir rawg_dbt
 ```
 
 ---
 
-## Environment Variables
+## Environment & Configuration Management
 
 | Variable           | Description                                                        |
 |--------------------|--------------------------------------------------------------------|
-| `RAWG_API_KEY`     | Your private RAWG API endpoint developer credential token          |
-| `DBT_DUCKDB_PATH`  | Target runtime environment variable path fallback for dbt profile  |
+| `config.py`        | Controls Python ingestion thresholds, local paths, and API keys.   |
+| `profiles.yml`     | Isolated globally in ~/.dbt/ to securely map dbt target schemas.   |
+| `RAWG_API_KEY`     | Private RAWG API endpoint developer credential token.              |
+
+**Design note:** Earlier versions of this app triggered the pipeline on cold-start within the Streamlit process itself. This caused a DuckDB connection conflict between the pipeline's read-write connection and the dashboard's read-only connection. The pipeline and serving layer are now fully decoupled — `rawg_data.duckdb` is a committed build artifact, regenerated manually via `run_pipeline.py` and refreshed in the repo as needed.

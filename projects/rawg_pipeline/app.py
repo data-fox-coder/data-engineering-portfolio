@@ -1,14 +1,12 @@
 """
 app.py
 ------
-The primary Streamlit web application dashboard. 
-Checks for the local DuckDB database file at the repository root, lazily triggers 
-the bootstrap pipeline if missing via a session state guard, 
-and renders Gold layer analytical views.
+The primary Streamlit web application dashboard.
+Opens the committed DuckDB database file (read-only) and renders
+Gold layer analytical views.
 """
 
 import os
-import time
 import streamlit as st
 import duckdb
 import plotly.express as px
@@ -25,40 +23,21 @@ st.set_page_config(
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 DB_PATH = os.path.join(REPO_ROOT, "rawg_data.duckdb")
 
-# 2. STATE-GUARDED LAZY BOOTSTRAP
-if "pipeline_executed" not in st.session_state:
-    st.session_state.pipeline_executed = False
-
-# Only execute if the file is missing/empty AND we haven't already run it in this container session
-if (not os.path.exists(DB_PATH) or os.path.getsize(DB_PATH) == 0) and not st.session_state.pipeline_executed:
-    with st.spinner("📦 Cold-start initialization: Executing full Medallion pipeline (API -> DuckDB -> dbt)..."):
-        try:
-            import run_pipeline
-            run_pipeline.run()
-            st.session_state.pipeline_executed = True
-            time.sleep(2)  # Give the file system a brief window to clear handles
-            st.success("🎉 Pipeline execution successful! Loading database structures...")
-            st.rerun()  
-        except Exception as pipeline_err:
-            st.error("❌ Critical failure during cold-start pipeline execution.")
-            st.exception(pipeline_err)
-            st.stop()
-
-# 3. DATABASE CONNECTION INTERACTION (Using cache_resource for the connection asset)
+# 2. DATABASE CONNECTION (Using cache_resource for the connection asset)
 @st.cache_resource
 def get_db_connection(path):
-    """Creates a persistent, read-only connection pool to the DuckDB file."""
+    """Creates a persistent, read-only connection to the DuckDB file."""
     if os.path.exists(path) and os.path.getsize(path) > 0:
         return duckdb.connect(path, read_only=True)
     return None
 
 conn = get_db_connection(DB_PATH)
 
-# Safety check if the database layout isn't ready
+# Safety check if the database file isn't present
 if conn is None:
     st.title("🕹️ RAWG Pipeline: Gold Layer Insights")
     st.markdown("---")
-    st.info("📦 Data platform database is initializing or unavailable. Please refresh the page in a moment.")
+    st.error("📦 Data platform database not found. The pipeline must be run to generate rawg_data.duckdb.")
     st.stop()
 
 # Fetch data frames cleanly from the Gold schema views compiled by dbt
@@ -70,7 +49,7 @@ except Exception as e:
     st.sidebar.error(f"Error compilation logs: {e}")
     st.stop()
 
-# 4. SIDEBAR FILTERS
+# 3. SIDEBAR FILTERS
 st.sidebar.title("🎮 RAWG Dashboard Controls")
 st.sidebar.markdown("Explore your transformed Gold layer data platform.")
 
@@ -87,7 +66,7 @@ rating_range = st.sidebar.slider(
 
 filtered_games = df_games[df_games['rating'] >= rating_range]
 
-# 5. MAIN DASHBOARD VISUALIZATIONS
+# 4. MAIN DASHBOARD VISUALIZATIONS
 st.title("🕹️ RAWG Pipeline: Gold Layer Insights")
 st.markdown("---")
 
@@ -113,18 +92,18 @@ if not filtered_games.empty:
         labels={"rating": "User Rating", "ratings_count": "Total Review Count"},
         color_continuous_scale=px.colors.sequential.Viridis
     )
-    
+
     fig_scatter.update_traces(
         textposition='top center',
-        marker=dict(line=dict(width=1, color='DarkSlateGrey')) 
+        marker=dict(line=dict(width=1, color='DarkSlateGrey'))
     )
     fig_scatter.update_layout(
-        margin=dict(l=40, r=40, t=20, b=40), 
-        height=650, 
+        margin=dict(l=40, r=40, t=20, b=40),
+        height=650,
         xaxis=dict(showgrid=True, gridcolor='rgba(255,255,255,0.1)'),
         yaxis=dict(showgrid=True, gridcolor='rgba(255,255,255,0.1)')
     )
-    
+
     st.plotly_chart(fig_scatter, use_container_width=True)
 else:
     st.info("No games match the selected rating threshold.")
@@ -138,13 +117,13 @@ if not df_games.empty:
         labels={"rating": "User Rating", "count": "Number of Games"},
         color_discrete_sequence=["#b44fff"]
     )
-    
+
     fig_hist.update_layout(
         margin=dict(l=40, r=40, t=20, b=40),
         height=400,
-        bargap=0.05 
+        bargap=0.05
     )
-    
+
     st.plotly_chart(fig_hist, use_container_width=True)
 
 st.markdown("---")

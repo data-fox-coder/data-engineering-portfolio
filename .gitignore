@@ -14,3 +14,4 @@ __pycache__/
 *.db
 *.sqlite
 *.duckdb
+!rawg_data.duckdb

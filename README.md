@@ -48,21 +48,20 @@ Exercises and worked examples based on the Data to Insight ERN intermediate Pyth
 |---|---|
 | **Python 3.x** | Core language for ingestion, scripting, and application serving |
 | **pandas / PyArrow** | High-performance data manipulation and evaluation |
+| **PySpark** | Distributed transformation layer for larger-scale processing |
 | **dbt-duckdb** | Modern Data Stack modeling, transformation logic, and testing |
 | **DuckDB** | In-process analytical database for lightning-fast local queries |
 | **Streamlit / Plotly** | Interactive visualization and user-facing presentation layer |
+| **GitHub Actions** | CI/CD for linting and pipeline automation |
 | **pip-tools** | Explicit dependency management (`requirements.in` / `requirements.txt` compilation) |
-| **pytest** | Automated testing and data quality validation |
-| **GitHub Actions** | CI/CD pipeline for automated testing on push |
-| **SQLAlchemy** | Database upserts and connection management |
 
 ---
 
 ## Background
 
-I am a data professional with a deep background in SQL Server, local government data analysis, and Excel automation (Power Query M / DAX), expanding into programmatic data engineering. This repository documents that journey — each project is carefully engineered to handle messy, real-world API data rather than generic toy datasets.
+I am a data professional with a deep background in SQL Server, local government data analysis, and Excel automation (Power Query M / DAX), expanding into programmatic data engineering. This repository documents that journey, each project is carefully engineered to handle messy, real-world API data rather than generic toy datasets.
 
-I hold the **Databricks Certified Data Analyst Associate** and **SnowPro Associate** certifications, and am actively expanding into programmatic data engineering.
+Holder of the **SnowPro Associate: Platform Certification** and **Databricks Certified Data Analyst Associate** certifications.
 
 ---
 

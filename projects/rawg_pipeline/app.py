@@ -107,7 +107,7 @@ if not filtered_games.empty:
         yaxis=dict(showgrid=True, gridcolor='rgba(255,255,255,0.1)')
     )
 
-    st.plotly_chart(fig_scatter, use_container_width=True)
+    st.plotly_chart(fig_scatter, width='stretch')
 else:
     st.info("No games match the selected rating threshold.")
 
@@ -127,7 +127,7 @@ if not df_games.empty:
         bargap=0.05
     )
 
-    st.plotly_chart(fig_hist, use_container_width=True)
+    st.plotly_chart(fig_hist, width='stretch')
 
 st.markdown("---")
 
@@ -138,9 +138,9 @@ tab1, tab2 = st.tabs(["⭐ Top Rated Games", "🏷️ Genre Summary"])
 with tab1:
     st.dataframe(
         filtered_games[['rating_rank', 'name', 'rating', 'ratings_count', 'released']] if not filtered_games.empty else filtered_games,
-        use_container_width=True,
+        width='stretch',
         hide_index=True
     )
 
 with tab2:
-    st.dataframe(df_genres, use_container_width=True, hide_index=True)
+    st.dataframe(df_genres, width='stretch', hide_index=True)

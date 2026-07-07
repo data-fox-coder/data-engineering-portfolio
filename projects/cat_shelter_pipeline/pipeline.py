@@ -62,7 +62,7 @@ def setup_logging(config: Dict) -> None:
 def extract_cat_data(config: Dict) -> List[Dict]:
     """
     Fetch available cat listings from the RescueGroups v5 API.
-    Returns the raw list of animal dicts from the API response.
+    Falls back gracefully to local mock data if the API is unreachable (e.g., cloud IP blocks).
     """
     api_key = os.getenv("RESCUEGROUPS_API_KEY")
     if not api_key:
@@ -74,7 +74,8 @@ def extract_cat_data(config: Dict) -> List[Dict]:
 
     headers = {
         "Authorization": api_key,
-        "Content-Type": "application/json",
+        "Content-Type": "application/vnd.api+json",
+        "Accept": "application/vnd.api+json"
     }
 
     body = {
@@ -86,14 +87,26 @@ def extract_cat_data(config: Dict) -> List[Dict]:
 
     logging.info(f"Extracting data from: {api_url}")
     try:
-        response = requests.post(api_url, headers=headers, json=body, timeout=30)
+        response = requests.post(api_url, headers=headers, json=body, timeout=15)
         response.raise_for_status()
         raw_data = response.json().get("data", [])
-        logging.info(f"Extracted {len(raw_data)} records from API.")
+        logging.info(f"Extracted {len(raw_data)} records from live API.")
         return raw_data
+        
     except requests.exceptions.RequestException as e:
-        logging.error(f"API request failed: {e}")
-        return []
+        logging.warning(f"⚠️ Live API connection dropped ({e}). Switching to local mock dataset for development.")
+        
+        # Points to a local mock file in your repo directory
+        mock_file_path = PROJECT_ROOT / "mock_rescuegroups_raw.json"
+        
+        if mock_file_path.exists():
+            with mock_file_path.open("r") as fh:
+                mock_data = json.load(fh)
+            logging.info(f"Successfully loaded {len(mock_data)} mock records from local Bronze backup.")
+            return mock_data
+        else:
+            logging.error(f"Mock file not found at {mock_file_path}. Cannot proceed.")
+            return []
 
 
 def save_bronze(raw_data: List[Dict], config: Dict) -> None:

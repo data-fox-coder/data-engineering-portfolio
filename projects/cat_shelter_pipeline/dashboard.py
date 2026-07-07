@@ -22,7 +22,7 @@ import streamlit as st
 # ---------------------------------------------------------------------------
 
 _HERE = Path(__file__).parent
-DB_PATH = _HERE / "data" / "cats_shelter.db"
+DB_PATH = _HERE / "data" / "gold" / "cats" / "cats_shelter.db"
 
 REFRESH_HOURS = 24
 

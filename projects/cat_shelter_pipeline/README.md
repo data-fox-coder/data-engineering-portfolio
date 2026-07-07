@@ -20,6 +20,19 @@ Built to demonstrate practical data engineering skills in Python, using producti
 
 ---
 
+## 🛠️ Resilient Architecture: Hybrid Bronze Extraction Layer
+
+During development in cloud-hosted environments (like GitHub Codespaces), upstream API firewalls may intermittently flag data center outbound IP ranges, leading to connection resets (`RemoteDisconnected` or `Connection reset by peer` errors). 
+
+To ensure continuous integration and pipeline reliability, the **Bronze Extraction Layer** implements a resilient hybrid design pattern:
+
+1. **Live Ingestion (Primary):** The pipeline attempts an authenticated `POST` request to the RescueGroups v5 API using the strict `application/vnd.api+json` specification.
+2. **Graceful Local Fallback (Secondary):** If a network boundary error or firewall block is encountered, the extraction layer intercepts the exception, issues a system warning, and automatically hot-swaps to a local structured dataset (`mock_rescuegroups_raw.json`).
+
+This design decouples downstream data engineering logic (Silver deduplication/Parquet serialization and Gold SQLite upserts) from external network volatility, allowing for seamless end-to-end development and robust error handling in production.
+
+---
+
 ## Project Structure
 
 ```
@@ -53,11 +66,14 @@ The Streamlit dashboard reads from the gold SQLite layer and includes:
 
 The dashboard triggers the pipeline automatically on first load and refreshes data every 24 hours, using the `RESCUEGROUPS_API_KEY` secret configured in Streamlit Community Cloud.
 
+> **Note for GitHub Codespaces:** Streamlit keeps running in the background even after you close the forwarded port tab. Stop it with `Ctrl+C` in the terminal before ending your Codespaces session, otherwise it will keep consuming compute hours on your Codespaces usage quota.
+
 ---
 
 ## Skills Demonstrated
 
 - Medallion architecture (Bronze → Silver → Gold) with JSON and Parquet intermediate layers
+- Resilient pipeline design (network exception handling and automated local data fallback logic)
 - REST API authentication and data extraction with `requests`
 - Nested JSON normalisation and transformation with `pandas`
 - Config-driven pipeline design with `yaml`

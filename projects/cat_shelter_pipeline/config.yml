@@ -44,7 +44,7 @@ layers:
       - attributes_slug
   gold:
     format: sqlite
-    path: data/cats_shelter.db
+    path: data/gold/cats/cats_shelter.db
 logging:
   level: INFO
   log_path: projects/cat_shelter_pipeline/logs/pipeline.log

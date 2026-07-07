@@ -3,9 +3,9 @@
 # ==============================================================================
 
 # Ignore heavy data processing and output files in this directory
-data/
-output/
-logs/
+data/**
+output/**
+logs/**
 *.parquet
 *.json
 *.csv

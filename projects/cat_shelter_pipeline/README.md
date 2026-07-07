@@ -46,7 +46,7 @@ cat_shelter_pipeline/
 ├── data/
 │   ├── bronze/cats/       # Raw JSON from API
 │   ├── silver/cats/       # Cleaned Parquet
-│   └── cats_shelter.db    # Gold SQLite database
+│   └── gold/cats/         # Gold SQLite database
 └── README.md
 ```
 
@@ -140,7 +140,7 @@ layers:
       - attributes_agegroup
       # ... (23 fields total)
   gold:
-    path: data/cats_shelter.db
+    path: data/gold/cats/cats_shelter.db
 ```
 
 ---

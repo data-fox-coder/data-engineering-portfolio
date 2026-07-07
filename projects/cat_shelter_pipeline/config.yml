@@ -40,7 +40,6 @@ layers:
       - attributes_isdogsok
       - attributes_iskidsok
       - attributes_ishousetrained
-      - attributes_distance
       - attributes_updateddate
       - attributes_slug
   gold:

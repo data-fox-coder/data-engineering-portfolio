@@ -112,7 +112,8 @@ The semantic layer is managed using dbt core, targeting the compiled `main_gold`
 To manually compile or inspect the dbt models from the repository root:
 
 ```bash
-dbt run --project-dir rawg_dbt
+dbt run --project-dir rawg_dbt --profiles-dir rawg_dbt
+dbt test --project-dir rawg_dbt --profiles-dir rawg_dbt
 ```
 
 ---

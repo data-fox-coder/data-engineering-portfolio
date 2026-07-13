@@ -11,10 +11,6 @@ import streamlit as st
 import duckdb
 import plotly.express as px
 
-# Removed the redundant path definitions since they are now centralized in config.py
-#REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-#DB_PATH = os.path.join(REPO_ROOT, "rawg_data.duckdb")
-
 # Importing the centralized paths from config.py
 import config
 
@@ -47,6 +43,7 @@ if conn is None:
 try:
     df_games = conn.execute("SELECT * FROM main_gold.gold_top_rated_games ORDER BY rating_rank").df()
     df_genres = conn.execute("SELECT * FROM main_gold.gold_genre_summary ORDER BY name").df()
+    df_platforms = conn.execute("SELECT * FROM main_gold.gold_platform_summary ORDER BY name").df()
 except Exception as e:
     st.error("⚠️ Could not read Gold layer views from DuckDB.")
     st.sidebar.error(f"Error compilation logs: {e}")
@@ -74,11 +71,13 @@ st.title("🕹️ RAWG Pipeline: Gold Layer Insights")
 st.markdown("---")
 
 # Row 1: High-Level Core Metrics
-col1, col2 = st.columns(2)
+col1, col2, col3 = st.columns(3)
 with col1:
     st.metric(label="Total Tracked High-Rated Games", value=len(df_games))
 with col2:
     st.metric(label="Unique Genres Analyzed", value=len(df_genres))
+with col3:
+    st.metric(label="Platforms Tracked", value=len(df_platforms))
 
 st.markdown("---")
 
@@ -129,11 +128,27 @@ if not df_games.empty:
 
     st.plotly_chart(fig_hist, width='stretch')
 
+st.subheader("🕹️ Platforms Tracked")
+if not df_platforms.empty:
+    fig_platforms = px.bar(
+        df_platforms.sort_values("name"),
+        x="name",
+        y="platform_rank",
+        labels={"name": "Platform", "platform_rank": "Rank"},
+        color_discrete_sequence=["#4fd1ff"]
+    )
+    fig_platforms.update_layout(
+        margin=dict(l=40, r=40, t=20, b=40),
+        height=400,
+        xaxis_tickangle=-45
+    )
+    st.plotly_chart(fig_platforms, width='stretch')
+
 st.markdown("---")
 
 # Row 3: Tabbed Data Table Explorers
 st.subheader("📋 Gold Layer Raw Explorer")
-tab1, tab2 = st.tabs(["⭐ Top Rated Games", "🏷️ Genre Summary"])
+tab1, tab2, tab3 = st.tabs(["⭐ Top Rated Games", "🏷️ Genre Summary", "🕹️ Platform Summary"])
 
 with tab1:
     st.dataframe(
@@ -144,3 +159,6 @@ with tab1:
 
 with tab2:
     st.dataframe(df_genres, width='stretch', hide_index=True)
+
+with tab3:
+    st.dataframe(df_platforms, width='stretch', hide_index=True)

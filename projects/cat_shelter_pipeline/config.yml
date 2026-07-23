@@ -31,7 +31,6 @@ layers:
       - attributes_indooroutdoor
       - attributes_activitylevel
       - attributes_newpeoplereaction
-      - attributes_descriptiontext
       - attributes_picturethumbnailurl
       - attributes_picturecount
       - attributes_isadoptionpending
@@ -41,7 +40,6 @@ layers:
       - attributes_iskidsok
       - attributes_ishousetrained
       - attributes_updateddate
-      - attributes_slug
   gold:
     format: sqlite
     path: data/gold/cats/cats_shelter.db

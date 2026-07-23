@@ -7,7 +7,6 @@ Includes startup logic to trigger the pipeline if data is missing or stale.
 """
 
 import sqlite3
-import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path

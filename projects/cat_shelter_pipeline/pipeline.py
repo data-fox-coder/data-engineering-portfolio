@@ -16,7 +16,7 @@ import json
 import logging
 import os
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Any
 import pandas as pd
 import requests
 import time
@@ -34,11 +34,31 @@ load_dotenv()
 PROJECT_ROOT = Path(__file__).parent
 
 
+class ExtractionError(Exception):
+    """Raised when extraction fails in a non-recoverable way."""
+    pass
+
+
 def load_config() -> Dict:
     """Load configuration from config.yml relative to this file."""
     config_path = PROJECT_ROOT / "config.yml"
     with config_path.open("r") as fh:
         return yaml.safe_load(fh)
+
+
+def validate_config(config: Dict) -> None:
+    """Basic validation to ensure required config sections exist."""
+    required_sections = ["source", "layers", "logging"]
+    missing = [key for key in required_sections if key not in config]
+    if missing:
+        raise ValueError(f"Missing required config sections: {missing}")
+
+    # Minimal nested checks
+    if "base_url" not in config["source"]:
+        raise ValueError("Config 'source.base_url' is required.")
+    for layer in ["bronze", "silver", "gold"]:
+        if layer not in config["layers"] or "path" not in config["layers"][layer]:
+            raise ValueError(f"Config 'layers.{layer}.path' is required.")
 
 
 def setup_logging(config: Dict) -> None:
@@ -60,7 +80,7 @@ def setup_logging(config: Dict) -> None:
 # Extract → Bronze
 # ---------------------------------------------------------------------------
 
-def extract_cat_data(config: Dict) -> List[Dict]:
+def extract_cat_data(config: Dict) -> List[Dict[str, Any]]:
     """
     Fetch available cat listings from the RescueGroups v5 API.
     Falls back gracefully to local mock data if the API is unreachable (e.g., cloud IP blocks).
@@ -68,92 +88,113 @@ def extract_cat_data(config: Dict) -> List[Dict]:
     api_key = os.getenv("RESCUEGROUPS_API_KEY")
     if not api_key:
         logging.error("RESCUEGROUPS_API_KEY is not set. Aborting extraction.")
-        return []
+        raise ExtractionError("Missing RESCUEGROUPS_API_KEY environment variable.")
 
     base_url = config["source"]["base_url"]
-    api_url = f"{base_url}/public/animals/search/available/cats"
+    api_url: str | None = f"{base_url}/public/animals/search/available/cats"
 
     headers = {
         "Authorization": api_key,
         "Content-Type": "application/vnd.api+json",
-        "Accept": "application/vnd.api+json"
+        "Accept": "application/vnd.api+json",
     }
 
+    page_size = config["source"].get("page_size", 25)
     body = {
         "data": {
-            "filterProcessing": "1"
+            "filterProcessing": "1",
+            "limit": page_size,
         }
     }
 
-    params = {
-        "limit": config["source"].get("page_size", 25)
-    }
-
-    all_records = []
+    all_records: List[Dict[str, Any]] = []
     page_count = 1
 
     logging.info(f"Extracting data starting at: {api_url}")
-    
+
     while api_url:
         try:
-            # The initial search requires a POST to send the body payload and limit params.
-            # Subsequent pages use standard GET requests because the API's 'links.next' URL 
+            # The initial search requires a POST to send the body payload.
+            # Subsequent pages use standard GET requests because the API's 'links.next' URL
             # handles the state and offsets automatically.
             if page_count == 1:
                 response = requests.post(
-                    api_url, 
-                    headers=headers, 
-                    json=body, 
-                    params=params, 
-                    timeout=15
+                    api_url,
+                    headers=headers,
+                    json=body,
+                    timeout=15,
                 )
             else:
                 response = requests.get(api_url, headers=headers, timeout=15)
-                
+
             response.raise_for_status()
             data = response.json()
-            
+
             records = data.get("data", [])
             all_records.extend(records)
-            logging.info(f"Page {page_count}: Extracted {len(records)} records from live API.")
-            
-            # Fetch the next page URL provided by the API
-            api_url = data.get("links", {}).get("next")
-            
+            logging.info(
+                f"Page {page_count}: Extracted {len(records)} records from live API."
+            )
+
+            # Fetch the next page URL provided by the API, guarding against empty strings
+            next_url = data.get("links", {}).get("next")
+            api_url = next_url or None
+
             if api_url:
                 page_count += 1
-                time.sleep(0.3) # Polite pause between API calls
-                
+                time.sleep(0.3)  # Polite pause between API calls
+
         except requests.exceptions.RequestException as e:
             # If it drops on the very first request, trigger the full mock fallback
             if page_count == 1:
-                logging.warning(f"⚠️ Live API connection dropped ({e}). Switching to local mock dataset for development.")
-                
+                logging.warning(
+                    f"⚠️ Live API connection dropped ({e}). "
+                    "Switching to local mock dataset for development."
+                )
+
                 mock_file_path = PROJECT_ROOT / "mock_rescuegroups_raw.json"
-                
+
                 if mock_file_path.exists():
                     with mock_file_path.open("r") as fh:
                         mock_data = json.load(fh)
-                    logging.info(f"Successfully loaded {len(mock_data)} mock records from local Bronze backup.")
+                    logging.info(
+                        f"Successfully loaded {len(mock_data)} mock records "
+                        f"from local Bronze backup."
+                    )
                     return mock_data
                 else:
-                    logging.error(f"Mock file not found at {mock_file_path}. Cannot proceed.")
-                    return []
+                    logging.error(
+                        f"Mock file not found at {mock_file_path}. Cannot proceed."
+                    )
+                    raise ExtractionError(
+                        "API unreachable and mock file missing; extraction failed."
+                    )
             # If it drops midway through pagination, save whatever records we already successfully downloaded
             else:
-                logging.warning(f"⚠️ Live API connection dropped on page {page_count} ({e}). Returning {len(all_records)} records collected so far.")
+                logging.warning(
+                    f"⚠️ Live API connection dropped on page {page_count} ({e}). "
+                    f"Returning {len(all_records)} records collected so far."
+                )
                 break
 
     return all_records
 
-def save_bronze(raw_data: List[Dict], config: Dict) -> None:
+
+def _atomic_json_write(output_file: Path, data: Any) -> None:
+    """Write JSON atomically via a temporary file."""
+    tmp = output_file.with_suffix(output_file.suffix + ".tmp")
+    with tmp.open("w") as fh:
+        json.dump(data, fh, indent=2)
+    tmp.replace(output_file)
+
+
+def save_bronze(raw_data: List[Dict[str, Any]], config: Dict) -> None:
     """Persist raw API response as JSON to the bronze layer."""
     bronze_path = PROJECT_ROOT / config["layers"]["bronze"]["path"]
     bronze_path.mkdir(parents=True, exist_ok=True)
     output_file = bronze_path / "cats_raw.json"
 
-    with output_file.open("w") as fh:
-        json.dump(raw_data, fh, indent=2)
+    _atomic_json_write(output_file, raw_data)
 
     logging.info(f"Bronze: saved {len(raw_data)} raw records to {output_file}")
 
@@ -162,7 +203,7 @@ def save_bronze(raw_data: List[Dict], config: Dict) -> None:
 # Transform → Silver
 # ---------------------------------------------------------------------------
 
-def transform_cat_data(raw_data: List[Dict], config: Dict) -> pd.DataFrame:
+def transform_cat_data(raw_data: List[Dict[str, Any]], config: Dict) -> pd.DataFrame:
     """
     Normalise raw API data and apply column selection and deduplication
     as configured in config.yml (layers.silver).
@@ -202,6 +243,13 @@ def transform_cat_data(raw_data: List[Dict], config: Dict) -> pd.DataFrame:
     return df
 
 
+def _atomic_parquet_write(df: pd.DataFrame, output_file: Path) -> None:
+    """Write Parquet atomically via a temporary file."""
+    tmp = output_file.with_suffix(output_file.suffix + ".tmp")
+    df.to_parquet(tmp, index=False)
+    tmp.replace(output_file)
+
+
 def save_silver(df: pd.DataFrame, config: Dict) -> None:
     """Persist transformed DataFrame as Parquet to the silver layer."""
     if df.empty:
@@ -212,7 +260,7 @@ def save_silver(df: pd.DataFrame, config: Dict) -> None:
     silver_path.mkdir(parents=True, exist_ok=True)
     output_file = silver_path / "cats_clean.parquet"
 
-    df.to_parquet(output_file, index=False)
+    _atomic_parquet_write(df, output_file)
     logging.info(f"Silver: saved {len(df)} records to {output_file}")
 
 
@@ -251,11 +299,11 @@ def load_cat_data(df: pd.DataFrame, config: Dict) -> None:
     with engine.begin() as conn:
         # Ensure the table exists with the correct schema by doing an initial
         # to_sql on an empty slice — this is a no-op if the table already exists.
+        # Kept as 'append' to avoid dropping existing data; schema changes should
+        # be managed explicitly if needed.
         df.head(0).to_sql(table_name, conn, if_exists="append", index=False)
 
         # Upsert row by row using SQLite's INSERT OR REPLACE.
-        # This replaces any existing row with the same primary key and
-        # inserts new rows, leaving unmatched rows untouched.
         placeholders = ", ".join([f":{col}" for col in df.columns])
         columns = ", ".join(df.columns)
         upsert_sql = text(
@@ -272,13 +320,25 @@ def load_cat_data(df: pd.DataFrame, config: Dict) -> None:
 # ---------------------------------------------------------------------------
 
 def main() -> None:
-    config = load_config()
+    try:
+        config = load_config()
+        validate_config(config)
+    except Exception as e:
+        logging.basicConfig(level=logging.ERROR)
+        logging.error(f"Failed to load/validate config: {e}")
+        return
+
     setup_logging(config)
 
     logging.info("=== Cat Shelter ETL Pipeline starting ===")
 
     # Extract
-    raw_data = extract_cat_data(config)
+    try:
+        raw_data = extract_cat_data(config)
+    except ExtractionError as e:
+        logging.error(f"Pipeline aborted: extraction failed — {e}")
+        return
+
     if not raw_data:
         logging.error("Pipeline aborted: extraction returned no data.")
         return

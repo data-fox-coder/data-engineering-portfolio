@@ -40,16 +40,8 @@ def _db_age_hours() -> float | None:
 
 
 def _run_pipeline() -> bool:
-    """
-    Import and run the pipeline in-process.
-    Returns True on success, False on failure.
-    """
-    project_dir = str(_HERE)
-    if project_dir not in sys.path:
-        sys.path.insert(0, project_dir)
-
     try:
-        from pipeline import (  # noqa: PLC0415
+        from pipeline import (
             extract_cat_data,
             load_cat_data,
             load_config,
@@ -58,7 +50,11 @@ def _run_pipeline() -> bool:
             setup_logging,
             transform_cat_data,
         )
+    except Exception as exc:
+        st.error(f"Pipeline import error: {exc}")
+        return False
 
+    try:
         config = load_config()
         setup_logging(config)
 
@@ -76,7 +72,7 @@ def _run_pipeline() -> bool:
         load_cat_data(df, config)
         return True
 
-    except Exception as exc:  # noqa: BLE001
+    except Exception as exc:
         st.error(f"Pipeline error: {exc}")
         return False
 
@@ -122,14 +118,29 @@ def ensure_fresh_data() -> None:
 def load_data() -> pd.DataFrame:
     """Load cats from the gold SQLite layer. Cached for REFRESH_HOURS."""
     with sqlite3.connect(DB_PATH) as conn:
-        # BUG FIX 1: column is attributes_updateddate in config, not updated_date.
-        # parse_dates on a non-existent column silently does nothing — the column
-        # just stays as a plain string, which breaks any date-based logic later.
         df = pd.read_sql(
             "SELECT * FROM cats",
             conn,
             parse_dates=["attributes_updateddate"],
         )
+
+    # ---- Missing-column guard ----
+    expected_cols = [
+        "attributes_agegroup",
+        "attributes_sex",
+        "attributes_activitylevel",
+        "attributes_breedprimary",
+        "attributes_isspecialneeds",
+        "attributes_picturecount",
+        "attributes_iscatsok",
+        "attributes_isdogsok",
+        "attributes_iskidsok",
+        "attributes_ishousetrained",
+    ]
+    missing = [c for c in expected_cols if c not in df.columns]
+    if missing:
+        st.warning(f"Missing expected columns: {missing}")
+
     return df
 
 
@@ -146,9 +157,6 @@ def apply_filters(df: pd.DataFrame) -> pd.DataFrame:
     genders = ["All"] + sorted(df["attributes_sex"].dropna().unique().tolist())
     selected_gender = st.sidebar.selectbox("Gender", genders)
 
-    # BUG FIX 2: attributes_energylevel does not exist in config.yml fields_to_keep.
-    # The column is attributes_activitylevel. Using the wrong name here would cause
-    # a KeyError at runtime when Streamlit tried to read the column from the DataFrame.
     activity_levels = ["All"] + sorted(df["attributes_activitylevel"].dropna().unique().tolist())
     selected_activity = st.sidebar.selectbox("Activity Level", activity_levels)
 
@@ -167,6 +175,10 @@ def apply_filters(df: pd.DataFrame) -> pd.DataFrame:
 # ---------------------------------------------------------------------------
 
 def show_metrics(df: pd.DataFrame) -> None:
+    if df.empty:
+        st.info("No cats match the selected filters.")
+        return
+
     col1, col2, col3, col4 = st.columns(4)
     col1.metric("Total Cats", f"{len(df):,}")
     col2.metric("Unique Breeds", f"{df['attributes_breedprimary'].nunique():,}")
@@ -175,10 +187,15 @@ def show_metrics(df: pd.DataFrame) -> None:
 
 
 # ---------------------------------------------------------------------------
-# Charts
+# Charts (with empty-data protection)
 # ---------------------------------------------------------------------------
 
 def chart_age_distribution(df: pd.DataFrame) -> plt.Figure:
+    if df.empty:
+        fig, ax = plt.subplots()
+        ax.text(0.5, 0.5, "No data available", ha="center")
+        return fig
+
     order = ["Baby", "Young", "Adult", "Senior"]
     counts = df["attributes_agegroup"].value_counts().reindex(order, fill_value=0)
     fig, ax = plt.subplots(figsize=(7, 4))
@@ -192,6 +209,11 @@ def chart_age_distribution(df: pd.DataFrame) -> plt.Figure:
 
 
 def chart_top_breeds(df: pd.DataFrame, top_n: int = 10) -> plt.Figure:
+    if df.empty:
+        fig, ax = plt.subplots()
+        ax.text(0.5, 0.5, "No data available", ha="center")
+        return fig
+
     counts = df["attributes_breedprimary"].value_counts().head(top_n).sort_values()
     fig, ax = plt.subplots(figsize=(8, 5))
     bars = ax.barh(counts.index, counts.values, color="#5B8DB8", edgecolor="white")
@@ -203,6 +225,11 @@ def chart_top_breeds(df: pd.DataFrame, top_n: int = 10) -> plt.Figure:
 
 
 def chart_gender_split(df: pd.DataFrame) -> plt.Figure:
+    if df.empty:
+        fig, ax = plt.subplots()
+        ax.text(0.5, 0.5, "No data available", ha="center")
+        return fig
+
     counts = df["attributes_sex"].fillna("Unknown").value_counts()
     fig, ax = plt.subplots(figsize=(5, 5))
     ax.pie(
@@ -218,8 +245,11 @@ def chart_gender_split(df: pd.DataFrame) -> plt.Figure:
 
 
 def chart_activity_levels(df: pd.DataFrame) -> plt.Figure:
-    # BUG FIX 2 (continued): renamed from chart_energy_levels to chart_activity_levels,
-    # reading attributes_activitylevel instead of the non-existent attributes_energylevel.
+    if df.empty:
+        fig, ax = plt.subplots()
+        ax.text(0.5, 0.5, "No data available", ha="center")
+        return fig
+
     counts = df["attributes_activitylevel"].value_counts()
     fig, ax = plt.subplots(figsize=(6, 4))
     bars = ax.bar(counts.index, counts.values, color="#5B8DB8", edgecolor="white")
@@ -231,13 +261,12 @@ def chart_activity_levels(df: pd.DataFrame) -> plt.Figure:
 
 
 def chart_compatibility(df: pd.DataFrame) -> plt.Figure:
+    if df.empty:
+        fig, ax = plt.subplots()
+        ax.text(0.5, 0.5, "No data available", ha="center")
+        return fig
+
     total = len(df)
-    # BUG FIX 3: attributes_iscurrentvaccinations is not in config.yml fields_to_keep
-    # so it will never be in the DataFrame. Including it meant pd.to_numeric would
-    # produce a series of NaN (column not found → KeyError, or all zeros after coerce),
-    # silently making the "Microchipped" bar always show 0% with no error raised.
-    # Replaced with attributes_isspecialneeds which IS in the config, making the
-    # chart accurate and honest about what data is actually available.
     labels = ["OK with kids", "OK with cats", "OK with dogs",
               "Housetrained", "Special Needs"]
     cols = ["attributes_iskidsok", "attributes_iscatsok", "attributes_isdogsok",
@@ -264,10 +293,25 @@ st.set_page_config(page_title="Cat Shelter Dashboard", page_icon="🐱", layout=
 st.title("🐱 Cat Shelter Dashboard")
 st.caption("Data sourced from RescueGroups v5 API")
 
-ensure_fresh_data()
+# ---- Last updated timestamp ----
+if DB_PATH.exists():
+    ts = datetime.fromtimestamp(DB_PATH.stat().st_mtime).strftime("%d %b %Y %H:%M")
+    st.caption(f"Last updated: {ts}")
+
+# ---- Manual refresh button ----
+if st.button("🔄 Refresh Data"):
+    ensure_fresh_data()
+    st.experimental_rerun()
+
+# ---- Automatic call removed ----
+# ensure_fresh_data() 
 
 df_raw = load_data()
 df = apply_filters(df_raw)
+
+# ---- Raw data viewer ----
+with st.expander("View Raw Data"):
+    st.dataframe(df_raw)
 
 st.subheader("Summary")
 show_metrics(df)

@@ -86,7 +86,7 @@ def extract_cat_data(config: Dict) -> List[Dict]:
     }
 
     params = {
-        "limit": config["source"].get("page_size", 250)
+        "limit": config["source"].get("page_size", 25)
     }
 
     all_records = []

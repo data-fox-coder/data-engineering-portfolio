@@ -6,7 +6,7 @@ pipeline:
 source:
   api: RescueGroups
   base_url: https://api.rescuegroups.org/v5
-  page_size: 100  # max is 250, default is 25
+  page_size: 250  # max is 250, default is 25
   species_filter: cat
 
 layers:

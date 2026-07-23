@@ -19,6 +19,7 @@ from pathlib import Path
 from typing import Dict, List
 import pandas as pd
 import requests
+import time
 import yaml
 from dotenv import load_dotenv
 from sqlalchemy import create_engine, text
@@ -80,34 +81,70 @@ def extract_cat_data(config: Dict) -> List[Dict]:
 
     body = {
         "data": {
-            "filterProcessing": "1",
-            "size": config["source"].get("page_size", 100),
+            "filterProcessing": "1"
         }
     }
 
-    logging.info(f"Extracting data from: {api_url}")
-    try:
-        response = requests.post(api_url, headers=headers, json=body, timeout=15)
-        response.raise_for_status()
-        raw_data = response.json().get("data", [])
-        logging.info(f"Extracted {len(raw_data)} records from live API.")
-        return raw_data
-        
-    except requests.exceptions.RequestException as e:
-        logging.warning(f"⚠️ Live API connection dropped ({e}). Switching to local mock dataset for development.")
-        
-        # Points to a local mock file in your repo directory
-        mock_file_path = PROJECT_ROOT / "mock_rescuegroups_raw.json"
-        
-        if mock_file_path.exists():
-            with mock_file_path.open("r") as fh:
-                mock_data = json.load(fh)
-            logging.info(f"Successfully loaded {len(mock_data)} mock records from local Bronze backup.")
-            return mock_data
-        else:
-            logging.error(f"Mock file not found at {mock_file_path}. Cannot proceed.")
-            return []
+    params = {
+        "limit": config["source"].get("page_size", 250)
+    }
 
+    all_records = []
+    page_count = 1
+
+    logging.info(f"Extracting data starting at: {api_url}")
+    
+    while api_url:
+        try:
+            # The initial search requires a POST to send the body payload and limit params.
+            # Subsequent pages use standard GET requests because the API's 'links.next' URL 
+            # handles the state and offsets automatically.
+            if page_count == 1:
+                response = requests.post(
+                    api_url, 
+                    headers=headers, 
+                    json=body, 
+                    params=params, 
+                    timeout=15
+                )
+            else:
+                response = requests.get(api_url, headers=headers, timeout=15)
+                
+            response.raise_for_status()
+            data = response.json()
+            
+            records = data.get("data", [])
+            all_records.extend(records)
+            logging.info(f"Page {page_count}: Extracted {len(records)} records from live API.")
+            
+            # Fetch the next page URL provided by the API
+            api_url = data.get("links", {}).get("next")
+            
+            if api_url:
+                page_count += 1
+                time.sleep(0.3) # Polite pause between API calls
+                
+        except requests.exceptions.RequestException as e:
+            # If it drops on the very first request, trigger the full mock fallback
+            if page_count == 1:
+                logging.warning(f"⚠️ Live API connection dropped ({e}). Switching to local mock dataset for development.")
+                
+                mock_file_path = PROJECT_ROOT / "mock_rescuegroups_raw.json"
+                
+                if mock_file_path.exists():
+                    with mock_file_path.open("r") as fh:
+                        mock_data = json.load(fh)
+                    logging.info(f"Successfully loaded {len(mock_data)} mock records from local Bronze backup.")
+                    return mock_data
+                else:
+                    logging.error(f"Mock file not found at {mock_file_path}. Cannot proceed.")
+                    return []
+            # If it drops midway through pagination, save whatever records we already successfully downloaded
+            else:
+                logging.warning(f"⚠️ Live API connection dropped on page {page_count} ({e}). Returning {len(all_records)} records collected so far.")
+                break
+
+    return all_records
 
 def save_bronze(raw_data: List[Dict], config: Dict) -> None:
     """Persist raw API response as JSON to the bronze layer."""

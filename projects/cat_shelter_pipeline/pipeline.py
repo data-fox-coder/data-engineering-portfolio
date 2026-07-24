@@ -15,11 +15,12 @@ Usage:
 import json
 import logging
 import os
+import time
 from pathlib import Path
-from typing import Dict, List, Any
+from typing import Any, Dict, List
+
 import pandas as pd
 import requests
-import time
 import yaml
 from dotenv import load_dotenv
 from sqlalchemy import create_engine, text
@@ -78,6 +79,7 @@ def setup_logging(config: Dict) -> None:
 # ---------------------------------------------------------------------------
 # Extract → Bronze
 # ---------------------------------------------------------------------------
+
 
 def extract_cat_data(config: Dict) -> List[Dict[str, Any]]:
     """
@@ -202,6 +204,7 @@ def save_bronze(raw_data: List[Dict[str, Any]], config: Dict) -> None:
 # Transform → Silver
 # ---------------------------------------------------------------------------
 
+
 def transform_cat_data(raw_data: List[Dict[str, Any]], config: Dict) -> pd.DataFrame:
     """
     Normalise raw API data and apply column selection and deduplication
@@ -217,9 +220,7 @@ def transform_cat_data(raw_data: List[Dict[str, Any]], config: Dict) -> pd.DataF
     df = pd.json_normalize(raw_data)
 
     # Standardise column names: lowercase, dots/spaces → underscores
-    df.columns = [
-        col.lower().replace(".", "_").replace(" ", "_") for col in df.columns
-    ]
+    df.columns = [col.lower().replace(".", "_").replace(" ", "_") for col in df.columns]
 
     # Apply column selection from config if specified
     fields_to_keep: List[str] = config["layers"]["silver"].get("fields_to_keep", [])
@@ -238,7 +239,9 @@ def transform_cat_data(raw_data: List[Dict[str, Any]], config: Dict) -> pd.DataF
         if dropped:
             logging.info(f"Silver: dropped {dropped} duplicate records.")
 
-    logging.info(f"Transformation complete. {len(df)} records, {len(df.columns)} columns.")
+    logging.info(
+        f"Transformation complete. {len(df)} records, {len(df.columns)} columns."
+    )
     return df
 
 
@@ -267,6 +270,7 @@ def save_silver(df: pd.DataFrame, config: Dict) -> None:
 # Load → Gold (SQLite upsert)
 # ---------------------------------------------------------------------------
 
+
 def load_cat_data(df: pd.DataFrame, config: Dict) -> None:
     """
     Upsert the silver DataFrame into the gold SQLite database.
@@ -277,7 +281,9 @@ def load_cat_data(df: pd.DataFrame, config: Dict) -> None:
         return
 
     if "id" not in df.columns:
-        logging.error("Gold: 'id' column not found — cannot upsert without a primary key.")
+        logging.error(
+            "Gold: 'id' column not found — cannot upsert without a primary key."
+        )
         return
 
     db_path = PROJECT_ROOT / config["layers"]["gold"]["path"]
@@ -317,6 +323,7 @@ def load_cat_data(df: pd.DataFrame, config: Dict) -> None:
 # ---------------------------------------------------------------------------
 # Orchestration
 # ---------------------------------------------------------------------------
+
 
 def main() -> None:
     try:

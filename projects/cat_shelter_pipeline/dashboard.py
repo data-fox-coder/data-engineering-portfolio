@@ -30,6 +30,7 @@ REFRESH_HOURS = 24
 # Pipeline bootstrap
 # ---------------------------------------------------------------------------
 
+
 def _db_age_hours() -> float | None:
     """Return how many hours ago the DB was last modified, or None if missing."""
     if not DB_PATH.exists():
@@ -113,6 +114,7 @@ def ensure_fresh_data() -> None:
 # Data loader
 # ---------------------------------------------------------------------------
 
+
 @st.cache_data(ttl=REFRESH_HOURS * 3600)
 def load_data() -> pd.DataFrame:
     """Load cats from the gold SQLite layer. Cached for REFRESH_HOURS."""
@@ -147,6 +149,7 @@ def load_data() -> pd.DataFrame:
 # Filters
 # ---------------------------------------------------------------------------
 
+
 def apply_filters(df: pd.DataFrame) -> pd.DataFrame:
     st.sidebar.header("Filters")
 
@@ -156,7 +159,9 @@ def apply_filters(df: pd.DataFrame) -> pd.DataFrame:
     genders = ["All"] + sorted(df["attributes_sex"].dropna().unique().tolist())
     selected_gender = st.sidebar.selectbox("Gender", genders)
 
-    activity_levels = ["All"] + sorted(df["attributes_activitylevel"].dropna().unique().tolist())
+    activity_levels = ["All"] + sorted(
+        df["attributes_activitylevel"].dropna().unique().tolist()
+    )
     selected_activity = st.sidebar.selectbox("Activity Level", activity_levels)
 
     if selected_age != "All":
@@ -173,6 +178,7 @@ def apply_filters(df: pd.DataFrame) -> pd.DataFrame:
 # Metrics
 # ---------------------------------------------------------------------------
 
+
 def show_metrics(df: pd.DataFrame) -> None:
     if df.empty:
         st.info("No cats match the selected filters.")
@@ -181,13 +187,20 @@ def show_metrics(df: pd.DataFrame) -> None:
     col1, col2, col3, col4 = st.columns(4)
     col1.metric("Total Cats", f"{len(df):,}")
     col2.metric("Unique Breeds", f"{df['attributes_breedprimary'].nunique():,}")
-    col3.metric("Special Needs", f"{pd.to_numeric(df['attributes_isspecialneeds'], errors='coerce').fillna(0).sum():,.0f}")
-    col4.metric("With Pictures", f"{pd.to_numeric(df['attributes_picturecount'], errors='coerce').fillna(0).gt(0).sum():,}")
+    col3.metric(
+        "Special Needs",
+        f"{pd.to_numeric(df['attributes_isspecialneeds'], errors='coerce').fillna(0).sum():,.0f}",
+    )
+    col4.metric(
+        "With Pictures",
+        f"{pd.to_numeric(df['attributes_picturecount'], errors='coerce').fillna(0).gt(0).sum():,}",
+    )
 
 
 # ---------------------------------------------------------------------------
 # Charts (with empty-data protection)
 # ---------------------------------------------------------------------------
+
 
 def chart_age_distribution(df: pd.DataFrame) -> plt.Figure:
     if df.empty:
@@ -266,10 +279,20 @@ def chart_compatibility(df: pd.DataFrame) -> plt.Figure:
         return fig
 
     total = len(df)
-    labels = ["OK with kids", "OK with cats", "OK with dogs",
-              "Housetrained", "Special Needs"]
-    cols = ["attributes_iskidsok", "attributes_iscatsok", "attributes_isdogsok",
-            "attributes_ishousetrained", "attributes_isspecialneeds"]
+    labels = [
+        "OK with kids",
+        "OK with cats",
+        "OK with dogs",
+        "Housetrained",
+        "Special Needs",
+    ]
+    cols = [
+        "attributes_iskidsok",
+        "attributes_iscatsok",
+        "attributes_isdogsok",
+        "attributes_ishousetrained",
+        "attributes_isspecialneeds",
+    ]
     pcts = [
         pd.to_numeric(df[c], errors="coerce").fillna(0).sum() / total * 100
         for c in cols
@@ -278,8 +301,9 @@ def chart_compatibility(df: pd.DataFrame) -> plt.Figure:
     bars = ax.barh(labels, pcts, color="#A8C5A0", edgecolor="white")
     ax.bar_label(bars, fmt="%.1f%%", padding=4, fontsize=9)
     ax.set_xlim(0, 110)
-    ax.set_title("Compatibility & Characteristics (% of all cats)",
-                 fontweight="bold", pad=12)
+    ax.set_title(
+        "Compatibility & Characteristics (% of all cats)", fontweight="bold", pad=12
+    )
     ax.spines[["top", "right"]].set_visible(False)
     return fig
 
@@ -294,7 +318,9 @@ st.caption("Data sourced from RescueGroups v5 API")
 
 # ---- Last updated timestamp ----
 if DB_PATH.exists():
-    ts = datetime.fromtimestamp(DB_PATH.stat().st_mtime).strftime("%d %b %Y %H:%M")
+    ts = datetime.fromtimestamp(DB_PATH.stat().st_mtime, tz=timezone.utc).strftime(
+        "%d %b %Y %H:%M"
+    )
     st.caption(f"Last updated: {ts}")
 
 # ---- Manual refresh button ----
@@ -303,7 +329,7 @@ if st.button("🔄 Refresh Data"):
     st.rerun()
 
 # ---- Automatic call removed ----
-# ensure_fresh_data() 
+# ensure_fresh_data()
 
 df_raw = load_data()
 df = apply_filters(df_raw)

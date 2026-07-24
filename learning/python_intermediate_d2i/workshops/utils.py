@@ -11,7 +11,7 @@ def format_dates(column):
         column = pd.to_datetime(column, format="%d/%m/%Y")
         return column
     except Exception:
-            raise ValueError(f"Invalid date format in {column.name}, expected dd/mm/YYYY")
+        raise ValueError(f"Invalid date format in {column.name}, expected dd/mm/YYYY")
 
 
 def calculate_age_buckets(age):
@@ -144,4 +144,3 @@ def appears_on_both(df1, df2, measure_name):
     df.fillna({"on_both": "No"}, inplace=True)
     output = percent_of_col_with_value(df, "on_both", measure_name)
     return output
-

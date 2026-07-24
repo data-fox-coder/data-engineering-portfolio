@@ -4,6 +4,7 @@ rawg_pipeline/silver/transform.py
 Reads raw JSON from bronze layer, cleans and types the data,
 and upserts into the silver DuckDB schema.
 """
+
 import json
 import logging
 import os
@@ -29,12 +30,12 @@ def get_conn() -> duckdb.DuckDBPyConnection:
 
 def init_silver(conn: duckdb.DuckDBPyConnection) -> None:
     conn.execute("CREATE SCHEMA IF NOT EXISTS silver")
-    
+
     # Core Fix: Ensure sequences exist before transformations execute
     conn.execute("CREATE SEQUENCE IF NOT EXISTS silver_games_seq START 1")
     conn.execute("CREATE SEQUENCE IF NOT EXISTS silver_genres_seq START 1")
     conn.execute("CREATE SEQUENCE IF NOT EXISTS silver_platforms_seq START 1")
-    
+
     conn.execute("""
         CREATE TABLE IF NOT EXISTS silver.silver_games (
             id           INTEGER PRIMARY KEY,
@@ -83,15 +84,18 @@ def transform_games(conn: duckdb.DuckDBPyConnection) -> None:
         if rawg_id in seen:
             continue
         seen.add(rawg_id)
-        records.append((
-            rawg_id,
-            data.get("name", ""),
-            data.get("rating"),
-            data.get("ratings_count"),
-            parse_date(data.get("released")),
-            datetime.now(timezone.utc),
-        ))
-    conn.executemany("""
+        records.append(
+            (
+                rawg_id,
+                data.get("name", ""),
+                data.get("rating"),
+                data.get("ratings_count"),
+                parse_date(data.get("released")),
+                datetime.now(timezone.utc),
+            )
+        )
+    conn.executemany(
+        """
         INSERT INTO silver.silver_games (id, rawg_id, name, rating, ratings_count, released, updated_at)
         VALUES (nextval('silver_games_seq'), ?, ?, ?, ?, ?, ?)
         ON CONFLICT (rawg_id) DO UPDATE SET
@@ -100,7 +104,9 @@ def transform_games(conn: duckdb.DuckDBPyConnection) -> None:
             ratings_count = excluded.ratings_count,
             released = excluded.released,
             updated_at = excluded.updated_at
-    """, records)
+    """,
+        records,
+    )
 
 
 def transform_genres(conn: duckdb.DuckDBPyConnection) -> None:
@@ -114,13 +120,16 @@ def transform_genres(conn: duckdb.DuckDBPyConnection) -> None:
             continue
         seen.add(rawg_id)
         records.append((rawg_id, data.get("name", ""), data.get("slug")))
-    conn.executemany("""
+    conn.executemany(
+        """
         INSERT INTO silver.silver_genres (id, rawg_id, name, slug)
         VALUES (nextval('silver_genres_seq'), ?, ?, ?)
         ON CONFLICT (rawg_id) DO UPDATE SET
             name = excluded.name,
             slug = excluded.slug
-    """, records)
+    """,
+        records,
+    )
 
 
 def transform_platforms(conn: duckdb.DuckDBPyConnection) -> None:
@@ -134,13 +143,16 @@ def transform_platforms(conn: duckdb.DuckDBPyConnection) -> None:
             continue
         seen.add(rawg_id)
         records.append((rawg_id, data.get("name", ""), data.get("slug")))
-    conn.executemany("""
+    conn.executemany(
+        """
         INSERT INTO silver.silver_platforms (id, rawg_id, name, slug)
         VALUES (nextval('silver_platforms_seq'), ?, ?, ?)
         ON CONFLICT (rawg_id) DO UPDATE SET
             name = excluded.name,
             slug = excluded.slug
-    """, records)
+    """,
+        records,
+    )
 
 
 if __name__ == "__main__":

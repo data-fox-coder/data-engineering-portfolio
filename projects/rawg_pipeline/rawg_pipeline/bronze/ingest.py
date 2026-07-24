@@ -4,6 +4,7 @@ rawg_pipeline/bronze/ingest.py
 Fetches raw game, genre, and platform data from the RAWG API
 and stores append-only JSON strings in the bronze DuckDB schema.
 """
+
 import json
 import logging
 import os
@@ -55,12 +56,12 @@ def get_conn() -> duckdb.DuckDBPyConnection:
 
 def init_bronze(conn: duckdb.DuckDBPyConnection) -> None:
     conn.execute("CREATE SCHEMA IF NOT EXISTS bronze")
-    
+
     # Core fix: Ensure sequences are created as part of the schema definition
     conn.execute("CREATE SEQUENCE IF NOT EXISTS bronze_games_seq START 1")
     conn.execute("CREATE SEQUENCE IF NOT EXISTS bronze_genres_seq START 1")
     conn.execute("CREATE SEQUENCE IF NOT EXISTS bronze_platforms_seq START 1")
-    
+
     conn.execute("""
         CREATE TABLE IF NOT EXISTS bronze.bronze_games (
             id          INTEGER PRIMARY KEY,
@@ -85,6 +86,7 @@ def init_bronze(conn: duckdb.DuckDBPyConnection) -> None:
             ingested_at TIMESTAMP DEFAULT current_timestamp
         )
     """)
+
 
 def build_session() -> requests.Session:
     retry_strategy = Retry(
@@ -126,7 +128,7 @@ def fetch_games(
 
         all_games.extend(data.get("results", []))
         url = data.get("next")  # None on the last page; stops the loop
-        params = {}             # Next URL already has all params baked in
+        params = {}  # Next URL already has all params baked in
 
         logger.info("Fetched %d games so far...", len(all_games))
 
@@ -214,17 +216,13 @@ def load_bronze(
     # DuckDB handles the deduplication in a single set operation.
     existing_game_ids = {
         row[0]
-        for row in conn.execute(
-            "SELECT rawg_id FROM bronze.bronze_games"
-        ).fetchall()
+        for row in conn.execute("SELECT rawg_id FROM bronze.bronze_games").fetchall()
     }
     new_games = [g for g in games if g["id"] not in existing_game_ids]
 
     existing_genre_ids = {
         row[0]
-        for row in conn.execute(
-            "SELECT rawg_id FROM bronze.bronze_genres"
-        ).fetchall()
+        for row in conn.execute("SELECT rawg_id FROM bronze.bronze_genres").fetchall()
     }
     new_genres = [g for g in genres if g["id"] not in existing_genre_ids]
 
@@ -260,7 +258,9 @@ def load_bronze(
     logger.info(
         "Inserted %d new games, %d new genres, %d new platforms "
         "(%d games / %d genres / %d platforms already existed, skipped).",
-        len(new_games), len(new_genres), len(new_platforms),
+        len(new_games),
+        len(new_genres),
+        len(new_platforms),
         len(games) - len(new_games),
         len(genres) - len(new_genres),
         len(platforms) - len(new_platforms),
@@ -285,5 +285,7 @@ if __name__ == "__main__":
 
     logger.info(
         "Ingestion complete: %d games, %d genres, %d platforms fetched from API.",
-        len(games), len(genres), len(platforms),
+        len(games),
+        len(genres),
+        len(platforms),
     )

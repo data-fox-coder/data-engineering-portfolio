@@ -23,4 +23,4 @@ jobs:
         run: pip install ruff
 
       - name: Verify no remaining issues
-        run: ruff check . --exclude "**/python_intermediate_d2i/workshops"
+        run: ruff check . --select E,F,I,UP,LOG,DTZ,BLE,FURB,C4,PLW --ignore E501 --preview --exclude "**/python_intermediate_d2i/workshops"

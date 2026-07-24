@@ -49,7 +49,7 @@ def _run_pipeline() -> bool:
             setup_logging,
             transform_cat_data,
         )
-    except Exception as exc:
+    except Exception as exc:  # noqa: BLE001
         st.error(f"Pipeline import error: {exc}")
         return False
 
@@ -71,7 +71,7 @@ def _run_pipeline() -> bool:
         load_cat_data(df, config)
         return True
 
-    except Exception as exc:
+    except Exception as exc:  # noqa: BLE001
         st.error(f"Pipeline error: {exc}")
         return False
 
@@ -300,7 +300,7 @@ if DB_PATH.exists():
 # ---- Manual refresh button ----
 if st.button("🔄 Refresh Data"):
     ensure_fresh_data()
-    st.experimental_rerun()
+    st.rerun()
 
 # ---- Automatic call removed ----
 # ensure_fresh_data() 

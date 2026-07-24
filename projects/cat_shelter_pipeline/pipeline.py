@@ -36,7 +36,6 @@ PROJECT_ROOT = Path(__file__).parent
 
 class ExtractionError(Exception):
     """Raised when extraction fails in a non-recoverable way."""
-    pass
 
 
 def load_config() -> Dict:
@@ -323,7 +322,7 @@ def main() -> None:
     try:
         config = load_config()
         validate_config(config)
-    except Exception as e:
+    except (FileNotFoundError, yaml.YAMLError, ValueError) as e:
         logging.basicConfig(level=logging.ERROR)
         logging.error(f"Failed to load/validate config: {e}")
         return

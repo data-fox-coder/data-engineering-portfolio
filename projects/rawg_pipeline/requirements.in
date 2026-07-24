@@ -13,6 +13,7 @@ dbt-duckdb
 pandas
 pyarrow
 pyspark
+ipykernel
 
 # --- Presentation & Dashboard ---
 streamlit

@@ -1,6 +1,11 @@
 {
   "name": "Data Engineering Portfolio",
   "image": "mcr.microsoft.com/devcontainers/python:1-3.11-bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "21"
+    }
+  },
   "customizations": {
     "codespaces": {
       "openFiles": [
@@ -10,6 +15,7 @@
     },
     "vscode": {
       "extensions": [
+        "ms-toolsai.jupyter",
         "ms-python.python",
         "ms-python.vscode-pylance"
       ]

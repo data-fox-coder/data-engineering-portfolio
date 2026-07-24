@@ -6,6 +6,4 @@
 preview_db.py
 
 # Spark output data, warehouses, and logs
-projects/rawg_pipeline/data/spark
-metastore_db/
-derby.log
+data/

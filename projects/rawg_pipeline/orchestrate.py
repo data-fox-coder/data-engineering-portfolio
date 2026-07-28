@@ -24,40 +24,42 @@ logger = logging.getLogger(__name__)
 # DB_PATH = "rawg_data.duckdb"
 
 
+def run_bronze_phase(conn: duckdb.DuckDBPyConnection) -> None:
+    """Initialise Bronze schema, fetch live RAWG API data, and load it raw."""
+    logger.info("Executing Bronze layer initialization...")
+    init_bronze(conn)
+    conn.commit()  # Persist schema and sequences DDL
+
+    logger.info("Connecting to RAWG API and fetching raw datasets...")
+    http_session = build_session()
+    raw_games = fetch_games(http_session)
+    raw_genres = fetch_genres(http_session)
+    raw_platforms = fetch_platforms(http_session)
+
+    load_bronze(conn, raw_games, raw_genres, raw_platforms)
+    conn.commit()  # Flush raw data to disk
+
+
+def run_silver_phase(conn: duckdb.DuckDBPyConnection) -> None:
+    """Initialise Silver schema and run all Silver-layer transformations."""
+    logger.info("Executing Silver layer transformations...")
+    init_silver(conn)
+    conn.commit()  # Ensure schema registration
+
+    transform_games(conn)
+    transform_genres(conn)
+    transform_platforms(conn)
+    conn.commit()  # Final structural commit
+
+
 def run():
     logger.info("Initializing Medallion pipeline execution.")
     conn = duckdb.connect(DB_PATH)
 
     try:
-        # Phase 1: Bronze Layer Ingestion
-        logger.info("Executing Bronze layer initialization...")
-        init_bronze(conn)
-        conn.commit()  # Persist schema and sequences DDL
-
-        # Core fix: Instantiate the network session and fetch live API data
-        logger.info("Connecting to RAWG API and fetching raw datasets...")
-        http_session = build_session()
-
-        raw_games = fetch_games(http_session)
-        raw_genres = fetch_genres(http_session)
-        raw_platforms = fetch_platforms(http_session)
-
-        # Load data into the database
-        load_bronze(conn, raw_games, raw_genres, raw_platforms)
-        conn.commit()  # Flush raw data to disk
-
-        # Phase 2: Silver Layer Transformation
-        logger.info("Executing Silver layer transformations...")
-        init_silver(conn)
-        conn.commit()  # Ensure schema registration
-
-        transform_games(conn)
-        transform_genres(conn)
-        transform_platforms(conn)
-
-        conn.commit()  # Final structural commit
+        run_bronze_phase(conn)
+        run_silver_phase(conn)
         logger.info("Pipeline execution completed successfully.")
-
     except Exception as e:
         logger.error(f"Pipeline execution failure: {e}")
         raise

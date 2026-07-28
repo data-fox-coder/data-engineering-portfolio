@@ -41,8 +41,9 @@ def db_session(in_memory_engine):
     Tears down after each test.
     """
     # Import models so SQLAlchemy registers them before create_all
-    from rawg_pipeline.bronze import models as bronze_models  # noqa: F401
     from rawg_pipeline.db import Base
+
+    from rawg_pipeline.bronze import models as bronze_models  # noqa: F401
     from rawg_pipeline.silver import models as silver_models  # noqa: F401
 
     with in_memory_engine.connect() as conn:
@@ -124,8 +125,9 @@ class TestBronzeIngest:
         self, db_session, sample_games, sample_genres, sample_platforms
     ):
         """load_bronze inserts games, genres, and platforms."""
-        from rawg_pipeline.bronze.ingest import load_bronze
         from rawg_pipeline.bronze.models import BronzeGame, BronzeGenre, BronzePlatform
+
+        from rawg_pipeline.bronze.ingest import load_bronze
 
         load_bronze(db_session, sample_games, sample_genres, sample_platforms)
 
@@ -198,6 +200,7 @@ class TestSilverTransform:
     ):
         """transform_games creates SilverGame records from bronze."""
         from rawg_pipeline.silver.models import SilverGame
+
         from rawg_pipeline.silver.transform import transform_games
 
         self._seed_bronze(db_session, sample_games, sample_genres, sample_platforms)
@@ -211,6 +214,7 @@ class TestSilverTransform:
     ):
         """Silver games have correctly typed and mapped fields."""
         from rawg_pipeline.silver.models import SilverGame
+
         from rawg_pipeline.silver.transform import transform_games
 
         self._seed_bronze(db_session, sample_games, sample_genres, sample_platforms)
@@ -226,6 +230,7 @@ class TestSilverTransform:
     ):
         """Running transform_games twice does not create duplicate silver records."""
         from rawg_pipeline.silver.models import SilverGame
+
         from rawg_pipeline.silver.transform import transform_games
 
         self._seed_bronze(db_session, sample_games, sample_genres, sample_platforms)
@@ -240,6 +245,7 @@ class TestSilverTransform:
     ):
         """transform_genres creates SilverGenre records from bronze."""
         from rawg_pipeline.silver.models import SilverGenre
+
         from rawg_pipeline.silver.transform import transform_genres
 
         self._seed_bronze(db_session, sample_games, sample_genres, sample_platforms)
@@ -253,6 +259,7 @@ class TestSilverTransform:
     ):
         """Silver genres have correctly mapped slug and name fields."""
         from rawg_pipeline.silver.models import SilverGenre
+
         from rawg_pipeline.silver.transform import transform_genres
 
         self._seed_bronze(db_session, sample_games, sample_genres, sample_platforms)
@@ -267,6 +274,7 @@ class TestSilverTransform:
     ):
         """transform_platforms creates SilverPlatform records from bronze."""
         from rawg_pipeline.silver.models import SilverPlatform
+
         from rawg_pipeline.silver.transform import transform_platforms
 
         self._seed_bronze(db_session, sample_games, sample_genres, sample_platforms)
@@ -280,6 +288,7 @@ class TestSilverTransform:
     ):
         """Silver platforms have correctly mapped slug and name fields."""
         from rawg_pipeline.silver.models import SilverPlatform
+
         from rawg_pipeline.silver.transform import transform_platforms
 
         self._seed_bronze(db_session, sample_games, sample_genres, sample_platforms)
@@ -293,8 +302,9 @@ class TestSilverTransform:
         self, db_session, sample_genres, sample_platforms
     ):
         """Games with no released date are handled gracefully."""
-        from rawg_pipeline.bronze.ingest import load_bronze
         from rawg_pipeline.silver.models import SilverGame
+
+        from rawg_pipeline.bronze.ingest import load_bronze
         from rawg_pipeline.silver.transform import transform_games
 
         games = [
@@ -317,8 +327,9 @@ class TestSilverTransform:
         self, db_session, sample_genres, sample_platforms
     ):
         """Games with no rating are handled gracefully."""
-        from rawg_pipeline.bronze.ingest import load_bronze
         from rawg_pipeline.silver.models import SilverGame
+
+        from rawg_pipeline.bronze.ingest import load_bronze
         from rawg_pipeline.silver.transform import transform_games
 
         games = [

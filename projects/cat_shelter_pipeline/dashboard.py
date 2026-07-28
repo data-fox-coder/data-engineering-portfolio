@@ -54,18 +54,15 @@ def _run_pipeline() -> bool:
         st.error(f"Pipeline import error: {exc}")
         return False
 
+    config = load_config()
+    setup_logging(config)
+
     try:
-        config = load_config()
-        setup_logging(config)
-
         raw_data = extract_cat_data(config)
-        if not raw_data:
-            return False
+        save_bronze(raw_data, config) if raw_data else None
 
-        save_bronze(raw_data, config)
-
-        df = transform_cat_data(raw_data, config)
-        if df.empty:
+        df = transform_cat_data(raw_data, config) if raw_data else None
+        if df is None or df.empty:
             return False
 
         save_silver(df, config)

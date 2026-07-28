@@ -4,7 +4,6 @@ from pathlib import Path
 
 import duckdb
 from config import DB_PATH
-
 from rawg_pipeline.bronze.ingest import (
     build_session,
     fetch_games,
@@ -69,6 +68,7 @@ def _run_gold() -> None:
     else:
         logger.error("dbt model execution failed.")
         raise RuntimeError("dbt execution failed.")
+
 
 def main() -> None:
     conn = duckdb.connect(str(DB_PATH))

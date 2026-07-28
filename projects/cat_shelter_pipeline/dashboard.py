@@ -8,7 +8,7 @@ Includes startup logic to trigger the pipeline if data is missing or stale.
 
 import sqlite3
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -88,7 +88,7 @@ def ensure_fresh_data() -> None:
         with st.spinner("🐱 No local data found — fetching cats from RescueGroups..."):
             success = _run_pipeline()
         if success:
-            last_run = datetime.now(timezone.utc).strftime("%d %b %Y %H:%M UTC")
+            last_run = datetime.now(UTC).strftime("%d %b %Y %H:%M UTC")
             st.success(f"Pipeline complete. Data loaded as of {last_run}.")
         else:
             st.error(
@@ -101,7 +101,7 @@ def ensure_fresh_data() -> None:
         with st.spinner(f"🔄 Data is {age:.0f}h old — refreshing from RescueGroups..."):
             success = _run_pipeline()
         if success:
-            last_run = datetime.now(timezone.utc).strftime("%d %b %Y %H:%M UTC")
+            last_run = datetime.now(UTC).strftime("%d %b %Y %H:%M UTC")
             st.toast(f"✅ Data refreshed at {last_run}")
         else:
             st.warning(
@@ -318,7 +318,7 @@ st.caption("Data sourced from RescueGroups v5 API")
 
 # ---- Last updated timestamp ----
 if DB_PATH.exists():
-    ts = datetime.fromtimestamp(DB_PATH.stat().st_mtime, tz=timezone.utc).strftime(
+    ts = datetime.fromtimestamp(DB_PATH.stat().st_mtime, tz=UTC).strftime(
         "%d %b %Y %H:%M"
     )
     st.caption(f"Last updated: {ts}")

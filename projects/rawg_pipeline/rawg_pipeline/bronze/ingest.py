@@ -9,7 +9,7 @@ import json
 import logging
 import os
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import duckdb
 import requests
@@ -209,7 +209,7 @@ def load_bronze(
     large volumes, since accidentally doubling 1000 rows would silently corrupt
     downstream silver/gold counts.
     """
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
 
     # Filter out any rawg_ids already in the table before inserting.
     # This is more efficient than INSERT OR IGNORE on a large batch because

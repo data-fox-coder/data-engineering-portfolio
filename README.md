@@ -74,3 +74,19 @@ This repository uses a **monorepo structure** where each independent project con
 git clone https://github.com/data-fox-coder/data-engineering-portfolio.git
 cd data-engineering-portfolio
 ```
+
+### 2. Install Ruff
+Install ruff in an isolated global sandbox (or inside your root environment) to run repository-wide linting:
+```bash
+pipx install ruff
+```
+
+### 3. Code Quality Commands
+Run these commands from the workspace root to check and format your code before pushing:
+```bash
+# Check all projects against repository linting rules
+ruff check .
+
+# Automatically fix all auto-fixable issues (imports, formatting, preview rules)
+ruff check --fix .
+```

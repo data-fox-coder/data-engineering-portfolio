@@ -8,7 +8,7 @@ and upserts into the silver DuckDB schema.
 import json
 import logging
 import os
-from datetime import date, datetime, timezone
+from datetime import UTC, date, datetime
 
 import duckdb
 from dotenv import load_dotenv
@@ -91,7 +91,7 @@ def transform_games(conn: duckdb.DuckDBPyConnection) -> None:
                 data.get("rating"),
                 data.get("ratings_count"),
                 parse_date(data.get("released")),
-                datetime.now(timezone.utc),
+                datetime.now(UTC),
             )
         )
     conn.executemany(

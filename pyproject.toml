@@ -1,0 +1,29 @@
+[project]
+name = "data-engineering-portfolio"
+version = "0.1.0"
+description = "Data engineering monorepo containing ETL pipelines, dbt models, and analytical tools."
+readme = "README.md"
+requires-python = ">=3.11"
+
+[tool.ruff]
+preview = true
+exclude = [
+    "**/python_intermediate_d2i/workshops",
+]
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "F",    # Pyflakes
+    "I",    # isort (import sorting)
+    "UP",   # pyupgrade
+    "LOG",  # flake8-logging
+    "DTZ",  # flake8-datetimez
+    "BLE",  # flake8-blind-except
+    "FURB", # refurb
+    "C4",   # flake8-comprehensions
+    "PLW",  # Pylint warnings
+]
+ignore = [
+    "E501", # line too long
+]

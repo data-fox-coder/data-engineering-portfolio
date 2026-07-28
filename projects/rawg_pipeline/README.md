@@ -68,8 +68,10 @@ cp .env.example .env  # then edit .env and set RAWG_API_KEY=your_key_here
 Trigger the full pipeline sequentially (Bronze ingest → Silver transform → dbt Gold compilation) with a single script. This generates `rawg_data.duckdb`:
 
 ```bash
-python run_pipeline.py
+python orchestrate.py
 ```
+(Note: python run_pipeline.py is also maintained as a backward-compatible entry point.)
+
 
 #### Step 2: Launch the Dashboard
 

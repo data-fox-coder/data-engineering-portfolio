@@ -33,7 +33,7 @@ An end-to-end Medallion Architecture (Bronze/Silver/Gold) ETL pipeline that extr
 
 ---
 
-### 📘 [python_intermediate_d2i](/learning/python_intermediate_d2i)
+### 📘 [python_intermediate_d2i](./learning/python_intermediate_d2i)
 
 Exercises and worked examples based on the Data to Insight ERN intermediate Python sessions — a structured course covering core Python and pandas concepts for data practitioners.
 
@@ -54,14 +54,6 @@ Exercises and worked examples based on the Data to Insight ERN intermediate Pyth
 | **Streamlit / Plotly** | Interactive visualization and user-facing presentation layer |
 | **GitHub Actions** | CI/CD for linting and pipeline automation |
 | **pip-tools** | Explicit dependency management (`requirements.in` / `requirements.txt` compilation) |
-
----
-
-## Background
-
-I am a data professional with a deep background in SQL Server, local government data analysis, and Excel automation (Power Query M / DAX), expanding into programmatic data engineering. This repository documents that journey, each project is carefully engineered to handle messy, real-world API data rather than generic toy datasets.
-
-Holder of the **SnowPro Associate: Platform Certification** and **Databricks Certified Data Analyst Associate** certifications.
 
 ---
 
@@ -90,3 +82,38 @@ ruff check .
 # Automatically fix all auto-fixable issues (imports, formatting, preview rules)
 ruff check --fix .
 ```
+
+### 4. Git Pre-Commit Hook (Optional)
+
+To automatically run Ruff checks and auto-fix formatting issues before every `git commit`, set up a local Git hook:
+
+```bash
+# Create the pre-commit hook script
+cat << 'EOF' > .git/hooks/pre-commit
+#!/bin/sh
+echo "🔍 Running Ruff linting check..."
+
+ruff check --fix .
+status=$?
+
+if [ $status -ne 0 ]; then
+    echo "❌ Ruff linting failed. Please fix remaining errors before committing."
+    exit 1
+fi
+
+echo "✅ Ruff linting passed!"
+EOF
+
+# Make the hook executable
+chmod +x .git/hooks/pre-commit
+```
+
+---
+
+## Background
+
+I am a data professional with a deep background in SQL Server, local government data analysis, and Excel automation (Power Query M / DAX), expanding into programmatic data engineering. This repository documents that journey, each project is carefully engineered to handle messy, real-world API data rather than generic toy datasets.
+
+I have the **Databricks Certified Data Analyst Associate**, **Microsoft Fabric Analytics Engineer Associate** and **SnowPro Associate: Platform** certifications.
+
+---

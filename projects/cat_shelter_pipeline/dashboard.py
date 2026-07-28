@@ -15,6 +15,15 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
 import pandas as pd
 import streamlit as st
+from pipeline import (
+    extract_cat_data,
+    load_cat_data,
+    load_config,
+    save_bronze,
+    save_silver,
+    setup_logging,
+    transform_cat_data,
+)
 
 # ---------------------------------------------------------------------------
 # Config
@@ -39,36 +48,30 @@ def _db_age_hours() -> float | None:
     return age_seconds / 3600
 
 
-def _run_pipeline() -> bool:
-    try:
-        from pipeline import (
-            extract_cat_data,
-            load_cat_data,
-            load_config,
-            save_bronze,
-            save_silver,
-            setup_logging,
-            transform_cat_data,
-        )
-    except Exception as exc:  # noqa: BLE001
-        st.error(f"Pipeline import error: {exc}")
+def _execute_pipeline_steps(config: dict) -> bool:
+    """Run sequential ETL steps without try/except wrapping."""
+    raw_data = extract_cat_data(config)
+    if not raw_data:
         return False
 
+    save_bronze(raw_data, config)
+
+    df = transform_cat_data(raw_data, config)
+    if df.empty:
+        return False
+
+    save_silver(df, config)
+    load_cat_data(df, config)
+    return True
+
+
+def _run_pipeline() -> bool:
+    """Load config and handle top-level UI pipeline exceptions."""
     config = load_config()
     setup_logging(config)
 
     try:
-        raw_data = extract_cat_data(config)
-        save_bronze(raw_data, config) if raw_data else None
-
-        df = transform_cat_data(raw_data, config) if raw_data else None
-        if df is None or df.empty:
-            return False
-
-        save_silver(df, config)
-        load_cat_data(df, config)
-        return True
-
+        return _execute_pipeline_steps(config)
     except Exception as exc:  # noqa: BLE001
         st.error(f"Pipeline error: {exc}")
         return False

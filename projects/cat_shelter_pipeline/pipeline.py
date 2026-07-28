@@ -82,11 +82,11 @@ def setup_logging(config: dict) -> None:
 # Extract → Bronze
 # ---------------------------------------------------------------------------
 
-
 def extract_cat_data(config: dict) -> list[dict[str, Any]]:
-    """
-    Fetch available cat listings from the RescueGroups v5 API.
-    Falls back gracefully to local mock data if the API is unreachable (e.g., cloud IP blocks).
+    """Fetch available cat listings from the RescueGroups v5 API.
+
+    Falls back gracefully to local mock data if the API is unreachable (e.g.,
+    cloud IP blocks).
     """
     api_key = os.getenv("RESCUEGROUPS_API_KEY")
     if not api_key:
@@ -101,15 +101,7 @@ def extract_cat_data(config: dict) -> list[dict[str, Any]]:
         "Content-Type": "application/vnd.api+json",
         "Accept": "application/vnd.api+json",
     }
-
-    page_size = config["source"].get("page_size", 25)
-    body = {
-        "data": {
-            "filterProcessing": "1",
-            "limit": page_size,
-        }
-    }
-
+  
     all_records: list[dict[str, Any]] = []
     page_count = 1
 
@@ -117,52 +109,22 @@ def extract_cat_data(config: dict) -> list[dict[str, Any]]:
 
     while api_url:
         try:
-            # The initial search requires a POST to send the body payload.
-            # Subsequent pages use standard GET requests because the API's 'links.next' URL
-            # handles the state and offsets automatically.
-            if page_count == 1:
-                response = requests.post(
-                    api_url,
-                    headers=headers,
-                    json=body,
-                    timeout=15,
-                )
-            else:
-                response = requests.get(api_url, headers=headers, timeout=15)
-
+            response = requests.get(api_url, headers=headers, timeout=10)
             response.raise_for_status()
             data = response.json()
-
-            records = data.get("data", [])
-            all_records.extend(records)
-            logger.info(
-                f"Page {page_count}: Extracted {len(records)} records from live API."
-            )
-
-            # Fetch the next page URL provided by the API, guarding against empty strings
-            next_url = data.get("links", {}).get("next")
-            api_url = next_url or None
-
-            if api_url:
-                page_count += 1
-                time.sleep(0.3)  # Polite pause between API calls
-
-        except requests.exceptions.RequestException as e:
-            # If it drops on the very first request, trigger the full mock fallback
+        except Exception as e:  # noqa: BLE001
             if page_count == 1:
                 logger.warning(
                     f"⚠️ Live API connection dropped ({e}). "
                     "Switching to local mock dataset for development."
                 )
-
                 mock_file_path = PROJECT_ROOT / "mock_rescuegroups_raw.json"
-
                 if mock_file_path.exists():
                     with mock_file_path.open("r") as fh:
                         mock_data = json.load(fh)
                     logger.info(
                         f"Successfully loaded {len(mock_data)} mock records "
-                        f"from local Bronze backup."
+                        "from local Bronze backup."
                     )
                     return mock_data
                 else:
@@ -172,7 +134,6 @@ def extract_cat_data(config: dict) -> list[dict[str, Any]]:
                     raise ExtractionError(
                         "API unreachable and mock file missing; extraction failed."
                     )
-            # If it drops midway through pagination, save whatever records we already successfully downloaded
             else:
                 logger.warning(
                     f"⚠️ Live API connection dropped on page {page_count} ({e}). "
@@ -180,6 +141,15 @@ def extract_cat_data(config: dict) -> list[dict[str, Any]]:
                 )
                 break
 
+        # Process record outside of try block
+        records = data.get("data", [])
+        all_records.extend(records)
+        logger.info(
+            f"Page {page_count}: Extracted {len(records)} records from live API."
+        )
+        api_url = data.get("links", {}).get("next")
+        page_count += 1
+        time.sleep(0.3)  # Polite pause between API calls
     return all_records
 
 

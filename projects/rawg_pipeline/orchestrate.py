@@ -1,7 +1,6 @@
 import logging
 
 import duckdb
-
 from config import DB_PATH
 from rawg_pipeline.bronze.ingest import (
     build_session,

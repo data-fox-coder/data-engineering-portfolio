@@ -1,6 +1,5 @@
 import pandas as pd
 import pytest
-
 from pipeline import transform_cat_data
 
 

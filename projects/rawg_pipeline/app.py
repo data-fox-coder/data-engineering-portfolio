@@ -8,12 +8,11 @@ Gold layer analytical views.
 
 import os
 
+# Importing the centralized paths from config.py
+import config
 import duckdb
 import plotly.express as px
 import streamlit as st
-
-# Importing the centralized paths from config.py
-import config
 
 # 1. PAGE CONFIGURATION (Must be the absolute first Streamlit command executed)
 st.set_page_config(

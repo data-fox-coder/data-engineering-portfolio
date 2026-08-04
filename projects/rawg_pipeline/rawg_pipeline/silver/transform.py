@@ -7,10 +7,10 @@ and upserts into the silver DuckDB schema.
 
 import json
 import logging
-import os
 from datetime import UTC, date, datetime
 
 import duckdb
+from config import DB_PATH
 from dotenv import load_dotenv
 
 logging.basicConfig(
@@ -20,8 +20,6 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 load_dotenv()
-
-DB_PATH = os.getenv("DB_PATH", "rawg_data.duckdb")
 
 
 def get_conn() -> duckdb.DuckDBPyConnection:

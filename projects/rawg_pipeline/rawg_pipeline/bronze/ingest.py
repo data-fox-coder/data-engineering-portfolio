@@ -13,6 +13,7 @@ from datetime import UTC, datetime
 
 import duckdb
 import requests
+from config import DB_PATH
 from dotenv import load_dotenv
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
@@ -33,7 +34,6 @@ if not API_KEY:
     )
 
 BASE_URL = "https://api.rawg.io/api"
-DB_PATH = os.getenv("DB_PATH", "rawg_data.duckdb")
 
 # ------------------------------------------------------------------ #
 # MAX_RECORDS controls how many games are ingested per run.           #
@@ -92,7 +92,7 @@ def build_session() -> requests.Session:
     retry_strategy = Retry(
         total=3,
         backoff_factor=1,
-        status_forcelist=[429, 500, 502, 503, 504],
+        status_forcelist=[429, 500, 502, 503, 504, 522],
     )
     adapter = HTTPAdapter(max_retries=retry_strategy)
     session = requests.Session()
@@ -270,9 +270,6 @@ def load_bronze(
 if __name__ == "__main__":
     conn = get_conn()
     init_bronze(conn)
-    conn.execute("CREATE SEQUENCE IF NOT EXISTS bronze_games_seq")
-    conn.execute("CREATE SEQUENCE IF NOT EXISTS bronze_genres_seq")
-    conn.execute("CREATE SEQUENCE IF NOT EXISTS bronze_platforms_seq")
     http = build_session()
 
     logger.info("Fetching up to %d games from RAWG API...", MAX_RECORDS)

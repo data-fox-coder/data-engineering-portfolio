@@ -11,13 +11,14 @@ RAWG API
    │
    ▼
 Bronze (Python + DuckDB)
-   │  Raw JSON stored in DuckDB bronze schema via orchestrator
+   │  Raw JSON stored in DuckDB bronze schema via orchestrator, paginated ingestion (up to 1,000 games)
    ▼
 Silver (Python + DuckDB)        PySpark (optional scale-out layer)
    │  Cleaned, typed,               │  Same bronze source, transforms
-   │  deduplicated records          │  via Spark DataFrames, writes Parquet
-   ▼                                ▼
-Gold (dbt + DuckDB)          data/spark/ (Parquet)
+   │  deduplicated records,         │  via Spark DataFrames, writes Parquet
+   │  game-platform join table      ▼
+   ▼                          data/spark/ (Parquet)
+Gold (dbt + DuckDB)
    │  Aggregated, analytics-ready models built by dbt in main_gold schema
    ▼
 Dashboard (Streamlit + Plotly)
@@ -25,12 +26,12 @@ Dashboard (Streamlit + Plotly)
 ```
 
 | Layer     | Managed by      | Storage                 | Description                                       |
-|-----------|-----------------|-------------------------|---------------------------------------------------|
-| Bronze    | Python / DuckDB | DuckDB `bronze.*`       | Raw API responses, append-only                    |
-| Silver    | Python / DuckDB | DuckDB `silver.*`       | Cleaned, typed, deduplicated                      |
+|-----------|-----------------|--------------------------|----------------------------------------------------|
+| Bronze    | Python / DuckDB | DuckDB `bronze.*`       | Raw API responses, append-only, paginated ingestion |
+| Silver    | Python / DuckDB | DuckDB `silver.*`       | Cleaned, typed, deduplicated, includes game-platform join table |
 | PySpark   | PySpark         | Parquet (`data/spark/`) | Scale-out alternative to silver                   |
-| Gold      | dbt             | DuckDB `main_gold.*`    | Aggregated, analytics-ready reporting layer       |
-| Dashboard | Streamlit       | Reads from Gold         | Full-width interactive Plotly analytical panels   |
+| Gold      | dbt             | DuckDB `main_gold.*`    | Aggregated, analytics-ready reporting layer        |
+| Dashboard | Streamlit       | Reads from Gold         | Full-width interactive Plotly analytical panels    |
 
 ---
 
@@ -70,8 +71,9 @@ Trigger the full pipeline sequentially (Bronze ingest → Silver transform → d
 ```bash
 python orchestrate.py
 ```
-(Note: python run_pipeline.py is also maintained as a backward-compatible entry point.)
+(Note: `python run_pipeline.py` is also maintained as a backward-compatible entry point.)
 
+By default, bronze ingestion fetches up to 1,000 games (paginated, ~25 API calls, well within RAWG's free tier limit of 20,000 requests/month). This is controlled by the `MAX_RECORDS` constant in `rawg_pipeline/bronze/ingest.py`.
 
 #### Step 2: Launch the Dashboard
 
@@ -93,23 +95,24 @@ The PySpark layer is a modular, scale-out alternative to the core Python silver 
 
 In production, PySpark would replace the local DuckDB silver layer when dataset scale outgrows local compute limits. Both approaches are included here to demonstrate proficiency with both data lakehouse paradigms.
 
-| Output                  | Description                          |
-|-------------------------|---------------------------------------|
-| `data/spark/games/`     | Typed game records (Parquet)         |
-| `data/spark/genres/`    | Genre reference data (Parquet)       |
-| `data/spark/platforms/` | Platform reference data (Parquet)    |
+| Output                  | Description                       |
+|-------------------------|------------------------------------|
+| `data/spark/games/`     | Typed game records (Parquet)      |
+| `data/spark/genres/`    | Genre reference data (Parquet)    |
+| `data/spark/platforms/` | Platform reference data (Parquet) |
 
 ---
 
 ## dbt Core Transformation Layer
 
-The semantic layer is managed using dbt core, targeting the compiled `main_gold` schema inside DuckDB. Compilation profiles use dynamic environment parsing via `{{ env_var() }}` to maintain identical configuration across development environments and container runtimes.
+The semantic layer is managed using dbt core, targeting the compiled `main_gold` schema inside DuckDB. The dbt project's `profiles.yml` is committed inside `rawg_dbt/` (not stored globally in `~/.dbt/`) so the project runs identically on any machine or CI runner without manual profile setup. It uses dynamic environment parsing via `{{ env_var() }}` so the database path can be overridden for CI/CD if needed.
 
 | Model | Layer | Description |
 |---|---|---|
 | `main_gold.gold_top_rated_games` | Gold | Top-tier game assets ranked by global user ratings |
 | `main_gold.gold_genre_summary` | Gold | Aggregated genre analytical metric summaries |
 | `main_gold.gold_platform_summary` | Gold | Aggregated platform footprint analytical summaries |
+| `main_gold.gold_platform_game_counts` | Gold | Game count per platform, ranked by popularity, built from the `silver_game_platforms` join table |
 
 To manually compile or inspect the dbt models from the repository root:
 
@@ -127,17 +130,17 @@ dbt test --project-dir rawg_dbt --profiles-dir rawg_dbt
 pytest tests/ -v
 
 # Run dbt data quality assertions and schema tests
-dbt test --project-dir rawg_dbt
+dbt test --project-dir rawg_dbt --profiles-dir rawg_dbt
 ```
 
 ---
 
 ## Environment & Configuration Management
 
-| Variable           | Description                                              |
-|--------------------|-----------------------------------------------------------|
-| `config.py`        | Committed module resolving local paths (e.g. `DB_PATH`), no secrets |
-| `.env`             | Local file holding `RAWG_API_KEY` (gitignored)           |
-| `profiles.yml`     | Isolated globally in `~/.dbt/`, maps dbt target schemas  |
+| Variable           | Description                                                          |
+|---------------------|-----------------------------------------------------------------------|
+| `config.py`        | Committed module resolving local paths (e.g. `DB_PATH`), no secrets  |
+| `.env`             | Local file holding `RAWG_API_KEY` (gitignored)                       |
+| `rawg_dbt/profiles.yml` | Committed inside the dbt project, maps dbt target schemas and DuckDB path, works out of the box on any clone |
 
 **Design note:** Earlier versions of this app triggered the pipeline on cold-start within the Streamlit process itself. This caused a DuckDB connection conflict between the pipeline's read-write connection and the dashboard's read-only connection. The pipeline and serving layer are now fully decoupled, `rawg_data.duckdb` is a committed build artifact, regenerated manually via `run_pipeline.py` and refreshed in the repo as needed.

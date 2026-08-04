@@ -61,6 +61,13 @@ def init_silver(conn: duckdb.DuckDBPyConnection) -> None:
             slug    TEXT
         )
     """)
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS silver.silver_game_platforms (
+            game_rawg_id     INTEGER NOT NULL,
+            platform_rawg_id INTEGER NOT NULL,
+            PRIMARY KEY (game_rawg_id, platform_rawg_id)
+        )
+    """)
 
 
 def parse_date(value: str | None) -> date | None:
@@ -153,6 +160,38 @@ def transform_platforms(conn: duckdb.DuckDBPyConnection) -> None:
     )
 
 
+def transform_game_platforms(conn: duckdb.DuckDBPyConnection) -> None:
+    """
+    Extract the many-to-many relationship between games and platforms
+    from the nested 'platforms' array in each game's raw JSON.
+    Deletes and re-inserts on each run for simplicity, since this is
+    a pure join table with no independent attributes to preserve.
+    """
+    rows = conn.execute("SELECT raw_json FROM bronze.bronze_games").fetchall()
+    seen = set()
+    records = []
+    for (raw,) in rows:
+        data = json.loads(raw)
+        game_rawg_id = data["id"]
+        for entry in data.get("platforms", []):
+            platform_rawg_id = entry.get("platform", {}).get("id")
+            if platform_rawg_id is None:
+                continue
+            pair = (game_rawg_id, platform_rawg_id)
+            if pair in seen:
+                continue
+            seen.add(pair)
+            records.append(pair)
+
+    conn.execute("DELETE FROM silver.silver_game_platforms")
+    if records:
+        conn.executemany(
+            "INSERT INTO silver.silver_game_platforms (game_rawg_id, platform_rawg_id) VALUES (?, ?)",
+            records,
+        )
+    logger.info("Inserted %d game-platform relationships.", len(records))
+
+
 if __name__ == "__main__":
     conn = get_conn()
     init_silver(conn)
@@ -160,5 +199,6 @@ if __name__ == "__main__":
     transform_games(conn)
     transform_genres(conn)
     transform_platforms(conn)
+    transform_game_platforms(conn)
     conn.close()
     logger.info("Silver layer complete.")

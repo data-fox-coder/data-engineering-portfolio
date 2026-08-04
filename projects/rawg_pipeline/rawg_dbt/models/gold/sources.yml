@@ -7,3 +7,4 @@ sources:
       - name: silver_games
       - name: silver_genres
       - name: silver_platforms
+      - name: silver_game_platforms

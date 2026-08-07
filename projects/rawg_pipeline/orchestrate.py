@@ -1,9 +1,11 @@
 import logging
+import os
 import subprocess
 from pathlib import Path
 
 import duckdb
 from config import DB_PATH
+from dotenv import load_dotenv
 from rawg_pipeline.bronze.ingest import (
     build_session,
     fetch_games,
@@ -21,6 +23,8 @@ from rawg_pipeline.silver.transform import (
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+load_dotenv()
 
 # Paths for dbt execution
 PROJECT_DIR = Path(__file__).parent
@@ -50,7 +54,8 @@ def _run_gold() -> None:
     logger.info(f"Executing dbt with target path: {DB_PATH}")
     logger.info(f"Targeting dbt project directory path: {DBT_DIR}")
 
-    # Pass --profiles-dir alongside --project-dir so dbt finds profiles.yml
+    # Pass --profiles-dir alongside --project-dir so dbt finds profiles.yml,
+    # and pass env=os.environ so dbt reads DBT_DUCKDB_PATH from .env
     result = subprocess.run(
         [
             "dbt",
@@ -60,6 +65,7 @@ def _run_gold() -> None:
             "--profiles-dir",
             str(DBT_DIR),
         ],
+        env=os.environ,
         check=False,
     )
 

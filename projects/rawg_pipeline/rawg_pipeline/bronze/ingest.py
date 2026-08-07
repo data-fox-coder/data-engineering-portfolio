@@ -17,6 +17,7 @@ from config import DB_PATH
 from dotenv import load_dotenv
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
+from websockets import http
 
 logging.basicConfig(
     level=logging.INFO,
@@ -91,7 +92,8 @@ def init_bronze(conn: duckdb.DuckDBPyConnection) -> None:
 def build_session() -> requests.Session:
     retry_strategy = Retry(
         total=3,
-        backoff_factor=1,
+        read=3,  # Automatically retry up to 3 times on ReadTimeoutErrors
+        backoff_factor=5,  # Wait 5s, 10s, 20s, 40s between retries
         status_forcelist=[429, 500, 502, 503, 504, 522],
     )
     adapter = HTTPAdapter(max_retries=retry_strategy)
@@ -103,7 +105,7 @@ def build_session() -> requests.Session:
 
 def fetch_games(
     http: requests.Session,
-    page_size: int = 40,
+    page_size: int = 20,
     max_records: int = MAX_RECORDS,
 ) -> list[dict]:
     """
@@ -121,8 +123,9 @@ def fetch_games(
     params = {"key": API_KEY, "page_size": page_size}
     all_games: list[dict] = []
 
+    logger.info("Starting games fetch from RAWG API (Target: %d games)...", max_records)
     while url and len(all_games) < max_records:
-        response = http.get(url, params=params)
+        response = http.get(url, params=params, timeout=20)
         response.raise_for_status()
         data = response.json()
 
@@ -153,11 +156,12 @@ def fetch_genres(http: requests.Session) -> list[dict]:
     params = {"key": API_KEY}
     all_genres: list[dict] = []
 
+    logger.info("Starting genres fetch from RAWG API...")
     while url:
-        response = http.get(url, params=params)
+        response = http.get(url, params=params, timeout=20)
         response.raise_for_status()
         data = response.json()
-
+    
         all_genres.extend(data.get("results", []))
         url = data.get("next")
         params = {}
@@ -179,8 +183,9 @@ def fetch_platforms(http: requests.Session) -> list[dict]:
     params = {"key": API_KEY}
     all_platforms: list[dict] = []
 
+    logger.info("Starting platforms fetch from RAWG API...")
     while url:
-        response = http.get(url, params=params)
+        response = http.get(url, params=params, timeout=20)
         response.raise_for_status()
         data = response.json()
 

@@ -1,34 +1,31 @@
 {
   "name": "Data Engineering Portfolio",
   "image": "mcr.microsoft.com/devcontainers/python:1-3.11-bookworm",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
   "features": {
     "ghcr.io/devcontainers/features/java:1": {
       "version": "21"
-    }
+    },
+    "ghcr.io/devcontainers/features/copilot-cli:1": {}
   },
   "customizations": {
     "codespaces": {
       "openFiles": [
         "README.md",
-        "projects/cat_shelter_pipeline/dashboard.py"
+        "projects/rawg_pipeline/README.md",
+        "projects/cat_shelter_pipeline/README.md"
       ]
     },
     "vscode": {
       "extensions": [
         "ms-toolsai.jupyter",
         "ms-python.python",
-        "ms-python.vscode-pylance"
+        "ms-python.vscode-pylance",
+        "github.copilot",
+        "github.copilot-chat",
+        "charliermarsh.ruff"
       ]
     }
   },
-  "updateContentCommand": "[ -f packages.txt ] && sudo apt update && sudo apt upgrade -y && sudo xargs apt install -y <packages.txt; for dir in projects/*; do if [ -d \"$dir\" ]; then echo \"⚙️ Syncing environment for: $dir\" && cd \"$dir\" && python3 -m venv .venv && .venv/bin/pip install pip-tools && [ -f requirements.txt ] && .venv/bin/pip-sync requirements.txt; cd - > /dev/null; fi; done",
-  "portsAttributes": {
-    "8501": {
-      "label": "Cat Shelter Dashboard",
-      "onAutoForward": "openPreview"
-    }
-  },
-  "forwardPorts": [
-    8501
-  ]
+  "updateContentCommand": "set -e; [ -f packages.txt ] && sudo apt update && sudo apt upgrade -y && sudo xargs apt install -y <packages.txt; pipx install ruff; for dir in projects/*; do if [ -d \"$dir\" ]; then echo \"⚙️ Syncing environment for: $dir\" && cd \"$dir\" && python3 -m venv .venv && .venv/bin/pip install pip-tools && [ -f requirements.txt ] && .venv/bin/pip-sync requirements.txt; cd - > /dev/null; fi; done"
 }

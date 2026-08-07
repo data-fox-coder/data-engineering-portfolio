@@ -1,0 +1,19 @@
+{
+  "folders": [
+    {
+      "name": "⚓ Repository Root",
+      "path": "."
+    },
+    {
+      "name": "🎮 RAWG Pipeline",
+      "path": "projects/rawg_pipeline"
+    },
+    {
+      "name": "🐱 Cat Shelter Pipeline",
+      "path": "projects/cat_shelter_pipeline"
+    }
+  ],
+  "settings": {
+    "python.terminal.useEnvFile": true
+  }
+}

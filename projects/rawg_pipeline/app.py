@@ -60,6 +60,7 @@ try:
 except Exception as e:  # noqa: BLE001
     st.error("⚠️ Could not read Gold layer views from DuckDB.")
     st.sidebar.error(f"Error compilation logs: {e}")
+    st.stop()
 
 # 3. SIDEBAR FILTERS
 st.sidebar.title("🎮 RAWG Dashboard Controls")

@@ -10,3 +10,6 @@ logs/**
 *.json
 *.csv
 *.png
+
+# Keep the mock data used as an offline fallback
+!mock_rescuegroups_raw.json

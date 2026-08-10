@@ -141,9 +141,10 @@ def load_data() -> pd.DataFrame:
     missing = [c for c in expected_cols if c not in df.columns]
     if missing:
         st.warning(f"Missing expected columns: {missing}")
+        for col in missing:
+            df[col] = pd.NA
 
     return df
-
 
 # ---------------------------------------------------------------------------
 # Filters

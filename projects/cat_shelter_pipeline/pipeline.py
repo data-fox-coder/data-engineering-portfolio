@@ -82,11 +82,12 @@ def setup_logging(config: dict) -> None:
 # Extract → Bronze
 # ---------------------------------------------------------------------------
 
-def extract_cat_data(config: dict) -> list[dict[str, Any]]:
+def extract_cat_data(config: dict) -> tuple[list[dict[str, Any]], str]:
     """Fetch available cat listings from the RescueGroups v5 API.
 
     Falls back gracefully to local mock data if the API is unreachable (e.g.,
-    cloud IP blocks).
+    cloud IP blocks). Returns a tuple of (records, source), where source is
+    either "live" or "mock".
     """
     api_key = os.getenv("RESCUEGROUPS_API_KEY")
     if not api_key:
@@ -126,7 +127,7 @@ def extract_cat_data(config: dict) -> list[dict[str, Any]]:
                         f"Successfully loaded {len(mock_data)} mock records "
                         "from local Bronze backup."
                     )
-                    return mock_data
+                    return mock_data, "mock"
                 else:
                     logger.error(
                         f"Mock file not found at {mock_file_path}. Cannot proceed."
@@ -150,7 +151,17 @@ def extract_cat_data(config: dict) -> list[dict[str, Any]]:
         api_url = data.get("links", {}).get("next")
         page_count += 1
         time.sleep(0.3)  # Polite pause between API calls
-    return all_records
+    return all_records, "live"
+
+
+def save_data_source_flag(source: str, config: dict) -> None:
+    """Persist whether the last successful run used live or mock data,
+    so the dashboard can display it to the user."""
+    gold_path = PROJECT_ROOT / config["layers"]["gold"]["path"]
+    flag_path = gold_path.parent / "data_source.json"
+    flag_path.parent.mkdir(parents=True, exist_ok=True)
+    with flag_path.open("w") as fh:
+        json.dump({"source": source, "updated": time.time()}, fh)
 
 
 def _atomic_json_write(output_file: Path, data: Any) -> None:
@@ -268,9 +279,9 @@ def load_cat_data(df: pd.DataFrame, config: dict) -> None:
     # to JSON strings so they survive the round-trip and remain readable.
     df = df.copy()
     for col in df.columns:
-        if df[col].apply(lambda v: isinstance(v, (list, dict))).any():
+        if df[col].apply(lambda v: isinstance(v, (list | dict))).any():
             df[col] = df[col].apply(
-                lambda v: json.dumps(v) if isinstance(v, (list, dict)) else v
+                lambda v: json.dumps(v) if isinstance(v, (list | dict)) else v
             )
 
     with engine.begin() as conn:
@@ -310,9 +321,9 @@ def main() -> None:
 
     logger.info("=== Cat Shelter ETL Pipeline starting ===")
 
-    # Extract
+# Extract
     try:
-        raw_data = extract_cat_data(config)
+        raw_data, source = extract_cat_data(config)
     except ExtractionError as e:
         logger.error(f"Pipeline aborted: extraction failed — {e}")
         return
@@ -331,6 +342,7 @@ def main() -> None:
 
     # Load
     load_cat_data(df, config)
+    save_data_source_flag(source, config)
 
     logger.info("=== Cat Shelter ETL Pipeline completed successfully ===")
 

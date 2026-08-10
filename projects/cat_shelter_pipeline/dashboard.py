@@ -6,6 +6,7 @@ Reads from the SQLite database produced by pipeline.py.
 Includes startup logic to trigger the pipeline if data is missing or stale.
 """
 
+import json
 import sqlite3
 import time
 from datetime import UTC, datetime
@@ -20,6 +21,7 @@ from pipeline import (
     load_cat_data,
     load_config,
     save_bronze,
+    save_data_source_flag,
     save_silver,
     setup_logging,
     transform_cat_data,
@@ -48,9 +50,18 @@ def _db_age_hours() -> float | None:
     return age_seconds / 3600
 
 
+def get_data_source() -> str | None:
+    """Read the persisted data-source flag ('live' or 'mock'), if present."""
+    flag_path = DB_PATH.parent / "data_source.json"
+    if not flag_path.exists():
+        return None
+    with flag_path.open("r") as fh:
+        return json.load(fh).get("source")
+    
+
 def _execute_pipeline_steps(config: dict) -> bool:
     """Run sequential ETL steps without try/except wrapping."""
-    raw_data = extract_cat_data(config)
+    raw_data, source = extract_cat_data(config)
     if not raw_data:
         return False
 
@@ -62,6 +73,7 @@ def _execute_pipeline_steps(config: dict) -> bool:
 
     save_silver(df, config)
     load_cat_data(df, config)
+    save_data_source_flag(source, config)
     return True
 
 
@@ -316,6 +328,12 @@ def chart_compatibility(df: pd.DataFrame) -> plt.Figure:
 st.set_page_config(page_title="Cat Shelter Dashboard", page_icon="🐱", layout="wide")
 st.title("🐱 Cat Shelter Dashboard")
 st.caption("Data sourced from RescueGroups v5 API")
+
+if get_data_source() == "mock":
+    st.info(
+        "ℹ️ Showing offline sample data. The live RescueGroups API was "
+        "unreachable when this data was last refreshed."
+    )
 
 # ---- Last updated timestamp ----
 if DB_PATH.exists():

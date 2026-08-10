@@ -15,7 +15,7 @@ A portfolio of Python data engineering pipelines and learning projects. Projects
 
 An automated Medallion Architecture (Bronze/Silver/Gold) ETL pipeline that extracts rich video game metadata from the [RAWG.io API](https://rawg.io/apidocs), processes transformations via **dbt** and **DuckDB**, and serves insights through an interactive **Streamlit** dashboard.
 
-[![Live Dashboard](https://img.shields.io/badge/Live%20Dashboard-Streamlit-ff4b4b?logo=streamlit)](https://data-engineering-portfolio-mxxbvanhcjuvkrgtjhemzr.streamlit.app)
+[![Live Dashboard ↗](https://img.shields.io/badge/Live%20Dashboard_↗-Streamlit-ff4b4b?logo=streamlit)](https://data-engineering-portfolio-mxxbvanhcjuvkrgtjhemzr.streamlit.app)
 
 **Skills demonstrated:** REST API extraction (`requests`), JSON flattening, pipeline orchestration, analytics engineering with dbt, local data warehouse optimisation with DuckDB, interactive data presentation.  
 **BI equivalent:** Power Query API Connection ➔ SQL Server Staging ➔ dbt Core Transformations ➔ Power BI / Tableau Dashboard
@@ -26,7 +26,7 @@ An automated Medallion Architecture (Bronze/Silver/Gold) ETL pipeline that extra
 
 An end-to-end Medallion Architecture (Bronze/Silver/Gold) ETL pipeline that extracts real-world cat adoption data from the [RescueGroups.org v5 API](https://rescuegroups.org/services/adoptable-pet-data-api/), transforms it through pandas and Parquet intermediate layers, and serves it via an interactive Streamlit dashboard.
 
-[![Live Dashboard](https://img.shields.io/badge/Live%20Dashboard-Streamlit-ff4b4b?logo=streamlit)](https://data-engineering-portfolio-wcn4sfvy8fvfuuyz4emqli.streamlit.app/)
+[![Live Dashboard ↗](https://img.shields.io/badge/Live%20Dashboard_↗-Streamlit-ff4b4b?logo=streamlit)](https://data-engineering-portfolio-wcn4sfvy8fvfuuyz4emqli.streamlit.app/)
 
 **Skills demonstrated:** REST API integration, medallion architecture, `pandas` transformation, config-driven field selection, SQLAlchemy upserts, Streamlit dashboard with pipeline bootstrap and staleness guard.  
 **BI equivalent:** SSIS package ➔ SQL Server staging ➔ Power BI Dashboard

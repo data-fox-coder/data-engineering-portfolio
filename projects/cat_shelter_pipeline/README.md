@@ -4,7 +4,7 @@ An end-to-end data pipeline that extracts real-world cat adoption data from the 
 
 Built to demonstrate practical data engineering skills in Python, using production-oriented patterns from a background in SSIS, Power Query M, and SQL Server.
 
-**[🐱 Live Dashboard →](https://data-engineering-portfolio-wcn4sfvy8fvfuuyz4emqli.streamlit.app/)**
+**[🐱 Live Dashboard ↗](https://data-engineering-portfolio-wcn4sfvy8fvfuuyz4emqli.streamlit.app/)**
 
 ---
 

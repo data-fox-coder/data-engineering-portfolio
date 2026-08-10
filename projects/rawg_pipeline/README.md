@@ -2,7 +2,7 @@
 
 A data engineering portfolio project implementing a medallion architecture pipeline ingesting gaming data from the [RAWG API](https://rawg.io/apidocs).
 
-[![Live Dashboard](https://img.shields.io/badge/Live%20Dashboard-Streamlit-ff4b4b?logo=streamlit)](https://data-engineering-portfolio-mxxbvanhcjuvkrgtjhemzr.streamlit.app)
+[![Live Dashboard ↗](https://img.shields.io/badge/Live%20Dashboard_↗-Streamlit-ff4b4b?logo=streamlit)](https://data-engineering-portfolio-mxxbvanhcjuvkrgtjhemzr.streamlit.app)
 
 ## Architecture
 

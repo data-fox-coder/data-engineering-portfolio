@@ -17,6 +17,13 @@
       "settings": {
         "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python"
       }
+    },
+    {
+      "name": "🗺️ OD Matrix Pipeline",
+      "path": "projects/od_matrix_pipeline",
+      "settings": {
+        "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python"
+      }
     }
   ],
   "settings": {

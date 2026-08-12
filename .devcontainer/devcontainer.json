@@ -13,7 +13,8 @@
       "openFiles": [
         "README.md",
         "projects/rawg_pipeline/README.md",
-        "projects/cat_shelter_pipeline/README.md"
+        "projects/cat_shelter_pipeline/README.md",
+        "projects/od_matrix_pipeline/README.md"
       ]
     },
     "vscode": {

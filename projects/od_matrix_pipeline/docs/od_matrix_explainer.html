@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OD Matrix // Code Walkthrough</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0221;
+    --bg-panel: #140a33;
+    --cyan: #2de2e6;
+    --magenta: #f92aad;
+    --gold: #ffd23f;
+    --text: #d7d0f0;
+    --text-dim: #8a80b8;
+    --line: rgba(45, 226, 230, 0.25);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    background-image:
+      radial-gradient(ellipse at top, rgba(249,42,173,0.12), transparent 60%),
+      radial-gradient(ellipse at bottom, rgba(45,226,230,0.10), transparent 60%);
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* scanline overlay */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.025) 0px,
+      rgba(255,255,255,0.025) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    pointer-events: none;
+    z-index: 999;
+  }
+
+  header {
+    padding: 28px 16px 18px;
+    text-align: center;
+    border-bottom: 1px solid var(--line);
+  }
+
+  header .eyebrow {
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--gold);
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+  }
+
+  header h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: 1.5rem;
+    margin: 8px 0 4px;
+    color: var(--cyan);
+    text-shadow: 0 0 12px rgba(45,226,230,0.6), 0 0 28px rgba(249,42,173,0.25);
+    letter-spacing: 0.03em;
+  }
+
+  header p {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    margin: 0;
+    font-family: 'Share Tech Mono', monospace;
+  }
+
+  nav.tabs {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 6px;
+    padding: 12px 12px 0;
+    border-bottom: 1px solid var(--line);
+    scrollbar-width: none;
+  }
+  nav.tabs::-webkit-scrollbar { display: none; }
+
+  nav.tabs button {
+    flex: 0 0 auto;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-bottom: none;
+    color: var(--text-dim);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 10px 12px;
+    border-radius: 6px 6px 0 0;
+    cursor: pointer;
+  }
+
+  nav.tabs button.active {
+    color: var(--bg);
+    background: var(--cyan);
+    border-color: var(--cyan);
+    font-weight: 700;
+  }
+
+  main {
+    padding: 20px 16px 60px;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  section.panel { display: none; animation: fade 0.25s ease; }
+  section.panel.active { display: block; }
+
+  @keyframes fade {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.05rem;
+    color: var(--magenta);
+    text-shadow: 0 0 10px rgba(249,42,173,0.45);
+    margin: 0 0 12px;
+    letter-spacing: 0.02em;
+  }
+
+  h2 .tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--gold);
+    display: block;
+    letter-spacing: 0.2em;
+    margin-bottom: 4px;
+  }
+
+  p, li { line-height: 1.55; font-size: 0.95rem; }
+
+  .card {
+    background: var(--bg-panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+
+  pre {
+    background: #06011a;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 12px;
+    overflow-x: auto;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--gold);
+    line-height: 1.5;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  code {
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--gold);
+    background: rgba(255,210,63,0.08);
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-size: 0.85em;
+  }
+
+  .why {
+    border-left: 3px solid var(--cyan);
+    padding-left: 12px;
+    margin-top: 10px;
+    color: var(--text-dim);
+    font-size: 0.88rem;
+  }
+  .why strong { color: var(--cyan); font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 4px; }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  @media (max-width: 480px) {
+    .grid-collapse.two-col { grid-template-columns: 1fr; }
+  }
+
+  .three-col {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(150px, 1fr));
+    gap: 10px;
+  }
+  .grid-scroll-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .grid-scroll-wrap .three-col {
+    min-width: 520px;
+  }
+
+  .stat-box {
+    background: rgba(45,226,230,0.06);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+  }
+  .stat-box .num { font-family: 'Orbitron', sans-serif; color: var(--gold); font-size: 1.1rem; }
+  .stat-box .lbl { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em; }
+
+  .nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  .nav-buttons button {
+    background: transparent;
+    border: 1px solid var(--magenta);
+    color: var(--magenta);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    padding: 10px 14px;
+    border-radius: 6px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .nav-buttons button:hover { background: rgba(249,42,173,0.12); }
+
+  /* quiz */
+  .quiz-q { margin-bottom: 22px; }
+  .quiz-q p.question { color: var(--cyan); font-weight: 600; margin-bottom: 10px; }
+  .quiz-q button.opt {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: var(--bg-panel);
+    border: 1px solid var(--line);
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.92rem;
+    padding: 10px 12px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    cursor: pointer;
+  }
+  .quiz-q button.opt.correct { border-color: var(--cyan); background: rgba(45,226,230,0.12); }
+  .quiz-q button.opt.wrong { border-color: var(--magenta); background: rgba(249,42,173,0.12); }
+  .quiz-q .explain {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    margin-top: 6px;
+    display: none;
+    padding-left: 4px;
+    border-left: 2px solid var(--gold);
+    padding-left: 10px;
+  }
+  .quiz-q .explain.show { display: block; }
+
+  footer {
+    text-align: center;
+    padding: 20px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Portfolio // Data Pipeline</div>
+  <h1>Origin-Destination Matrix</h1>
+  <p>Code walkthrough // od_matrix_demo.py</p>
+</header>
+
+<nav class="tabs">
+  <button class="tab-btn active" data-tab="overview">Overview</button>
+  <button class="tab-btn" data-tab="bronze">Bronze</button>
+  <button class="tab-btn" data-tab="silver">Silver</button>
+  <button class="tab-btn" data-tab="gold">Gold</button>
+  <button class="tab-btn" data-tab="viz">Heatmap</button>
+  <button class="tab-btn" data-tab="quiz">Quiz</button>
+</nav>
+
+<main>
+
+  <!-- OVERVIEW -->
+  <section class="panel active" id="overview">
+    <h2><span class="tag">01 // Overview</span>What the script actually does</h2>
+    <div class="card">
+      <p>The script takes raw journey records (one row per trip) and turns them into an <strong>origin-destination matrix</strong>, a grid showing how many trips happened between every pair of towns.</p>
+      <p>It follows the same three-stage pattern as the RAWG pipeline:</p>
+    </div>
+
+    <div class="grid-scroll-wrap">
+      <div class="three-col">
+        <div class="stat-box"><div class="num">Bronze</div><div class="lbl">Raw trips</div></div>
+        <div class="stat-box"><div class="num">Silver</div><div class="lbl">Cleaned</div></div>
+        <div class="stat-box"><div class="num">Gold</div><div class="lbl">OD Matrix</div></div>
+      </div>
+    </div>
+
+    <div class="why">
+      <strong>Why this matters</strong>
+      Structuring the pipeline in named stages, rather than one long script, mirrors how a real production pipeline would be organised, and it's easy to explain in an interview: each stage has one job.
+    </div>
+  </section>
+
+  <!-- BRONZE -->
+  <section class="panel" id="bronze">
+    <h2><span class="tag">02 // Bronze Layer</span>Simulating raw trip data</h2>
+    <div class="card">
+      <pre>zones = ["Eastbourne", "Brighton",
+         "Lewes", "Hastings",
+         "Seaford", "Uckfield"]
+
+raw_trips = pd.DataFrame({
+    "origin": np.random.choice(
+        zones, size=2500),
+    "destination": np.random.choice(
+        zones, size=2500),
+})</pre>
+      <p><code>np.random.choice</code> picks a random town for each trip's origin and destination, 2,500 times. This builds a table that looks like real trip-level data, one row per journey.</p>
+      <p>A fixed <code>random.seed(42)</code> is set earlier in the script, so the "random" data is actually identical every time you run it, useful for a reproducible demo.</p>
+    </div>
+    <div class="why">
+      <strong>Design choice</strong>
+      Brighton is deliberately boosted as a destination afterwards, to mimic a real commuter hub rather than pure noise, so the resulting matrix has a believable pattern to talk through.
+    </div>
+  </section>
+
+  <!-- SILVER -->
+  <section class="panel" id="silver">
+    <h2><span class="tag">03 // Silver Layer</span>Cleaning the data</h2>
+    <div class="card">
+      <pre>silver_trips = raw_trips[
+    raw_trips["origin"]
+    != raw_trips["destination"]
+].copy()</pre>
+      <p>This line filters out any "trip" where the origin and destination are the same town. Those rows don't add anything meaningful to an OD matrix, so they're removed here, before the matrix is built.</p>
+    </div>
+    <div class="why">
+      <strong>Why this matters</strong>
+      In a real pipeline, this stage would also handle nulls, duplicate ticket scans, and invalid zone codes. Even a simple rule like this shows you're thinking about data validation as a distinct step, not skipping straight to the output.
+    </div>
+  </section>
+
+  <!-- GOLD -->
+  <section class="panel" id="gold">
+    <h2><span class="tag">04 // Gold Layer</span>Building the matrix</h2>
+    <div class="card">
+      <p><strong>Step 1</strong>, build every possible town-pair combination, even ones with zero trips:</p>
+      <pre>full_index = pd.MultiIndex.from_product(
+    [zones, zones],
+    names=["origin", "destination"]
+)</pre>
+      <p>This creates a complete list of every origin paired with every destination, 36 pairs for 6 towns, before any real data is added.</p>
+    </div>
+
+    <div class="card">
+      <p><strong>Step 2</strong>, count actual trips per pair, then slot them onto that full grid:</p>
+      <pre>trip_counts = (
+    silver_trips
+    .groupby(["origin", "destination"])
+    .size()
+)
+
+od_long = trip_counts.reindex(
+    full_index, fill_value=0
+).reset_index()</pre>
+      <p><code>.reindex(full_index, fill_value=0)</code> is the key line. Any pair with no recorded trips gets a <code>0</code> instead of being left out entirely.</p>
+    </div>
+
+    <div class="card">
+      <p><strong>Step 3</strong>, reshape into an actual matrix:</p>
+      <pre>od_matrix = od_long.pivot(
+    index="origin",
+    columns="destination",
+    values="trips"
+)</pre>
+      <p><code>.pivot()</code> turns the long list of pairs into a proper grid, origins down the side, destinations across the top, exactly the shape needed for a Power BI matrix visual.</p>
+    </div>
+
+    <div class="why">
+      <strong>Interview talking point</strong>
+      This zero-fill step is the single most important design decision in the whole script. Without it, "no trips between two towns" and "we have no data for this pair" would look identical, and that's a real reporting bug in OD matrices.
+    </div>
+  </section>
+
+  <!-- VIZ -->
+  <section class="panel" id="viz">
+    <h2><span class="tag">05 // Visualisation</span>Drawing the heatmap</h2>
+    <div class="card">
+      <pre>fig, ax = plt.subplots(figsize=(8, 6))
+im = ax.imshow(
+    od_matrix.values, cmap="viridis"
+)</pre>
+      <p><code>ax.imshow()</code> renders the matrix as a grid of coloured cells, darker or lighter depending on trip count. It's the fastest way to turn a numeric matrix into something visually scannable.</p>
+    </div>
+    <div class="card">
+      <pre>for i in range(len(zones)):
+    for j in range(len(zones)):
+        value = od_matrix.values[i, j]
+        ax.text(j, i, int(value),
+                ha="center", va="center")</pre>
+      <p>This nested loop writes the actual trip count as text inside each cell, so the heatmap is readable as data, not just colour.</p>
+    </div>
+    <div class="why">
+      <strong>One bug worth mentioning</strong>
+      The first run failed on <code>np.fill_diagonal()</code> because pandas returned a read-only array after the pivot. Fixed with <code>.to_numpy(copy=True)</code> to force a writable copy. A small, honest debugging story like this lands well in interview.
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="panel" id="quiz">
+    <h2><span class="tag">06 // Check Yourself</span>Quick recap quiz</h2>
+
+    <div class="quiz-q" data-answer="1">
+      <p class="question">1. Why use <code>MultiIndex.from_product</code> before counting trips?</p>
+      <button class="opt" data-idx="0">To sort the towns alphabetically</button>
+      <button class="opt" data-idx="1">To make sure zero-trip pairs still appear as 0, not missing</button>
+      <button class="opt" data-idx="2">To speed up the groupby operation</button>
+      <div class="explain">Correct answer: option 2. Building the full grid first means <code>.reindex()</code> can fill in <code>0</code> for any pair with no recorded trips, rather than leaving a gap.</div>
+    </div>
+
+    <div class="quiz-q" data-answer="2">
+      <p class="question">2. What does <code>.pivot()</code> do in the gold layer step?</p>
+      <button class="opt" data-idx="0">Removes duplicate rows</button>
+      <button class="opt" data-idx="1">Filters out intra-zone trips</button>
+      <button class="opt" data-idx="2">Reshapes long-format pairs into a matrix grid</button>
+      <div class="explain">Correct answer: option 3. It turns rows of (origin, destination, count) into a proper origin-by-destination grid.</div>
+    </div>
+
+    <div class="quiz-q" data-answer="0">
+      <p class="question">3. Why were intra-zone trips removed at the silver layer?</p>
+      <button class="opt" data-idx="0">Origin equals destination, which isn't meaningful for OD reporting</button>
+      <button class="opt" data-idx="1">They caused the script to crash</button>
+      <button class="opt" data-idx="2">Power BI can't display them</button>
+      <div class="explain">Correct answer: option 1. A "trip" from a town to itself doesn't represent a flow, so it's filtered out as a validation rule.</div>
+    </div>
+  </section>
+
+  <div class="nav-buttons">
+    <button id="prevBtn">&larr; Prev</button>
+    <button id="nextBtn">Next &rarr;</button>
+  </div>
+
+</main>
+
+<footer>OD MATRIX DEMO // PORTFOLIO PROJECT // 2026</footer>
+
+<script>
+  const order = ["overview", "bronze", "silver", "gold", "viz", "quiz"];
+  const tabBtns = document.querySelectorAll(".tab-btn");
+  const panels = document.querySelectorAll(".panel");
+
+  function showTab(id) {
+    panels.forEach(p => p.classList.toggle("active", p.id === id));
+    tabBtns.forEach(b => b.classList.toggle("active", b.dataset.tab === id));
+  }
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener("click", () => showTab(btn.dataset.tab));
+  });
+
+  document.getElementById("nextBtn").addEventListener("click", () => {
+    const current = document.querySelector(".panel.active").id;
+    const idx = order.indexOf(current);
+    showTab(order[(idx + 1) % order.length]);
+  });
+
+  document.getElementById("prevBtn").addEventListener("click", () => {
+    const current = document.querySelector(".panel.active").id;
+    const idx = order.indexOf(current);
+    showTab(order[(idx - 1 + order.length) % order.length]);
+  });
+
+  // quiz interactivity
+  document.querySelectorAll(".quiz-q").forEach(q => {
+    const correctIdx = q.dataset.answer;
+    const opts = q.querySelectorAll(".opt");
+    const explain = q.querySelector(".explain");
+    opts.forEach(opt => {
+      opt.addEventListener("click", () => {
+        if (opt.classList.contains("correct") || opt.classList.contains("wrong")) return;
+        opts.forEach(o => o.disabled = true);
+        if (opt.dataset.idx === correctIdx) {
+          opt.classList.add("correct");
+        } else {
+          opt.classList.add("wrong");
+          opts[correctIdx].classList.add("correct");
+        }
+        explain.classList.add("show");
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

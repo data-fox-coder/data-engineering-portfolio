@@ -45,6 +45,10 @@ raw_trips = pd.concat([raw_trips, extra_brighton_trips], ignore_index=True)
 
 print(f"Bronze layer: {len(raw_trips):,} raw trip records")
 
+# Save the raw trip records as a CSV, as you would in a real pipeline before
+# loading into a data lake or data warehouse.
+raw_trips.to_csv("data/raw/trips_raw.csv", index=False)
+
 # ---------------------------------------------------------------------------
 # SILVER LAYER: clean and validate
 # ---------------------------------------------------------------------------
@@ -93,7 +97,7 @@ print("\nGold layer: OD matrix")
 print(od_matrix)
 
 # Save the gold table as a CSV, as you would before loading into Power BI
-od_matrix.to_csv("/mnt/user-data/outputs/od_matrix.csv")
+od_matrix.to_csv("data/processed/od_matrix.csv")
 
 # ---------------------------------------------------------------------------
 # VISUALISATION: heatmap of the OD matrix
@@ -118,6 +122,6 @@ for i in range(len(zones)):
 
 fig.colorbar(im, ax=ax, label="Trip count")
 fig.tight_layout()
-fig.savefig("/mnt/user-data/outputs/od_matrix_heatmap.png", dpi=150)
+fig.savefig("docs/od_matrix_heatmap.png", dpi=150)
 
 print("\nSaved od_matrix.csv and od_matrix_heatmap.png to outputs")

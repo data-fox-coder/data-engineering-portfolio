@@ -1,26 +1,6 @@
-# --- API & Extraction ---
-requests
-urllib3
-python-dotenv
-
-# --- Database & Storage ---
-duckdb
-
-# --- Transformation (The dbt Stack) ---
-dbt-duckdb
-
-# --- Data Processing ---
-pandas
-pyarrow
-pyspark
-ipykernel
-
-# --- Presentation & Dashboard ---
+# Runtime dependencies for the Streamlit dashboard.
 streamlit
+duckdb
+pandas
 plotly
-
-# --- Quality & Testing ---
-ruff
-pytest
-pytest-mock
-responses
+pyarrow

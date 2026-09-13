@@ -1,0 +1,26 @@
+# --- API & Extraction ---
+requests
+urllib3
+python-dotenv
+
+# --- Database & Storage ---
+duckdb
+
+# --- Transformation (The dbt Stack) ---
+dbt-duckdb
+
+# --- Data Processing ---
+pandas
+pyarrow
+pyspark
+ipykernel
+
+# --- Presentation & Dashboard ---
+streamlit
+plotly
+
+# --- Quality & Testing ---
+ruff
+pytest
+pytest-mock
+responses

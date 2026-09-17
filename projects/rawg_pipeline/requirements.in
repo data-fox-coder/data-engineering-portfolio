@@ -1,6 +1,6 @@
-# Runtime dependencies for the Streamlit dashboard.
-streamlit
-duckdb
-pandas
-plotly
-pyarrow
+# Runtime dependencies for the Streamlit dashboard, versions are safe valid PyPi releases:
+streamlit>=1.38.0
+duckdb>=1.0.0
+pandas>=2.2.0,<3.0.0
+plotly>=5.24.0
+pyarrow>=17.0.0

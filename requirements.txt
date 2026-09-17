@@ -1,0 +1,11 @@
+# ==============================================================================
+# Monorepo Dependency Aggregator for Streamlit Cloud
+# ==============================================================================
+# Streamlit Cloud's build runner scans the repository root by default. To preserve 
+# modularity and subfolder isolation across portfolio projects while preventing 
+# C-extension segmentation faults and build scanner conflicts, subfolder 
+# requirements files are included via pointer references (-r).
+# ==============================================================================
+
+-r projects/rawg_pipeline/requirements.txt
+-r projects/cat_shelter_pipeline/requirements.txt
